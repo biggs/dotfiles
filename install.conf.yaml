@@ -1,0 +1,19 @@
+- defaults:
+    link:
+      relink: true  # change bad symlink if needed
+      create: true  # create enclosing directory if needed
+
+# CLEAN
+# Directories that should be checked for dead symbolic links. If pointing to dotfiles directory, are automatically removed.
+- clean: ['~']
+
+
+# LINK: Files to link
+- link:
+    ~/.vimrc: init.vim
+    ~/.config/nvim/init.vim: init.vim
+    ~/.zshrc: zshrc.sh
+    ~/.spacemacs: spacemacs.el
+
+- shell:
+  - [git submodule update --init --recursive, Installing submodules]
