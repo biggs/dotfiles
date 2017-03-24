@@ -8,12 +8,13 @@
 - clean: ['~']
 
 
-# LINK: Files to link
+# LINK: Files to link (no trailing / after directories)
 - link:
     ~/.vimrc: init.vim
     ~/.config/nvim/init.vim: init.vim
     ~/.zshrc: zshrc.sh
     ~/.spacemacs: spacemacs.el
+    ~/.vim/bundle: vim-bundle
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]

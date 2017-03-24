@@ -3,7 +3,7 @@
 
 
 * Installation
-Use dotbot
+  Use dotbot
 
 * Ideas to add
 ** Installation
@@ -11,7 +11,17 @@ Should be idempotent! (can rerun whenever)
 
 
 ** Vim
-Link vim
+Using Pathogen with git submodules to manage vim plugins, with plugins in ./vim-bundle/
+To install a plugin:
+#+BEGIN_SRC bash
+git submodule add $PLUGIN_URL vim-bundle/$PLUGIN_NAME 
+#+END_SRC
+To uninstall:
+#+BEGIN_SRC bash
+git git submodule deinit -f vim-bundle/$PLUGIN_NAME
+git rm -rf vim-bundle/$PLUGIN_NAME
+#+END_SRC
+
 - Move swap, undo etc into .vim folder
 
 ** Zsh/Bash
