@@ -2,15 +2,17 @@
 
 set nocompatible        " Must be first line
 
-" PATHOGEN: include vim plugins in ./vim/bundle
-" To use with neovim and vim, use explicit ~/.vim paths
-source ~/.vim/bundle/vim-pathogen/autoload/pathogen.vim
-call pathogen#infect('~/.vim/bundle/{}')
-call pathogen#helptags()
+" PATHOGEN {
+
+    " include vim plugins in ./vim/bundle
+    " To use with neovim and vim, use explicit ~/.vim paths
+    source ~/.vim/bundle/vim-pathogen/autoload/pathogen.vim
+    call pathogen#infect('~/.vim/bundle/{}')
+    call pathogen#helptags()
+
+" }
 
 
-
-filetype plugin indent on
 
 " BASIC UI AND FORMATTING {
     set background=dark         " Assume a dark background
@@ -18,7 +20,6 @@ filetype plugin indent on
     set shell=/bin/zsh
 
     " Should be set automatically by neovim??
-    filetype plugin indent on   " Automatically detect file types.
     syntax on                   " Syntax highlighting
     set mouse=a                 " Automatically enable mouse usage
     set mousehide               " Hide the mouse cursor while typing
@@ -33,7 +34,6 @@ filetype plugin indent on
     set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
     set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
     set virtualedit=onemore             " Allow for cursor beyond last character
-    set history=1000                    " Store a ton of history (default is 20)
     set hidden                          " Allow buffer switching without saving
     set iskeyword-=.                    " '.' is an end of word designator
     set iskeyword-=#                    " '#' is an end of word designator
@@ -56,7 +56,6 @@ filetype plugin indent on
     highlight clear LineNr          " Current line number row will have same background color in relative mode
 
     if has('cmdline_info')
-        set ruler                   " Show the ruler
         set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " A ruler on steroids
         set showcmd                 " Show partial commands in status line and
                                     " Selected characters/lines in visual mode
@@ -64,7 +63,6 @@ filetype plugin indent on
 
 
     if has('statusline')
-        set laststatus=2
         " Broken down into easily includeable segments
         set statusline=%<%f\                     " Filename
         set statusline+=%w%h%m%r                 " Options
@@ -74,16 +72,13 @@ filetype plugin indent on
         set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
     endif
 
-    set backspace=indent,eol,start  " Backspace for dummies
     set linespace=0                 " No extra spaces between rows
     set number                      " Line numbers on
     set showmatch                   " Show matching brackets/parenthesis
-    set incsearch                   " Find as you type search
     set hlsearch                    " Highlight search terms
     set winminheight=0              " Windows can be 0 line high
     set ignorecase                  " Case insensitive search
     set smartcase                   " Case sensitive when uc present
-    set wildmenu                    " Show list instead of just completing
     set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
     set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
     set scrolljump=5                " Lines to scroll when cursor leaves screen
@@ -94,7 +89,6 @@ filetype plugin indent on
 
     " Formatting
     set nowrap                      " Do not wrap long lines
-    set autoindent                  " Indent at the same level of the previous line
     set shiftwidth=4                " Use indents of 4 spaces
     set expandtab                   " Tabs are spaces, not tabs
     set tabstop=4                   " An indentation every four columns
