@@ -1,3 +1,4 @@
+" Felix vimrc: owes a debt to SPF-13 amongst others
 " vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker:
 
 set nocompatible        " Must be first line
@@ -15,6 +16,7 @@ set nocompatible        " Must be first line
 
 
 " BASIC UI AND FORMATTING {
+
     set background=dark         " Assume a dark background
     colorscheme molokai
     set shell=/bin/zsh
@@ -104,21 +106,9 @@ set nocompatible        " Must be first line
     " vim has markdown syntax, but detects wrong filetype, fix here
     autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
-    " Strip whitespace on save {
+    " Strip whitespace on save
     autocmd FileType c,cpp,java,php,javascript,lisp,python,xml,perl,sql autocmd BufWritePre <buffer> :call StripTrailingWhitespace()
 
-    function! StripTrailingWhitespace()
-        " save last search, and cursor position.
-        let _s=@/
-        let l = line(".")
-        let c = col(".")
-        " do the business:
-        %s/\s\+$//e
-        " clean up: restore previous search history, and cursor position
-        let @/=_s
-        call cursor(l, c)
-    endfunction
-    " }
 " }
 
 
@@ -229,10 +219,22 @@ set nocompatible        " Must be first line
 
 
 
-" Initialize directories {
+" FUNCTIONS {
+
+    function! StripTrailingWhitespace()
+        " save last search, and cursor position.
+        let _s=@/
+        let l = line(".")
+        let c = col(".")
+        " do the business:
+        %s/\s\+$//e
+        " clean up: restore previous search history, and cursor position
+        let @/=_s
+        call cursor(l, c)
+    endfunction
+
+
     function! InitializeDirectories()
-        let parent = $HOME
-        let prefix = 'vim'
         let dir_list = {
                     \ 'backup': 'backupdir',
                     \ 'views': 'viewdir',
@@ -242,12 +244,7 @@ set nocompatible        " Must be first line
             let dir_list['undo'] = 'undodir'
         endif
 
-        " To specify a different directory in which to place the vimbackup,
-        " vimviews, vimundo, and vimswap files/directories, add the following to
-        " your .vimrc.before.local file:
-        "   let g:spf13_consolidated_directory = <full path to desired directory>
-        "   eg: let g:spf13_consolidated_directory = $HOME . '/.vim/'
-        let common_dir = parent . '/.' . prefix
+        let common_dir = $HOME . '/.vim/' . 'vim'
 
         for [dirname, settingname] in items(dir_list)
             let directory = common_dir . dirname . '/'
@@ -260,7 +257,7 @@ set nocompatible        " Must be first line
                 echo "Warning: Unable to create backup directory: " . directory
                 echo "Try: mkdir -p " . directory
             else
-                let directory = substitute(directory, " ", "\\\\ ", "g")
+                let directory = substitute(directory, " ", "\\\\ ", "g")  " replace spaces
                 exec "set " . settingname . "=" . directory
             endif
         endfor
