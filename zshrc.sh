@@ -58,12 +58,13 @@ alias vi='nvim'
 alias e="/usr/local/Cellar/emacs/25.1/bin/emacsclient --no-wait --alternate-editor=''"
 alias ec="e --create-frame"
 
-## Emacsclient as editor
+## Neovim as editor (opens really fast!)
 export VISUAL="nvim"
-export EDITOR="ec"
+export EDITOR="nvim"
 
-## set nvim as man page reader!
-export MANPAGER="nvim -c 'set ft=man spell!' -"
+## set nvim as man page reader! (N.B. automatically uses 'neoman' plugin. Personally add
+## 'less' keybindings and Q for quit - q is remapped after start by neoman to :close)
+alias man="man -P \"nvim -R -c 'set ft=man' -c 'runtime! macros/less.vim' -c 'noremap Q :q!<CR>' -\" "
 
 # Allow returning to Vim by pressing Ctrl+Z (actually just runs fg)
 fancy-ctrl-z () {
