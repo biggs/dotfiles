@@ -11,7 +11,7 @@ Should be idempotent! (can rerun whenever)
 
 
 ** Vim
-Using Pathogen with git submodules to manage vim plugins, with plugins in ./vim-bundle/
+Using Pathogen (which just searches bundle for plugins) with git submodules to manage vim plugins, with plugins in ./vim-bundle/
 To install a plugin:
 #+BEGIN_SRC bash
 git submodule add $PLUGIN_URL vim-bundle/$PLUGIN_NAME 

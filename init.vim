@@ -31,7 +31,6 @@ set nocompatible        " Must be first line
     autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
 
     "set autowrite                       " Automatically write a file when leaving a modified buffer
-    set spell
     set spelllang=en_gb
     set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
     set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
@@ -114,8 +113,11 @@ set nocompatible        " Must be first line
 
 
 "  MAPPINGS {
-	" Open help in new tab
-	:cabbrev help tab help
+    " Double tap quote for register list
+    nnoremap "" :registers<CR>
+
+    " Open help in new tab
+    :cabbrev help tab help
 
     " shift tabs using H and L
     map <S-H> gT
