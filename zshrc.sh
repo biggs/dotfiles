@@ -25,7 +25,8 @@ export PATH="/Users/fez/anaconda3/bin:$PATH"
 
 # Path to your oh-my-zsh installation. (runs zsh customisations)
 # MOST OF THE INTERESTING STUFF IS IN /.oh-my-zsh/lib
-export ZSH=/Users/fez/.oh-my-zsh
+export ZSH=/Users/fez/Projects/dotfiles/oh-my-zsh
+export ZSH_CUSTOM=/Users/fez/Projects/dotfiles/zsh_custom
 
 ZSH_THEME="mytheme"
 ENABLE_CORRECTION="true"

@@ -4,7 +4,7 @@
       create: true  # create enclosing directory if needed
 
 # CLEAN
-# Directories that should be checked for dead symbolic links. If pointing to dotfiles directory, are automatically removed.
+# Delete dead symlinks pointing to dotfiles directory in $HOME
 - clean: ['~']
 
 
@@ -15,6 +15,12 @@
     ~/.zshrc: zshrc.sh
     ~/.spacemacs: spacemacs.el
     ~/.vim/bundle: vim-bundle
+    
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
+
+  # Change zshrc.sh internal link to oh-my-zsh folder in this directory
+  - [sed -i -e "/^export ZSH=/ s|.*|export ZSH=$(pwd)/oh-my-zsh|" zshrc.sh]
+  - [sed -i -e "/^export ZSH_CUSTOM=/ s|.*|export ZSH_CUSTOM=$(pwd)/zsh_custom|" zshrc.sh]
+
