@@ -7,20 +7,18 @@
 # Delete dead symlinks pointing to dotfiles directory in $HOME
 - clean: ['~']
 
+# TANGLE
+- shell:
+  - [./lit-dot/tangle.sh]
 
 # LINK: Files to link (no trailing / after directories)
 - link:
     ~/.vimrc: init.vim
     ~/.config/nvim/init.vim: init.vim
-    ~/.zshrc: zshrc.sh
+    ~/.zshrc: tangled.d/zshrc.sh
     ~/.spacemacs: spacemacs.el
     ~/.vim/bundle: vim-bundle
     
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
-
-  # Change zshrc.sh internal link to oh-my-zsh folder in this directory
-  - [sed -i -e "/^export ZSH=/ s|.*|export ZSH=$(pwd)/oh-my-zsh|" zshrc.sh]
-  - [sed -i -e "/^export ZSH_CUSTOM=/ s|.*|export ZSH_CUSTOM=$(pwd)/zsh_custom|" zshrc.sh]
-

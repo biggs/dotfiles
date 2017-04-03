@@ -76,3 +76,6 @@
 [submodule "oh-my-zsh"]
 	path = oh-my-zsh
 	url = https://github.com/robbyrussell/oh-my-zsh
+[submodule "lit-dot"]
+	path = lit-dot
+	url = https://github.com/felixbig/lit-dot
