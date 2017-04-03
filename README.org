@@ -3,7 +3,9 @@
 
 
 * Installation
-  Use dotbot
+  Use dotbot -> RCM?
+literate programming dotfiles?
+be able to curl one file, install brew and git and clone etc?
 
 * Ideas to add
 ** Installation
@@ -11,6 +13,8 @@ Should be idempotent! (can rerun whenever)
 
 
 ** Vim
+Move back to VUNDLE??
+
 Using Pathogen (which just searches bundle for plugins) with git submodules to manage vim plugins, with plugins in ./vim-bundle/
 To install a plugin:
 #+BEGIN_SRC bash
@@ -25,8 +29,8 @@ git rm -rf vim-bundle/$PLUGIN_NAME
 - Move swap, undo etc into .vim folder
 
 ** Zsh/Bash
-- FASD?
-- oh-my-zsh replace with Pretzo? or other lighter alternative?
+- z -> FASD (since does recency as well as frequency!)
+- oh-my-zsh -> Pretzo (or other lighter alternative)
 - ~/.bin with scripts etc
 - Seperate .path, .env, .functions, .alias, .prompt, .inputrc
 
