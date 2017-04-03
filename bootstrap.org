@@ -1,0 +1,91 @@
+#+TITLE: Bootstrapping
+
+This should be a description of how bootstrapping and basic setup on OSX (and
+later other systems) is possible.
+
+* Bootstrapping on macOS
+To setup a system from scratch (this part really just for reference):
+
+Install Xcode command line tools:
+#+BEGIN_SRC bash
+$ xcode-select --install
+#+END_SRC
+
+Install homebrew (and check all working with doctor):
+#+BEGIN_SRC bash
+$ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+$ brew doctor
+#+END_SRC 
+
+Install emacs
+#+BEGIN_SRC sh
+# Update to latest Homebrew & upgrade any already-installed formulae.
+brew update
+brew upgrade
+
+# Emacs - needed for tangling
+brew install --with-cocoa --srgb emacs
+
+# Remove outdated versions from the cellar.
+brew cleanup
+#+END_SRC
+
+This script will install further homebrew things.
+#+BEGIN_SRC bash
+# Install GNU core utilities (those that come with macOS are outdated).
+# These are then prefixed with g-
+brew install coreutils
+
+# git
+brew install git
+#+END_SRC
+
+** TODO Installing org-mode
+
+* macOS customisations
+These are some random customisations I've found:
+#+BEGIN_SRC bash
+
+# Save screenshots to the desktop
+defaults write com.apple.screencapture location -string “$HOME/Desktop”
+
+# Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
+defaults write com.apple.screencapture type -string “png”
+
+# Display full POSIX path as Finder window title
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+
+# Disable the sound effects on boot
+sudo nvram SystemAudioVolume=” “
+
+# Show remaining battery time
+defaults write com.apple.menuextra.battery ShowTime -string "YES"
+
+# Expand save panel by default
+defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
+#+END_SRC
+
+* TODO Installation
+The whole project should be install-able by running:
+#+BEGIN_SRC bash
+curl -L https://github.com/felixbig/lit-dot/raw/master/install.sh | sh
+#+END_SRC
+This file should be as skeletal as possible before extracting the rest of the
+literate code.
+
+
+** A Very Basic install.sh
+Org-babel and emacs need to be installed already.
+Run tangle.sh.
+
+NOTE: This should be idempotent! (can rerun whenever)
+
+This is more like the bootstrapping part
+
+
+
+Note: may need to run 
+#+BEGIN_SRC bash
+chmod 755 ./install.sh
+#+END_SRC
+
