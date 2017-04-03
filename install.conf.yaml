@@ -7,9 +7,10 @@
 # Delete dead symlinks pointing to dotfiles directory in $HOME
 - clean: ['~']
 
-# TANGLE
 - shell:
-  - [./lit-dot/tangle.sh]
+  - [./lit-dot/tangle.sh] # tangle configuration org files
+  - ["git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim"]  # Vundle vim package manager
+  - [vi +PluginInstall +qall]
 
 # LINK: Files to link (no trailing / after directories)
 - link:
@@ -17,7 +18,6 @@
     ~/.config/nvim/init.vim: init.vim
     ~/.zshrc: tangled.d/zshrc.sh
     ~/.spacemacs: spacemacs.el
-    ~/.vim/bundle: vim-bundle
     
 
 - shell:

@@ -3,14 +3,40 @@
 
 set nocompatible        " Must be first line
 
-" PATHOGEN {
+" BUNDLES {
+    " Setup Bundle Support
+    " The next three lines ensure that the ~/.vim/bundle/ system works
+    filetype off
+    set rtp+=~/.vim/bundle/Vundle.vim
+    call vundle#rc()
 
-    " include vim plugins in ./vim/bundle
-    " To use with neovim and vim, use explicit ~/.vim paths
-    source ~/.vim/bundle/vim-pathogen/autoload/pathogen.vim
-    call pathogen#infect('~/.vim/bundle/{}')
-    call pathogen#helptags()
+        Plugin 'VundleVim/Vundle.vim'
+        Plugin 'mileszs/ack.vim'  " ag integration
+        Plugin 'tpope/vim-surround'  " interact cleverly with surrounding brackets etc
+        Plugin 'tpope/vim-repeat'  " allow plugins to repeat with .
+        Plugin 'tpope/vim-unimpaired' " extra bindings, really useful
+        Plugin 'rhysd/conflict-marker.vim'  " mark git conflicts
+        Plugin 'jiangmiao/auto-pairs'  " auto brackets
+        Plugin 'bling/vim-bufferline'  " show buffers in statusbar
+        Plugin 'mbbill/undotree'  " navigable undo
+        Plugin 'osyo-manga/vim-over'  " highlighting during :s/blah
+        Plugin 'tpope/vim-fugitive'  " Git integration
+        Plugin 'tpope/vim-commentary'  " lightweight comment toggle with gc+motion
+        Plugin 'luochen1990/rainbow'  " rainbow parentheses
+        Plugin 'myusuf3/numbers.vim'  " relative/non line number mode toggle
+        Plugin 'tomasr/molokai'  " Colorscheme
+        Plugin 'vim-airline/vim-airline'  " Cool status bar
+        Plugin 'vim-airline/vim-airline-themes'
+        Plugin 'airblade/vim-gitgutter'  " Git change line marks
+        "Plugin 'tmhedberg/SimpylFold'  " correct Python folding
+        Plugin 'vim-syntastic/syntastic'  " syntax checking
+        " FIND AN AUTOCOMPLETE!
+        Plugin 'klen/python-mode'  " lots of python stuff
+        Plugin 'lervag/vimtex'  " latex stuff (do i use it???)
+        Plugin 'vim-scripts/Latex-Text-Formatter'  " latex formatting
 
+    call vundle#end()            " required
+    filetype plugin indent on    " required
 " }
 
 
