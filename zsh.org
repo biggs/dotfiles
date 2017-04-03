@@ -40,7 +40,7 @@ export PATH="$PATH:/usr/local/texlive/2013/bin/universal-darwin"
 Oh-My-Zsh is a set of Zsh plugins and customisations. It is quite heavyweight,
 so I would like to move to something else at some point.
 
-Most of it's interesting functionality is in the oh-my-zhs/lib folder.
+Most of it's interesting functionality is in the oh-my-zsh/lib folder.
 
 This sets the paths to oh-my-zsh, to a custom directory which is automatically loaded by
 it, chooses a few settings and plugins and then actually loads it.
@@ -60,7 +60,7 @@ export ZSH_CUSTOM=/Users/fez/Projects/dotfiles/zsh_custom
 ZSH_THEME="mytheme"
 ENABLE_CORRECTION="true"
 COMPLETION_WAITING_DOTS="true"  # red dots
-plugins=(git z zsh-syntax-highlighting)
+plugins=(git zsh-syntax-highlighting colored-man-pages fasd z)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -68,12 +68,10 @@ source $ZSH/oh-my-zsh.sh
 
 
 
--  :: 
-
 ** TODO z -> [[https://github.com/clvv/fasd][fasd]]
 - Also uses frequency and recency
 - Works for files as well as directories
-- zle-widgets: use , and keyboard shortcuts for completion 
+- zle-widgets: use ~,~ and keyboard shortcuts for completion 
 
 ** TODO oh-my-zsh -> something lighter
 
@@ -162,19 +160,12 @@ alias ec="e --create-frame"
 
 ** Vi
 1. Use Neovim, a fork of vim with better features.
-
-2. Use neovim as the manpage reader for syntax highlighting (N.B. automatically
-   uses 'neoman' plugin. Personally add 'less' keybindings and Q for quit - q is
-   annoyingly remapped after start by neoman to :close)
-
-3. Press ctrl-z in the terminal to foreground process, so can switch in and out
+2. Press ctrl-z in the terminal to foreground process, so can switch in and out
    of terminal vim with ctrl-z.
 
 #+BEGIN_SRC sh  :tangle tangled.d/zshrc.sh
 
 alias vi='nvim'
-## set nvim as man page reader! 
-alias man="man -P \"nvim -R -c 'set ft=man' -c 'runtime! macros/less.vim' -c 'noremap Q :q!<CR>' -\" "
 
 # Allow returning to Vim by pressing Ctrl+Z (actually just runs fg)
 fancy-ctrl-z () {
