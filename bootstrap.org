@@ -65,6 +65,29 @@ defaults write com.apple.menuextra.battery ShowTime -string "YES"
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
 #+END_SRC
 
+** Setting up CAPS=Ctrl(hold)+Esc(tap)
+This really nice customisation is achieved here:
+[[https://github.com/tekezo/Karabiner-Elements/issues/8#issuecomment-279196849]] 
+
+1) Uninstall all Karabiner and restart OSX, ensure ~kextstat -l | grep pqrs~ returns no results.
+2) Install @wwwjfy prebuilt version (this linked version is built with extra features the extra
+   features needed, don't update!)
+3) My customisations in the ~/.config/karabiner/karabiner.json file:
+#+BEGIN_SRC json
+    "simple_modifications": {
+        "caps_lock": "left_control",
+        "escape": "caps_lock",
+        "right_command": "right_option"
+    },
+    "standalone_keys": {
+        "caps_lock": "escape",
+        "left_control": "escape"
+    },
+#+END_SRC
+
+
+
+
 * TODO Installation
 The whole project should be install-able by running:
 #+BEGIN_SRC bash
