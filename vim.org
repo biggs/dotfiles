@@ -1,7 +1,26 @@
+#+TITLE: Felix' Vim Setup
+
+#+PROPERTY: header-args:vimrc :tangle tangled/.vimrc
+
+* Header + Introduction
+Short description and fold markers for viewing in vim itself:
+#+BEGIN_SRC vimrc
+
 " Felix vimrc: owes a debt to SPF-13 amongst others
 " vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker:
 
 set nocompatible        " Must be first line
+
+#+END_SRC
+
+
+* Plugins
+
+These plugins are relatively self documenting.
+Vundle is used to install the plugins as it will do so automatically, though
+it must first be installed (by copying to ./vim/bundle/Vundle.vim) itself.
+
+#+BEGIN_SRC vimrc
 
 " BUNDLES {
     " Setup Bundle Support
@@ -39,6 +58,14 @@ set nocompatible        " Must be first line
     filetype plugin indent on    " required
 " }
 
+#+END_SRC
+
+
+
+* UI Settings
+This sets reasonable settings for vim.
+
+#+BEGIN_SRC vimrc
 
 
 " BASIC UI AND FORMATTING {
@@ -137,6 +164,12 @@ set nocompatible        " Must be first line
 " }
 
 
+#+END_SRC
+
+
+* Personal mappings
+My personal key remapping for useful things.
+#+BEGIN_SRC vimrc
 
 "  MAPPINGS {
     " Double tap quote for register list
@@ -186,7 +219,13 @@ set nocompatible        " Must be first line
     vnoremap . :normal .<CR>
 " }
 
+#+END_SRC
 
+
+* Plugin Customizations
+Settings to make plugins behave in a reasonable way
+
+#+BEGIN_SRC vimrc
 
 " PLUGINS CUSTOMISATIONS {
 
@@ -243,8 +282,13 @@ set nocompatible        " Must be first line
 
 
 
+#+END_SRC
 
 
+* Functions
+These functions allow whitespace stripping and initializing directories for
+backup, undo and swap.
+#+BEGIN_SRC vimrc
 
 
 " FUNCTIONS {
@@ -293,3 +337,6 @@ set nocompatible        " Must be first line
     call InitializeDirectories()
 " }
 
+
+#+END_SRC
+ 
