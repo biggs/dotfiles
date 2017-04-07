@@ -1,6 +1,6 @@
 #+TITLE: Felix' Vim Setup
 
-#+PROPERTY: header-args:vimrc :tangle tangled/.vimrc
+#+PROPERTY: header-args:vimrc :tangle tangled/vim/.vimrc :tangle tangled/nvim/.config/nvim/init.vim
 
 * Header + Introduction
 Short description and fold markers for viewing in vim itself:

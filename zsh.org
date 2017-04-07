@@ -3,6 +3,7 @@
 #+LANGUAGE:  en
 #+SETUPFILE: ~/org-html-themes/setup/theme-readtheorg.setup
 #+STARTUP: overview
+#+PROPERTY: header-args:sh :tangle tangled/zsh/.zshrc
 
 
 
@@ -11,7 +12,7 @@
 Start with the default macOS path and add others used for programs. This might
 be improved by symlinking these files to a personal ~/usr/local/bin~.
 
-#+BEGIN_SRC sh  :tangle tangled.d/zshrc.sh
+#+BEGIN_SRC sh
 
 ## Set the path to the mac default, then add /bin as personal choice
 PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin
@@ -52,7 +53,7 @@ it, chooses a few settings and plugins and then actually loads it.
 - [[https://github.com/zsh-users/zsh-syntax-highlighting][zsh-syntax-highlighting]] :: installed in custom; fish like shell syntax highlighting
 
 
-#+BEGIN_SRC sh   :tangle tangled.d/zshrc.sh
+#+BEGIN_SRC sh
 
 export ZSH=/Users/fez/Projects/dotfiles/oh-my-zsh
 export ZSH_CUSTOM=/Users/fez/Projects/dotfiles/zsh_custom
@@ -114,7 +115,7 @@ Note these are the emacs commands. One of the final commands listed, ^X ^V, whic
 temporarily skips into vi command mode for moving around and editing, is so useful I
 give it an extra keybinding to <ESC><ESC>.
 
-#+BEGIN_SRC sh  :tangle tangled.d/zshrc.sh
+#+BEGIN_SRC sh
 
 bindkey -e  # emacs keybindings
 bindkey "^[^[" vi-cmd-mode  # temporarily switch to vi-cmd-mode (equivalent to ^X^V)
@@ -124,7 +125,7 @@ bindkey "^[^[" vi-cmd-mode  # temporarily switch to vi-cmd-mode (equivalent to ^
 
 ** Misc other
 
-#+BEGIN_SRC sh  :tangle tangled.d/zshrc.sh
+#+BEGIN_SRC sh
 
 # Set myself as default user
 DEFAULT_USER=fez
@@ -149,7 +150,7 @@ Up to date emacs, and useful shortcuts for emacsclient (opening the file without
 the shell waiting and starting the server if necessary, and an alias creating a
 new window/'frame').
 
-#+BEGIN_SRC sh   :tangle tangled.d/zshrc.sh
+#+BEGIN_SRC sh
 
 alias emacs="emacs-25.1"
 
@@ -163,7 +164,7 @@ alias ec="e --create-frame"
 2. Press ctrl-z in the terminal to foreground process, so can switch in and out
    of terminal vim with ctrl-z.
 
-#+BEGIN_SRC sh  :tangle tangled.d/zshrc.sh
+#+BEGIN_SRC sh
 
 alias vi='nvim'
 
@@ -186,7 +187,7 @@ bindkey '^Z' fancy-ctrl-z
 ** Miscellaneous Aliases
 These should be self-explanatory.
 
-#+BEGIN_SRC sh  :tangle tangled.d/zshrc.sh
+#+BEGIN_SRC sh
 
 ## launch MIT scheme with a special wrapper for history and competion (rlwrap)
 alias sicp="rlwrap -r -c -f \"$HOME\"/.scheme_completion.txt mit-scheme"
