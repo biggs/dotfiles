@@ -6,10 +6,14 @@ Go to: [https://macos-strap.herokuapp.com/] and run the generated script.
 
 This is basically a script which idempotently sets up command-line tools and homebrew
 and downloads your dotfiles github directory, then brews the brewfile and runs `script/setup`.
-See [https://github.com/MikeMcQuaid/strap#features] for more details.
+In that order. See [https://github.com/MikeMcQuaid/strap#features] for more details.
+
+
+After this script runs `script/setup` you should open emacs to download the packages and run
+`:BundleInstall` in nvim.
 
 
 
 TODO:
-- create `script/setup`
 - migrate oh-my-zsh to something lighter
+- add a global .gitignore
