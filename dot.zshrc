@@ -151,6 +151,7 @@ alias ec="e --create-frame"
 
 alias vi='nvim'
 alias view='nvim -R'
+alias vdiff='nvim -d'
 
 # Allow returning to Vim by pressing Ctrl+Z (actually just runs fg)
 fancy-ctrl-z () {

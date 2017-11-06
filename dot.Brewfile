@@ -51,6 +51,7 @@ brew 'gpg' # GNU Privacy Guard (GnuPG) provides encryption as a free replacement
 brew 'stow'  # making links for dotfiles
 
 
+brew 'wifi-password'
 
 
 
