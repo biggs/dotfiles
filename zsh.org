@@ -14,21 +14,8 @@ be improved by symlinking these files to a personal ~/usr/local/bin~.
 
 #+BEGIN_SRC sh
 
-## Set the path to the mac default, then add /bin as personal choice
-PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin
-PATH=$PATH:~/bin
-
-## Append python 3.4 path to $PATH
-#export PATH="${PATH}:/Library/Frameworks/Python.framework/Versions/3.4/bin"
-
-## MacPorts append to $PATH as needed
-export PATH="${PATH}:/opt/local/bin:/opt/local/sbin"
-
-# added by Anaconda3 4.2.0 installer
-export PATH="/Users/fez/anaconda3/bin:$PATH"
-
-# add tex path
-export PATH="$PATH:/usr/local/texlive/2013/bin/universal-darwin"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+export PATH="$PATH:/Users/felix/anaconda3/bin"
 
 #+END_SRC
 
@@ -49,30 +36,25 @@ it, chooses a few settings and plugins and then actually loads it.
 
 *Plugins*
 - [[https://github.com/robbyrussell/oh-my-zsh][git]] :: shows info about an occupied git directory
-- [[https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins/z][z]] :: a clever script that stores recently used directories that can then be skipped to
+- [[https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins/z][fasd]] :: a clever script that stores recently used directories that can then be skipped to
 - [[https://github.com/zsh-users/zsh-syntax-highlighting][zsh-syntax-highlighting]] :: installed in custom; fish like shell syntax highlighting
 
 
 #+BEGIN_SRC sh
 
-export ZSH=/Users/fez/Projects/dotfiles/oh-my-zsh
-export ZSH_CUSTOM=/Users/fez/Projects/dotfiles/zsh_custom
+export ZSH=/Users/felix/Projects/dotfiles/oh-my-zsh
+export ZSH_CUSTOM=/Users/felix/Projects/dotfiles/zsh_custom
 
 ZSH_THEME="mytheme"
 ENABLE_CORRECTION="true"
 COMPLETION_WAITING_DOTS="true"  # red dots
-plugins=(git zsh-syntax-highlighting colored-man-pages fasd z)
+plugins=(git zsh-syntax-highlighting colored-man-pages fasd)
 
 source $ZSH/oh-my-zsh.sh
 
 #+END_SRC
 
 
-
-** TODO z -> [[https://github.com/clvv/fasd][fasd]]
-- Also uses frequency and recency
-- Works for files as well as directories
-- zle-widgets: use ~,~ and keyboard shortcuts for completion 
 
 ** TODO oh-my-zsh -> something lighter
 
@@ -128,7 +110,7 @@ bindkey "^[^[" vi-cmd-mode  # temporarily switch to vi-cmd-mode (equivalent to ^
 #+BEGIN_SRC sh
 
 # Set myself as default user
-DEFAULT_USER=fez
+DEFAULT_USER=felix
 
 #Display CPU usage stats for commands taking more than 7 seconds
 REPORTTIME=7
