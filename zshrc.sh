@@ -145,8 +145,7 @@ stty -ixon
 export VISUAL="nvim"
 export EDITOR="nvim"
 
-alias emacs="emacs-25.1"
-alias e="/usr/local/Cellar/emacs/25.1/bin/emacsclient --no-wait --alternate-editor=''"
+alias e="emacsclient --no-wait --alternate-editor=''"
 alias ec="e --create-frame"
 
 alias vi='nvim'

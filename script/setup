@@ -21,7 +21,7 @@ BASEDIR="${SCRIPTDIR}/.."
 
 echo -e "$RA spacemacs"
 
-cd "${BASEDIR}" && ln -sf "$BASEDIR/dot.spacemacs" "$HOME/.spacemacs"
+cd "${BASEDIR}" && ln -sf "$BASEDIR/spacemacs.el" "$HOME/.spacemacs"
 
 EMACSDIR="$HOME/.emacs.d"
 if ! cd $EMACSDIR;
@@ -38,7 +38,7 @@ echo -e "$RA Setting up nvim and plugins (TODO: install in background. For now o
 
 # Link Nvim into place
 NVIM_CONFIG_DIR="$HOME/.config/nvim"
-mkdir -p "$NVIM_CONFIG_DIR" && cd "${BASEDIR}" && ln -s -f "$BASEDIR/dot.vimrc" "$NVIM_CONFIG_DIR/init.vim"
+mkdir -p "$NVIM_CONFIG_DIR" && cd "${BASEDIR}" && ln -s -f "$BASEDIR/init.vim" "$NVIM_CONFIG_DIR/init.vim"
 
 
 # Download Vundle and use to install plugins (in the background!)
@@ -54,12 +54,12 @@ fi
 
 
 echo -e "$RA zshrc linking"
-cd "${BASEDIR}" && ln -s -f "$BASEDIR/dot.zshrc" "$HOME/.zshrc"
+cd "${BASEDIR}" && ln -s -f "$BASEDIR/zshrc.sh" "$HOME/.zshrc"
 
 
 
 echo -e "$RA Brewfile linking"
-cd "${BASEDIR}" && ln -s -f "$BASEDIR/dot.Brewfile" "$HOME/.Brewfile"
+cd "${BASEDIR}" && ln -s -f "$BASEDIR/Brewfile" "$HOME/.Brewfile"
 
 
 
