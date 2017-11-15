@@ -9,8 +9,9 @@
 
 ## Set the path to the mac default, then add /bin as personal choice
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-export PATH="$PATH:/Users/felix/anaconda3/bin"
-
+export PATH="$PATH:/usr/local/miniconda3/bin"
+export PATH="$PATH:/Library/TeX/texbin"
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH" # Prepend gnu uitilities to replace
 
 
 
