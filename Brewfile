@@ -6,7 +6,7 @@ tap 'caskroom/homebrew-cask' || true
 ## Terminal Utils
 brew 'git'
 brew 'tree'
-brew 'ncdu'
+brew 'ncdu' # ncurses file space explorer
 brew 'htop'
 brew 'fasd'
 brew 'pass'
@@ -49,7 +49,7 @@ brew 'readline' # Functions for use by applications that allow users to edit com
 
 brew 'gpg' # GNU Privacy Guard (GnuPG) provides encryption as a free replacement for PGP.
 brew 'stow'  # making links for dotfiles
-
+brew 'pandoc' # amazingly easy pdfs
 
 brew 'wifi-password'
 
@@ -67,6 +67,7 @@ cask 'firefox'
 cask 'spotify'
 cask 'iterm2'
 cask 'transmission'
-cask 'emacs'
+tap 'railwaycat/emacsmacport'
+cask 'emacs-mac'
 cask 'miniconda'
 cask 'karabiner-elements'
