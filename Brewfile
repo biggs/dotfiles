@@ -53,6 +53,15 @@ brew 'pandoc' # amazingly easy pdfs
 
 brew 'wifi-password'
 
+brew 'ctags'
+
+brew 'leger'
+
+
+
+### FONTS
+tap 'caskroom/fonts'
+cask 'font-source-code-pro'
 
 
 
