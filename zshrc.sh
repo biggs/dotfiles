@@ -146,7 +146,7 @@ stty -ixon
 export VISUAL="nvim"
 export EDITOR="nvim"
 
-alias e="emacsclient --no-wait --alternate-editor=''"
+alias e="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient --no-wait --alternate-editor=''"
 alias ec="e --create-frame"
 
 alias vi='nvim'
@@ -184,7 +184,7 @@ alias sicp="rlwrap -r -c -f \"$HOME\"/.scheme_completion.txt mit-scheme"
 
 ## Colorize ls
 ## (-F slash after directory; -G color; -h human size units with -l)
-alias ls='ls -FGh'
+alias ls='gls -FGh --color'
 
 ## Create alias gitlog, giving much more detailed output for git
 alias gitlog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
@@ -200,4 +200,6 @@ alias hgrep='history | grep '
 
 ## Download youtube audio with one command
 alias ydl="youtube-dl -x"
+
+alias led='ledger -f ~/Documents/Finances/money.ledger'
 
