@@ -332,6 +332,7 @@ you should place your code here."
    avy-keys (number-sequence ?a ?z) ; a-z for avi
    )
 
+  (setq-default TeX-master "main") ; tex master files called "main".
 
   ;; Switch windows with S-<direction>
   (windmove-default-keybindings)
