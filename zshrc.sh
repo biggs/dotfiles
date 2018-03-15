@@ -12,6 +12,7 @@ export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 export PATH="$PATH:/usr/local/miniconda3/bin"
 export PATH="$PATH:/Library/TeX/texbin"
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH" # Prepend gnu uitilities to replace
+export PATH="$PATH:/usr/bin/python" # for aws
 
 
 
@@ -184,7 +185,10 @@ alias sicp="rlwrap -r -c -f \"$HOME\"/.scheme_completion.txt mit-scheme"
 
 ## Colorize ls
 ## (-F slash after directory; -G color; -h human size units with -l)
-alias ls='gls -FGh --color'
+alias ls='exa'
+alias l='exa -l --git'
+alias la='exa -l -a --git'
+alias l2='exa -l --git -T --level 2'
 
 ## Create alias gitlog, giving much more detailed output for git
 alias gitlog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
@@ -203,3 +207,4 @@ alias ydl="youtube-dl -x"
 
 alias led='ledger -f ~/Documents/Finances/money.ledger'
 
+alias awaketime='pmset -g log | grep -e " Sleep  " -e " Wake  " | tail -n 20'
