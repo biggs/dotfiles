@@ -193,9 +193,6 @@ alias l2='exa -l --git -T --level 2'
 ## Create alias gitlog, giving much more detailed output for git
 alias gitlog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 
-## get internet speed
-alias speedtest='wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test500.zip'
-
 ## Allow using vlc
 alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
 
@@ -205,6 +202,6 @@ alias hgrep='history | grep '
 ## Download youtube audio with one command
 alias ydl="youtube-dl -x"
 
-alias led='ledger -f ~/Documents/Finances/money.ledger'
+alias led='ledger -f ~/Documents/ORG/Finances/money.ledger'
 
 alias awaketime='pmset -g log | grep -e " Sleep  " -e " Wake  " | tail -n 20'
