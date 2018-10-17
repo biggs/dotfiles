@@ -31,17 +31,14 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     lua
+     csv
      finance
      python
      octave
      html
      vimscript
      yaml
-     ;; ----------------------------------------------------------------
-     ;; Example of useful layers you may want to use right away.
-     ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
-     ;; <M-m f e R> (Emacs style) to install them.
-     ;; ----------------------------------------------------------------
      helm
      osx
      auto-completion
@@ -53,6 +50,7 @@ values."
      pandoc
      fasd
      latex
+     bibtex
      (shell :variables
             shell-default-height 30
             shell-default-shell 'eshell
@@ -70,7 +68,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(github-modern-theme)
+   dotspacemacs-additional-packages '(github-modern-theme monokai-theme yasnippet-snippets)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -83,6 +81,12 @@ values."
    ;; them if they become unused. `all' installs *all* packages supported by
    ;; Spacemacs and never uninstall them. (default is `used-only')
    dotspacemacs-install-packages 'used-only))
+
+
+
+
+
+
 
 (defun dotspacemacs/init ()
   "Initialization function.
@@ -133,8 +137,7 @@ values."
    ;; `recents' `bookmarks' `projects' `agenda' `todos'."
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
-   dotspacemacs-startup-lists '((recents . 5)
-                                (projects . 7))
+   dotspacemacs-startup-lists nil
    ;; True if the home buffer should respond to resize events.
    dotspacemacs-startup-buffer-responsive t
    ;; Default major mode of the scratch buffer (default `text-mode')
@@ -142,7 +145,7 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(monokai github-modern-theme)
+   dotspacemacs-themes '(monokai github-modern)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
@@ -164,7 +167,7 @@ values."
    dotspacemacs-emacs-leader-key "M-m"
    ;; Major mode leader key is a shortcut key which is the equivalent of
    ;; pressing `<leader> m`. Set it to `nil` to disable it. (default ",")
-   dotspacemacs-major-mode-leader-key ","
+   dotspacemacs-major-mode-leader-key nil
    ;; Major mode leader key accessible in `emacs state' and `insert state'.
    ;; (default "C-M-m")
    dotspacemacs-major-mode-emacs-leader-key "C-M-m"
@@ -242,7 +245,7 @@ values."
    ;; If non nil the frame is maximized when Emacs starts up.
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (default nil) (Emacs 24.4+ only)
-   dotspacemacs-maximized-at-startup t
+   dotspacemacs-maximized-at-startup nil
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
@@ -298,6 +301,15 @@ values."
    dotspacemacs-whitespace-cleanup "changed"
    ))
 
+
+
+
+
+
+
+
+
+
 (defun dotspacemacs/user-init ()
   "Initialization function for user code.
 It is called immediately after `dotspacemacs/init', before layer configuration
@@ -307,6 +319,16 @@ before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
   )
 
+
+
+
+
+
+
+
+
+
+
 (defun dotspacemacs/user-config ()
   "Configuration function for user \code.
 This function is called at the very end of Spacemacs initialization after
@@ -314,6 +336,7 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  (setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin"))
   (setq-default
    ;; Theming
    monokai-highlight-line "#3A3A3A"
@@ -330,7 +353,14 @@ you should place your code here."
    ;; Avy
    avy-all-windows 'all-frames
    avy-keys (number-sequence ?a ?z) ; a-z for avi
+
+   ;; Get aliases in inferior shell
+   shell-command-switch "-ic"
+
+   projectile-enable-caching
    )
+  ; HACK: manually set yas-snippet-dir (update coming soon on develop)
+  (setq yas-snippet-dirs '("/Users/felix/.emacs.d/elpa/yasnippet-snippets-20180222.440/snippets/"))
 
   (setq-default TeX-master "main") ; tex master files called "main".
 
@@ -345,11 +375,41 @@ you should place your code here."
   (define-key evil-normal-state-map (kbd "S") 'evil-avy-goto-char)
   (define-key evil-normal-state-map (kbd "C-s") 'helm-swoop)
   (define-key evil-normal-state-map (kbd "C-S-s") 'helm-multi-swoop-all)
-  ;; double press for multi:
+  (define-key evil-normal-state-map (kbd "C-]") 'helm-projectile-ag)
   (define-key evil-normal-state-map "\C-e" 'end-of-line)
   (define-key evil-normal-state-map "\C-a" 'beginning-of-line-text)
 
+  ;; Bibtex file
+  (setq-default org-ref-default-bibliography '("~/Dropbox/references.bib"))
+
+  ;; Ranger settings
+  (setq ranger-cleanup-on-disable t)
+  (setq ranger-ignored-extensions '("mkv" "iso" "mp4" "DS_Store" "pdf"))
+  (setq ranger-max-preview-size 1)
+  (setq ranger-dont-show-binary t)
+
+  ;; ORG TODO setups
+  (setq org-agenda-files (list "~/Documents/ORG/todo.org" "~/Documents/ORG/phd.org"))
+
+  (setq org-agenda-custom-commands
+        '(("w" todo "WAITING" nil)
+          ("n" todo "NEXT" nil)
+          ("d" "Agenda + Next Actions" ((agenda) (todo "NEXT"))))
 )
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -360,8 +420,14 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
+ '(ansi-color-names-vector
+   ["#272822" "#F92672" "#A6E22E" "#E6DB74" "#66D9EF" "#FD5FF0" "#A1EFE4" "#F8F8F2"])
  '(compilation-message-face (quote default))
+ '(custom-safe-themes
+   (quote
+    ("15348febfa2266c4def59a08ef2846f6032c0797f001d7b9148f30ace0d08bcf" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" "2cfc1cab46c0f5bae8017d3603ea1197be4f4fff8b9750d026d19f0b9e606fae" default)))
  '(evil-want-Y-yank-to-eol t)
+ '(fci-rule-color "#3C3D37")
  '(highlight-changes-colors (quote ("#FD5FF0" "#AE81FF")))
  '(highlight-tail-colors
    (quote
@@ -375,12 +441,47 @@ you should place your code here."
      ("#3A3A3A" . 100))))
  '(line-number-mode nil)
  '(magit-diff-use-overlays nil)
+ '(nrepl-message-colors
+   (quote
+    ("#032f62" "#6a737d" "#d73a49" "#6a737d" "#005cc5" "#6f42c1" "#d73a49" "#6a737d")))
+ '(org-agenda-files
+   (quote
+    ("~/Documents/ML/PROJECT/writeup/COMPGI99-Biggs-Felix.org" "~/Documents/ML/PROJECT/writeup.org" "~/Documents/ORG/todo.org")))
+ '(org-babel-load-languages
+   (quote
+    ((shell . t)
+     (python . t)
+     (emacs-lisp . t)
+     (ledger . t))))
  '(package-selected-packages
    (quote
-    (company-auctex auctex ledger-mode xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help ein skewer-mode request-deferred websocket deferred js2-mode simple-httpd yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional helm-pydoc cython-mode company-anaconda anaconda-mode pythonic fasd pandoc-mode ox-pandoc ht reveal-in-osx-finder pbcopy osx-trash osx-dictionary launchctl github-modern-theme winum org-category-capture fuzzy company-web evil-unimpaired monokai-theme web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode web-completion-data vimrc-mode dactyl-mode yaml-mode ranger smeargle orgit org-projectile org-present org org-pomodoro alert log4e gntp org-download mmm-mode markdown-toc markdown-mode magit-gitflow htmlize helm-gitignore helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flyspell-correct-helm flyspell-correct evil-magit magit magit-popup git-commit with-editor company-statistics company auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async quelpa package-build spacemacs-theme)))
+    (lua-mode org-ref pdf-tools key-chord ivy tablist helm-bibtex parsebib biblio biblio-core flatui-theme smart-mode-line-powerline-theme powerline spinner ht org-category-capture alert log4e gntp org-mime markdown-mode hydra dash-functional parent-mode projectile pkg-info epl haml-mode gitignore-mode flyspell-correct flx magit magit-popup git-commit ghub let-alist with-editor smartparens iedit anzu evil goto-chg undo-tree highlight skewer-mode request-deferred websocket request deferred js2-mode simple-httpd web-completion-data company bind-map bind-key yasnippet packed auctex anaconda-mode pythonic f dash s helm avy helm-core async auto-complete popup org-plus-contrib auctex-latexmk github-modern-theme-theme csv-mode yasnippet-snippets yapfify yaml-mode xterm-color ws-butler winum which-key web-mode volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package toc-org tagedit spaceline smeargle slim-mode shell-pop scss-mode sass-mode reveal-in-osx-finder restart-emacs ranger rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode popwin pip-requirements persp-mode pcre2el pbcopy paradox pandoc-mode ox-pandoc osx-trash osx-dictionary orgit org-projectile org-present org-pomodoro org-download org-bullets open-junk-file neotree multi-term move-text monokai-theme mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum live-py-mode linum-relative link-hint less-css-mode ledger-mode launchctl info+ indent-guide hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot github-modern-theme gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy flyspell-correct-helm flx-ido fill-column-indicator fasd fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav ein dumb-jump diminish dactyl-mode cython-mode company-web company-statistics company-auctex company-anaconda column-enforce-mode clean-aindent-mode auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
  '(paradox-github-token t)
+ '(pdf-view-midnight-colors (quote ("#6a737d" . "#fffbdd")))
  '(pos-tip-background-color "#FFFACE")
  '(pos-tip-foreground-color "#272822")
+ '(vc-annotate-background nil)
+ '(vc-annotate-color-map
+   (quote
+    ((20 . "#F92672")
+     (40 . "#CF4F1F")
+     (60 . "#C26C0F")
+     (80 . "#E6DB74")
+     (100 . "#AB8C00")
+     (120 . "#A18F00")
+     (140 . "#989200")
+     (160 . "#8E9500")
+     (180 . "#A6E22E")
+     (200 . "#729A1E")
+     (220 . "#609C3C")
+     (240 . "#4E9D5B")
+     (260 . "#3C9F79")
+     (280 . "#A1EFE4")
+     (300 . "#299BA6")
+     (320 . "#2896B5")
+     (340 . "#2790C3")
+     (360 . "#66D9EF"))))
+ '(vc-annotate-very-old-color nil)
  '(weechat-color-list
    (unspecified "#272822" "#3A3A3A" "#F70057" "#F92672" "#86C30D" "#A6E22E" "#BEB244" "#E6DB74" "#40CAE4" "#66D9EF" "#FB35EA" "#FD5FF0" "#74DBCD" "#A1EFE4" "#F8F8F2" "#F8F8F0")))
 (custom-set-faces
@@ -388,4 +489,4 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((((class color) (min-colors 257)) (:foreground "#F8F8F2" :background "#272822")) (((class color) (min-colors 89)) (:foreground "#F5F5F5" :background "#1B1E1C")))))
+ '(default ((t (:family "Source Code Pro" :foundry "nil" :slant normal :weight normal :height 151 :width normal)))))

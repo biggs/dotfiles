@@ -52,6 +52,7 @@ brew 'stow'  # making links for dotfiles
 brew 'pandoc' # amazingly easy pdfs
 
 brew 'wifi-password'
+brew 'speedtest-cli' # simple speed test
 
 brew 'ctags'
 

@@ -7,13 +7,8 @@
 # PATH #
 ########
 
-## Set the path to the mac default, then add /bin as personal choice
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-export PATH="$PATH:/usr/local/miniconda3/bin"
-export PATH="$PATH:/Library/TeX/texbin"
-export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH" # Prepend gnu uitilities to replace
-export PATH="$PATH:/usr/bin/python" # for aws
-
+# SET IN .profile (so can be sourced by bash, zsh, emacs, etc.)
+source $HOME/.profile
 
 
 
@@ -36,13 +31,13 @@ export PATH="$PATH:/usr/bin/python" # for aws
 # - [[https://github.com/zsh-users/zsh-syntax-highlighting][zsh-syntax-highlighting]] :: installed in custom; fish like shell syntax highlighting
 
 
-export ZSH=/Users/felix/Projects/dotfiles/oh-my-zsh
+export ZSH=/Users/felix/.oh-my-zsh
 export ZSH_CUSTOM=/Users/felix/Projects/dotfiles/zsh_custom
 
-ZSH_THEME="mytheme"
 ENABLE_CORRECTION="true"
 COMPLETION_WAITING_DOTS="true"  # red dots
-plugins=(git zsh-syntax-highlighting colored-man-pages fasd)
+plugins=(fasd git zsh-syntax-highlighting colored-man-pages)
+ZSH_THEME="robbyrussell"
 
 source $ZSH/oh-my-zsh.sh
 
@@ -205,3 +200,17 @@ alias ydl="youtube-dl -x"
 alias led='ledger -f ~/Documents/ORG/Finances/money.ledger'
 
 alias awaketime='pmset -g log | grep -e " Sleep  " -e " Wake  " | tail -n 20'
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+
+# Aliases for project
+alias rssh='rsync -avzhe ssh'
+alias mylint='pylint --rcfile=~/.dotfiles/pylint.rc'
+
+
+# Make `help` command work like bash for builtins
+unalias run-help 2>/dev/null
+autoload run-help
+HELPDIR=/path/to/zsh_help_directory
+alias help=run-help
