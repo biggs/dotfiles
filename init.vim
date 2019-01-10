@@ -17,18 +17,18 @@ set nocompatible        " Must be first line
         Plugin 'tpope/vim-surround'  " interact cleverly with surrounding brackets etc
         Plugin 'tpope/vim-repeat'  " allow plugins to repeat with .
         Plugin 'tpope/vim-unimpaired' " extra bindings, really useful
+        Plugin 'tpope/vim-commentary'  " lightweight comment toggle with gc+motion
         Plugin 'rhysd/conflict-marker.vim'  " mark git conflicts
-        Plugin 'jiangmiao/auto-pairs'  " auto brackets
+        " Plugin 'jiangmiao/auto-pairs'  " auto brackets
         Plugin 'bling/vim-bufferline'  " show buffers in statusbar
         Plugin 'mbbill/undotree'  " navigable undo
         Plugin 'osyo-manga/vim-over'  " highlighting during :s/blah
-        Plugin 'tpope/vim-commentary'  " lightweight comment toggle with gc+motion
         Plugin 'luochen1990/rainbow'  " rainbow parentheses
         Plugin 'myusuf3/numbers.vim'  " relative/non line number mode toggle
         Plugin 'tomasr/molokai'  " Colorscheme
         Plugin 'vim-airline/vim-airline'  " Cool status bar
         Plugin 'vim-airline/vim-airline-themes'
-        Plugin 'airblade/vim-gitgutter'  " Git change line marks
+        " Plugin 'airblade/vim-gitgutter'  " Git change line marks
 
     call vundle#end()            " required
     filetype plugin indent on    " required
@@ -142,8 +142,9 @@ set nocompatible        " Must be first line
     " toggle highlighting
     nmap <silent> <leader>/ :nohlsearch<CR>
 
-    " <leader>l lists buffers and opens up switching
-    nnoremap <leader>l :ls<CR>:b<space>
+    " <leader>l lists buffers and opens up switching (changed to b to match
+    " spacemacs)
+    nnoremap <leader>b :ls<CR>:b<space>
 
     " Open Ag
     nnoremap <leader>a :Ack<space>
