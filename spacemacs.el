@@ -336,39 +336,77 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  (setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin"))
-  (setq-default
-   ;; Theming
-   monokai-highlight-line "#3A3A3A"
 
-   ;; Fix matlab commenting
-   octave-comment-char 37
+  (setq
+    ;; Theme
+    monokai-highlight-line "#3A3A3A"
 
-   ;; Whitespace mode
-   whitespace-style '(face tabs tab-mark newline-mark)
-   whitespace-display-mappings
-   '((newline-mark 10 [172 10])
-     (tab-mark 9 [9655 9]))
+    ;; Fix matlab commenting
+    octave-comment-char 37
 
-   ;; Avy
-   avy-all-windows 'all-frames
-   avy-keys (number-sequence ?a ?z) ; a-z for avi
+    ;; Whitespace mode
+    whitespace-style '(face tabs tab-mark newline-mark)
+    whitespace-display-mappings '((newline-mark 10 [172 10]) (tab-mark 9 [9655 9]))
 
-   ;; Get aliases in inferior shell
-   shell-command-switch "-ic"
+    ;; Avy switch all windows and allow all alphabetic keys
+    avy-all-windows 'all-frames
+    avy-keys (number-sequence ?a ?z) ; a-z for avi
 
-   projectile-enable-caching
-   )
-  ; HACK: manually set yas-snippet-dir (update coming soon on develop)
-  (setq yas-snippet-dirs '("/Users/felix/.emacs.d/elpa/yasnippet-snippets-20180222.440/snippets/"))
+    ;; Get aliases in inferior shell
+    shell-command-switch "-ic"
 
-  (setq-default TeX-master "main") ; tex master files called "main".
+    ;; Tex master files are called "main".
+    TeX-master "main"
 
-  ;; Switch windows with S-<direction>
-  (windmove-default-keybindings)
+    ;; Bibtex file location
+    org-ref-default-bibliography '("~/Dropbox/references.bib")
 
-  (remove-hook 'prog-mode-hook #'smartparens-mode)
+    ;; Switch windows with S-<direction>
+    windmove-default-keybindings t
+
+    ;; Faster projectile
+    projectile-enable-caching t
+
+
+    ;; HACK: manually set yas-snippet-dir (update coming soon on develop)
+    yas-snippet-dirs '("/Users/felix/.emacs.d/elpa/yasnippet-snippets-20180222.440/snippets/")
+
+    ;; When using 'K' to lookup (non-lisp) things, use helm-man-woman for man pages.
+    evil-lookup-func (lambda () (helm-man-woman nil))
+
+    ;; Ranger settings
+    ranger-cleanup-on-disable t
+    ranger-ignored-extensions '("mkv" "iso" "mp4" "DS_Store" "pdf")
+    ranger-max-preview-size 1
+    ranger-dont-show-binary t
+
+
+    ;; ORG TO DO setups
+    org-agenda-files (list "~/Documents/ORG/todo.org" "~/Documents/Applications/phd.org")
+
+    org-agenda-custom-commands
+          '(("w" todo "WAITING" nil)
+            ("n" todo "NEXT" nil)
+            ("d" "Agenda + Next Actions" ((agenda) (todo "NEXT"))))
+
+    org-todo-keywords
+          (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+                  (sequence "HOLD(h)" "WAITING(w@/!)" "MAYBE(m)" "|")))
+
+    org-todo-keyword-faces
+          (quote (("TODO" :foreground "red" :weight bold)
+                  ("NEXT" :foreground "magenta" :weight bold)
+                  ("MAYBE" :foreground "blue" :weight bold)
+                  ("DONE" :foreground "green" :weight bold)
+                  ("HOLD" :foreground "gold" :weight bold)
+                  ("WAITING" :foreground "orange" :weight bold)))
+
+  )
+
+  ;; Disable smartparens
   (spacemacs/toggle-smartparens-globally-off)
+  (remove-hook 'prog-mode-hook #'smartparens-mode)
+
 
   ;; Extra keybindings
   (define-key evil-normal-state-map (kbd "s") 'evil-avy-goto-word-or-subword-1)
@@ -376,26 +414,11 @@ you should place your code here."
   (define-key evil-normal-state-map (kbd "C-s") 'helm-swoop)
   (define-key evil-normal-state-map (kbd "C-S-s") 'helm-multi-swoop-all)
   (define-key evil-normal-state-map (kbd "C-]") 'helm-projectile-ag)
-  (define-key evil-normal-state-map "\C-e" 'end-of-line)
-  (define-key evil-normal-state-map "\C-a" 'beginning-of-line-text)
+  (define-key evil-normal-state-map (kbd "C-e") 'end-of-line)
+  (define-key evil-normal-state-map (kbd "C-a") 'beginning-of-line-text)
+  (define-key evil-normal-state-map (kbd "<f12>") 'org-agenda)
+  (define-key evil-normal-state-map (kbd "<C-tab>") 'evil-window-next)
 
-  ;; Bibtex file
-  (setq-default org-ref-default-bibliography '("~/Dropbox/references.bib"))
-
-  ;; Ranger settings
-  (setq ranger-cleanup-on-disable t)
-  (setq ranger-ignored-extensions '("mkv" "iso" "mp4" "DS_Store" "pdf"))
-  (setq ranger-max-preview-size 1)
-  (setq ranger-dont-show-binary t)
-
-  ;; ORG TODO setups
-  (setq org-agenda-files (list "~/Documents/ORG/todo.org" "~/Documents/ORG/phd.org"))
-
-  (setq org-agenda-custom-commands
-        '(("w" todo "WAITING" nil)
-          ("n" todo "NEXT" nil)
-          ("d" "Agenda + Next Actions" ((agenda) (todo "NEXT"))))
-)
 )
 
 
@@ -446,7 +469,7 @@ you should place your code here."
     ("#032f62" "#6a737d" "#d73a49" "#6a737d" "#005cc5" "#6f42c1" "#d73a49" "#6a737d")))
  '(org-agenda-files
    (quote
-    ("~/Documents/ML/PROJECT/writeup/COMPGI99-Biggs-Felix.org" "~/Documents/ML/PROJECT/writeup.org" "~/Documents/ORG/todo.org")))
+    ("~/Documents/ML/PROJECT/writeup/COMPGI99-Biggs-Felix.org" "~/Documents/ORG/todo.org")))
  '(org-babel-load-languages
    (quote
     ((shell . t)
