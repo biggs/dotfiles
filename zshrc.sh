@@ -146,6 +146,7 @@ alias e="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient --no-wait --alte
 alias ec="e --create-frame"
 
 alias vi='nvim'
+alias vim='nvim'
 alias view='nvim -R'
 alias vdiff='nvim -d'
 
@@ -201,7 +202,9 @@ alias led='ledger -f ~/Documents/ORG/Finances/money.ledger'
 
 alias awaketime='pmset -g log | grep -e " Sleep  " -e " Wake  " | tail -n 20'
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# Allow iTerm integration for zsh. BUT - check in iTerm first!
+[[ $TERM_PROGRAM == "iTerm.app" ]] && test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 
 # Aliases for project
@@ -214,3 +217,4 @@ unalias run-help 2>/dev/null
 autoload run-help
 HELPDIR=/path/to/zsh_help_directory
 alias help=run-help
+alias schdl="python3 $PATH_TO_HERE/scholar_dl.py"

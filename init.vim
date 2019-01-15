@@ -129,8 +129,25 @@ set nocompatible        " Must be first line
 " }
 
 "  MAPPINGS {
-    " Double tap quote for register list
-    nnoremap "" :registers<CR>
+    " Leader Bindings {
+        " Registers
+        nnoremap <leader>r :registers<CR>
+
+        " toggle highlighting
+        nmap <silent> <leader>/ :nohlsearch<CR>
+
+        " <leader>b lists buffers and opens up switching
+        nnoremap <leader>b :ls<CR>:b<space>
+
+        " Open Ag
+        nnoremap <leader>a :Ack<space>
+
+        " Key for easy vimrc access
+        nnoremap <leader>f :vsplit ~/.dotfiles/init.vim<CR>
+
+        " Switch to alternate buffer
+        nnoremap <leader><tab> <C-^>
+    " }
 
     " Open help in new tab
     :cabbrev help tab help
@@ -138,16 +155,6 @@ set nocompatible        " Must be first line
     " shift tabs using H and L
     map <S-H> gT
     map <S-L> gt
-
-    " toggle highlighting
-    nmap <silent> <leader>/ :nohlsearch<CR>
-
-    " <leader>l lists buffers and opens up switching (changed to b to match
-    " spacemacs)
-    nnoremap <leader>b :ls<CR>:b<space>
-
-    " Open Ag
-    nnoremap <leader>a :Ack<space>
 
     " Set C-s to save. Needs stty -ixon option on
     nmap <c-s> :wa<CR>
