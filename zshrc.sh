@@ -217,4 +217,9 @@ unalias run-help 2>/dev/null
 autoload run-help
 HELPDIR=/path/to/zsh_help_directory
 alias help=run-help
-alias schdl="python3 $PATH_TO_HERE/scholar_dl.py"
+
+# Alias for scholar dl for google scholar articles
+alias schdl="python3 /Users/felix/Projects/scholar_dl/scholar_dl.py"
+
+# Serve this web page
+alias httpshare='echo "WiFi IP Address: " $(ipconfig getifaddr en0) && python3 -m http.server 8000'
