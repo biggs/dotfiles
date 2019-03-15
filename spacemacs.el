@@ -144,7 +144,7 @@ values."
    ;; `recents' `bookmarks' `projects' `agenda' `todos'."
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
-   dotspacemacs-startup-lists nil
+   dotspacemacs-startup-lists '(agenda todos)
    ;; True if the home buffer should respond to resize events.
    dotspacemacs-startup-buffer-responsive t
    ;; Default major mode of the scratch buffer (default `text-mode')
@@ -436,16 +436,16 @@ you should place your code here."
 
   (setq
     ;; ORG TO DO setups
-   org-agenda-files (list "~/Documents/ORG/todo.org" "~/Documents/Applications/phd.org" "~/Documents/heap.org" "~/Documents/Applications/internships.org")
+   org-agenda-files (list "~/Documents/ORG/todo/")
 
     org-agenda-custom-commands
     '(("w" todo "WAITING" nil)
       ("n" todo "NEXT" nil)
-      ("d" "Agenda + Next Actions" ((agenda) (todo "NEXT"))))
+      ("d" "Agenda + Next Actions" ((todo "NEXT") (agenda))))
 
     org-todo-keywords
     (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-            (sequence "HOLD(h)" "WAITING(w@/!)" "MAYBE(m)" "|")))
+            (sequence "HOLD(h)" "WAITING(w@/!)" "MAYBE(m)" "|" "CANCELLED(c)")))
 
     org-todo-keyword-faces
     (quote (("TODO" :foreground "red" :weight bold)
@@ -453,6 +453,7 @@ you should place your code here."
             ("MAYBE" :foreground "blue" :weight bold)
             ("DONE" :foreground "green" :weight bold)
             ("HOLD" :foreground "gold" :weight bold)
+            ("CANCELLED" :foreground "purple" :weight bold)
             ("WAITING" :foreground "orange" :weight bold)))
 
 
