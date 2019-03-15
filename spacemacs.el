@@ -31,6 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     haskell
      lua
      csv
      finance
@@ -61,6 +62,7 @@ values."
      (ipython-notebook :variables
                        ein:jupyter-default-server-command "/usr/local/miniconda3/bin/jupyter"
                        ein:jupyter-server-args (list "--no-browser"))
+     julia
      ;; syntax-checking
      ;; version-control
      )
@@ -68,7 +70,12 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(github-modern-theme monokai-theme yasnippet-snippets)
+   dotspacemacs-additional-packages '(
+                                      github-modern-theme
+                                      monokai-theme
+                                      yasnippet-snippets
+                                      dash-at-point
+                                                          )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -337,6 +344,7 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
+
   (setq
     ;; Theme
     monokai-highlight-line "#3A3A3A"
@@ -358,8 +366,12 @@ you should place your code here."
     ;; Tex master files are called "main".
     TeX-master "main"
 
-    ;; Bibtex file location
-    org-ref-default-bibliography '("~/Dropbox/references.bib")
+
+    ;; C style
+    c-basic-offset 8
+    tab-width 8
+    indent-tabs-mode t
+    c-default-style "linux"
 
     ;; Switch windows with S-<direction>
     windmove-default-keybindings t
@@ -367,39 +379,17 @@ you should place your code here."
     ;; Faster projectile
     projectile-enable-caching t
 
-
     ;; HACK: manually set yas-snippet-dir (update coming soon on develop)
     yas-snippet-dirs '("/Users/felix/.emacs.d/elpa/yasnippet-snippets-20180222.440/snippets/")
 
-    ;; When using 'K' to lookup (non-lisp) things, use helm-man-woman for man pages.
-    evil-lookup-func (lambda () (helm-man-woman nil))
+    ;; When using 'K' to lookup (non-lisp) things, use dash
+    evil-lookup-func #'dash-at-point
 
     ;; Ranger settings
     ranger-cleanup-on-disable t
     ranger-ignored-extensions '("mkv" "iso" "mp4" "DS_Store" "pdf")
     ranger-max-preview-size 1
     ranger-dont-show-binary t
-
-
-    ;; ORG TO DO setups
-    org-agenda-files (list "~/Documents/ORG/todo.org" "~/Documents/Applications/phd.org")
-
-    org-agenda-custom-commands
-          '(("w" todo "WAITING" nil)
-            ("n" todo "NEXT" nil)
-            ("d" "Agenda + Next Actions" ((agenda) (todo "NEXT"))))
-
-    org-todo-keywords
-          (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-                  (sequence "HOLD(h)" "WAITING(w@/!)" "MAYBE(m)" "|")))
-
-    org-todo-keyword-faces
-          (quote (("TODO" :foreground "red" :weight bold)
-                  ("NEXT" :foreground "magenta" :weight bold)
-                  ("MAYBE" :foreground "blue" :weight bold)
-                  ("DONE" :foreground "green" :weight bold)
-                  ("HOLD" :foreground "gold" :weight bold)
-                  ("WAITING" :foreground "orange" :weight bold)))
 
   )
 
@@ -416,8 +406,88 @@ you should place your code here."
   (define-key evil-normal-state-map (kbd "C-]") 'helm-projectile-ag)
   (define-key evil-normal-state-map (kbd "C-e") 'end-of-line)
   (define-key evil-normal-state-map (kbd "C-a") 'beginning-of-line-text)
-  (define-key evil-normal-state-map (kbd "<f12>") 'org-agenda)
   (define-key evil-normal-state-map (kbd "<C-tab>") 'evil-window-next)
+  (define-key evil-normal-state-map (kbd "<f9>") 'org-agenda)
+
+
+  ;; Use dash in Haskell mode
+  (evil-define-key 'normal haskell-mode-map (kbd "K") 'dash-at-point)
+
+  ;; Disable evil in info windows
+  (evil-set-initial-state 'info-mode 'emacs)
+
+  (add-hook 'latex-mode-hook (lambda ()
+                             (local-set-key (kbd "<f5>") 'compile)))
+
+
+  ;;;; ---------------------------- ORG MODE -----------------------------------
+
+  ;; Use K to lookup in OSX in org mode
+  (defun lookup-osx-dict-app () "Search for word at point in Mac dictionary"
+         (interactive)
+         (call-process      ; call and disown "open" with formatted arg
+          "open" nil 0 nil
+          (format "dict:://%s" (thing-at-point 'word))))
+  (add-hook 'org-mode-hook (lambda () (setq evil-lookup-func #'lookup-osx-dict-app)))
+
+  ;; Org mode allow Pandoc PDF export with <f5>
+  (add-hook 'org-mode-hook (lambda ()
+                             (local-set-key (kbd "<f5>") 'org-pandoc-export-to-latex-pdf)))
+
+  (setq
+    ;; ORG TO DO setups
+   org-agenda-files (list "~/Documents/ORG/todo.org" "~/Documents/Applications/phd.org" "~/Documents/heap.org" "~/Documents/Applications/internships.org")
+
+    org-agenda-custom-commands
+    '(("w" todo "WAITING" nil)
+      ("n" todo "NEXT" nil)
+      ("d" "Agenda + Next Actions" ((agenda) (todo "NEXT"))))
+
+    org-todo-keywords
+    (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+            (sequence "HOLD(h)" "WAITING(w@/!)" "MAYBE(m)" "|")))
+
+    org-todo-keyword-faces
+    (quote (("TODO" :foreground "red" :weight bold)
+            ("NEXT" :foreground "magenta" :weight bold)
+            ("MAYBE" :foreground "blue" :weight bold)
+            ("DONE" :foreground "green" :weight bold)
+            ("HOLD" :foreground "gold" :weight bold)
+            ("WAITING" :foreground "orange" :weight bold)))
+
+
+
+    ;; ORG-REF and HELM_BIBTEX: complimentary plugins
+
+    ;; Notes for BibTex
+    org-ref-bibliography-notes "~/Documents/ORG/papers.org"
+
+    ;; Set the default bibliography for both plugins
+    org-ref-default-bibliography '("~/Dropbox/references.bib")
+    bibtex-completion-bibliography "~/Dropbox/references.bib"
+
+    ;; helm-bibtex finds pdf using bibtex field "file" set by zotero better-bibtex.
+    ;; we set that to open with mac "open" and org-ref to get pdfs using this.
+    bibtex-completion-pdf-field "file"
+    bibtex-completion-pdf-open-function
+    (lambda (fpath) (start-process "open" "*open*" "open" fpath))
+    org-ref-get-pdf-filename-function 'org-ref-get-pdf-filename-helm-bibtex
+
+    ;; Custom created note format
+    org-ref-note-title-format
+    "* TODO %y %t
+        :PROPERTIES:
+        :Custom_ID: %k
+        :AUTHOR: %9a
+        :YEAR: %y
+        :Interest:
+        :Difficulty:
+        :Tags:
+        :END:
+        :CITE: %l"
+
+  )
+
 
 )
 
@@ -450,7 +520,7 @@ you should place your code here."
    (quote
     ("15348febfa2266c4def59a08ef2846f6032c0797f001d7b9148f30ace0d08bcf" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" "2cfc1cab46c0f5bae8017d3603ea1197be4f4fff8b9750d026d19f0b9e606fae" default)))
  '(evil-want-Y-yank-to-eol t)
- '(fci-rule-color "#3C3D37")
+ '(fci-rule-color "#3C3D37" t)
  '(highlight-changes-colors (quote ("#FD5FF0" "#AE81FF")))
  '(highlight-tail-colors
    (quote
@@ -467,9 +537,6 @@ you should place your code here."
  '(nrepl-message-colors
    (quote
     ("#032f62" "#6a737d" "#d73a49" "#6a737d" "#005cc5" "#6f42c1" "#d73a49" "#6a737d")))
- '(org-agenda-files
-   (quote
-    ("~/Documents/ML/PROJECT/writeup/COMPGI99-Biggs-Felix.org" "~/Documents/ORG/todo.org")))
  '(org-babel-load-languages
    (quote
     ((shell . t)
@@ -478,7 +545,7 @@ you should place your code here."
      (ledger . t))))
  '(package-selected-packages
    (quote
-    (lua-mode org-ref pdf-tools key-chord ivy tablist helm-bibtex parsebib biblio biblio-core flatui-theme smart-mode-line-powerline-theme powerline spinner ht org-category-capture alert log4e gntp org-mime markdown-mode hydra dash-functional parent-mode projectile pkg-info epl haml-mode gitignore-mode flyspell-correct flx magit magit-popup git-commit ghub let-alist with-editor smartparens iedit anzu evil goto-chg undo-tree highlight skewer-mode request-deferred websocket request deferred js2-mode simple-httpd web-completion-data company bind-map bind-key yasnippet packed auctex anaconda-mode pythonic f dash s helm avy helm-core async auto-complete popup org-plus-contrib auctex-latexmk github-modern-theme-theme csv-mode yasnippet-snippets yapfify yaml-mode xterm-color ws-butler winum which-key web-mode volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package toc-org tagedit spaceline smeargle slim-mode shell-pop scss-mode sass-mode reveal-in-osx-finder restart-emacs ranger rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode popwin pip-requirements persp-mode pcre2el pbcopy paradox pandoc-mode ox-pandoc osx-trash osx-dictionary orgit org-projectile org-present org-pomodoro org-download org-bullets open-junk-file neotree multi-term move-text monokai-theme mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum live-py-mode linum-relative link-hint less-css-mode ledger-mode launchctl info+ indent-guide hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot github-modern-theme gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy flyspell-correct-helm flx-ido fill-column-indicator fasd fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav ein dumb-jump diminish dactyl-mode cython-mode company-web company-statistics company-auctex company-anaconda column-enforce-mode clean-aindent-mode auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
+    (julia-repl julia-mode flycheck-julia osx-dictionary transient lv intero flycheck hlint-refactor hindent helm-hoogle haskell-snippets company-ghci company-ghc ghc haskell-mode company-cabal cmm-mode dash-at-point helm-dash lua-mode org-ref pdf-tools key-chord ivy tablist helm-bibtex parsebib biblio biblio-core flatui-theme smart-mode-line-powerline-theme powerline spinner ht org-category-capture alert log4e gntp org-mime markdown-mode hydra dash-functional parent-mode projectile pkg-info epl haml-mode gitignore-mode flyspell-correct flx magit magit-popup git-commit ghub let-alist with-editor smartparens iedit anzu evil goto-chg undo-tree highlight skewer-mode request-deferred websocket request deferred js2-mode simple-httpd web-completion-data company bind-map bind-key yasnippet packed auctex anaconda-mode pythonic f dash s helm avy helm-core async auto-complete popup org-plus-contrib auctex-latexmk github-modern-theme-theme csv-mode yasnippet-snippets yapfify yaml-mode xterm-color ws-butler winum which-key web-mode volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package toc-org tagedit spaceline smeargle slim-mode shell-pop scss-mode sass-mode reveal-in-osx-finder restart-emacs ranger rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode popwin pip-requirements persp-mode pcre2el pbcopy paradox pandoc-mode ox-pandoc osx-trash orgit org-projectile org-present org-pomodoro org-download org-bullets open-junk-file neotree multi-term move-text monokai-theme mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum live-py-mode linum-relative link-hint less-css-mode ledger-mode launchctl info+ indent-guide hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot github-modern-theme gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy flyspell-correct-helm flx-ido fill-column-indicator fasd fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav ein dumb-jump diminish dactyl-mode cython-mode company-web company-statistics company-auctex company-anaconda column-enforce-mode clean-aindent-mode auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
  '(paradox-github-token t)
  '(pdf-view-midnight-colors (quote ("#6a737d" . "#fffbdd")))
  '(pos-tip-background-color "#FFFACE")
