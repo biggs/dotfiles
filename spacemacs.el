@@ -31,6 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     shell-scripts
      haskell
      lua
      csv
@@ -366,7 +367,6 @@ you should place your code here."
     ;; Tex master files are called "main".
     TeX-master "main"
 
-
     ;; C style
     c-basic-offset 8
     tab-width 8
@@ -396,6 +396,7 @@ you should place your code here."
   ;; Disable smartparens
   (spacemacs/toggle-smartparens-globally-off)
   (remove-hook 'prog-mode-hook #'smartparens-mode)
+  (remove-hook 'latex-mode-hook #'smartparens-mode)
 
 
   ;; Extra keybindings
@@ -407,18 +408,24 @@ you should place your code here."
   (define-key evil-normal-state-map (kbd "C-e") 'end-of-line)
   (define-key evil-normal-state-map (kbd "C-a") 'beginning-of-line-text)
   (define-key evil-normal-state-map (kbd "<C-tab>") 'evil-window-next)
+  (define-key evil-normal-state-map (kbd "K") 'evil-lookup)
+  (define-key evil-normal-state-map (kbd "<f5>") 'compile)
+  (define-key evil-normal-state-map (kbd "<f8>") 'org-capture)
   (define-key evil-normal-state-map (kbd "<f9>") 'org-agenda)
-
-
-  ;; Use dash in Haskell mode
-  (evil-define-key 'normal haskell-mode-map (kbd "K") 'dash-at-point)
 
   ;; Disable evil in info windows
   (evil-set-initial-state 'info-mode 'emacs)
 
-  (add-hook 'latex-mode-hook (lambda ()
-                             (local-set-key (kbd "<f5>") 'compile)))
-
+  ;; Make the compilation window automatically disappear - from enberg on #emacs
+  (defun my-comp-finish (buf str)
+    (if (null (string-match ".*exited abnormally.*" str))
+        ;;no errors, make the compilation window go away after a second
+        (progn
+          (run-at-time
+            "1 sec" nil 'delete-windows-on
+            (get-buffer-create "*compilation*"))
+          (message "No Compilation Errors!"))))
+  (add-hook 'compilation-finish-functions 'my-comp-finish)
 
   ;;;; ---------------------------- ORG MODE -----------------------------------
 
@@ -428,20 +435,30 @@ you should place your code here."
          (call-process      ; call and disown "open" with formatted arg
           "open" nil 0 nil
           (format "dict:://%s" (thing-at-point 'word))))
-  (add-hook 'org-mode-hook (lambda () (setq evil-lookup-func #'lookup-osx-dict-app)))
+  (add-hook 'org-mode-hook (lambda () (setq-local evil-lookup-func #'lookup-osx-dict-app)))
 
-  ;; Org mode allow Pandoc PDF export with <f5>
+  ;; Org mode allow Pandeoec PDF export with <f5>
   (add-hook 'org-mode-hook (lambda ()
                              (local-set-key (kbd "<f5>") 'org-pandoc-export-to-latex-pdf)))
 
   (setq
     ;; ORG TO DO setups
-   org-agenda-files (list "~/Documents/ORG/todo/")
+   org-agenda-files (list "~/Dropbox/ORG/todo/")
 
     org-agenda-custom-commands
     '(("w" todo "WAITING" nil)
       ("n" todo "NEXT" nil)
-      ("d" "Agenda + Next Actions" ((todo "NEXT") (agenda))))
+      ;; options: org-agenda.el:org-agenda-custom-commands-local-options
+      (" " "Main Agenda View"
+       ((todo "NEXT"
+              ((org-agenda-overriding-header "NEXT Actions")))
+        (tags "REFILE"
+              ((org-agenda-overriding-header "Items to Refile")
+               (org-tags-match-list-sublevels nil)))
+        (agenda "" ((org-agenda-span 8)
+                    (org-agenda-start-day nil)))  ;; today
+        (todo "WAITING"
+              ((org-agenda-overriding-header "Waiting Actions"))))))
 
     org-todo-keywords
     (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
@@ -449,13 +466,16 @@ you should place your code here."
 
     org-todo-keyword-faces
     (quote (("TODO" :foreground "red" :weight bold)
-            ("NEXT" :foreground "magenta" :weight bold)
-            ("MAYBE" :foreground "blue" :weight bold)
+            ("NEXT" :foreground "orange" :weight bold)
             ("DONE" :foreground "green" :weight bold)
+            ("MAYBE" :foreground "blue" :weight bold)
             ("HOLD" :foreground "gold" :weight bold)
             ("CANCELLED" :foreground "purple" :weight bold)
-            ("WAITING" :foreground "orange" :weight bold)))
+            ("WAITING" :foreground "magenta" :weight bold)))
 
+    org-capture-templates
+    (quote (("t" "todo" entry (file "~/Dropbox/ORG/todo/refile.org")
+             "* TODO %?\n%U\n%a\n")))
 
 
     ;; ORG-REF and HELM_BIBTEX: complimentary plugins
@@ -546,7 +566,7 @@ you should place your code here."
      (ledger . t))))
  '(package-selected-packages
    (quote
-    (julia-repl julia-mode flycheck-julia osx-dictionary transient lv intero flycheck hlint-refactor hindent helm-hoogle haskell-snippets company-ghci company-ghc ghc haskell-mode company-cabal cmm-mode dash-at-point helm-dash lua-mode org-ref pdf-tools key-chord ivy tablist helm-bibtex parsebib biblio biblio-core flatui-theme smart-mode-line-powerline-theme powerline spinner ht org-category-capture alert log4e gntp org-mime markdown-mode hydra dash-functional parent-mode projectile pkg-info epl haml-mode gitignore-mode flyspell-correct flx magit magit-popup git-commit ghub let-alist with-editor smartparens iedit anzu evil goto-chg undo-tree highlight skewer-mode request-deferred websocket request deferred js2-mode simple-httpd web-completion-data company bind-map bind-key yasnippet packed auctex anaconda-mode pythonic f dash s helm avy helm-core async auto-complete popup org-plus-contrib auctex-latexmk github-modern-theme-theme csv-mode yasnippet-snippets yapfify yaml-mode xterm-color ws-butler winum which-key web-mode volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package toc-org tagedit spaceline smeargle slim-mode shell-pop scss-mode sass-mode reveal-in-osx-finder restart-emacs ranger rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode popwin pip-requirements persp-mode pcre2el pbcopy paradox pandoc-mode ox-pandoc osx-trash orgit org-projectile org-present org-pomodoro org-download org-bullets open-junk-file neotree multi-term move-text monokai-theme mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum live-py-mode linum-relative link-hint less-css-mode ledger-mode launchctl info+ indent-guide hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot github-modern-theme gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy flyspell-correct-helm flx-ido fill-column-indicator fasd fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav ein dumb-jump diminish dactyl-mode cython-mode company-web company-statistics company-auctex company-anaconda column-enforce-mode clean-aindent-mode auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
+    (insert-shebang fish-mode company-shell julia-repl julia-mode flycheck-julia osx-dictionary transient lv intero flycheck hlint-refactor hindent helm-hoogle haskell-snippets company-ghci company-ghc ghc haskell-mode company-cabal cmm-mode dash-at-point helm-dash lua-mode org-ref pdf-tools key-chord ivy tablist helm-bibtex parsebib biblio biblio-core flatui-theme smart-mode-line-powerline-theme powerline spinner ht org-category-capture alert log4e gntp org-mime markdown-mode hydra dash-functional parent-mode projectile pkg-info epl haml-mode gitignore-mode flyspell-correct flx magit magit-popup git-commit ghub let-alist with-editor smartparens iedit anzu evil goto-chg undo-tree highlight skewer-mode request-deferred websocket request deferred js2-mode simple-httpd web-completion-data company bind-map bind-key yasnippet packed auctex anaconda-mode pythonic f dash s helm avy helm-core async auto-complete popup org-plus-contrib auctex-latexmk github-modern-theme-theme csv-mode yasnippet-snippets yapfify yaml-mode xterm-color ws-butler winum which-key web-mode volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package toc-org tagedit spaceline smeargle slim-mode shell-pop scss-mode sass-mode reveal-in-osx-finder restart-emacs ranger rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode popwin pip-requirements persp-mode pcre2el pbcopy paradox pandoc-mode ox-pandoc osx-trash orgit org-projectile org-present org-pomodoro org-download org-bullets open-junk-file neotree multi-term move-text monokai-theme mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum live-py-mode linum-relative link-hint less-css-mode ledger-mode launchctl info+ indent-guide hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot github-modern-theme gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy flyspell-correct-helm flx-ido fill-column-indicator fasd fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav ein dumb-jump diminish dactyl-mode cython-mode company-web company-statistics company-auctex company-anaconda column-enforce-mode clean-aindent-mode auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
  '(paradox-github-token t)
  '(pdf-view-midnight-colors (quote ("#6a737d" . "#fffbdd")))
  '(pos-tip-background-color "#FFFACE")
