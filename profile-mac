@@ -4,3 +4,4 @@ export PATH="$PATH:/usr/local/miniconda3/bin"
 export PATH="$PATH:/Library/TeX/texbin"
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH" # Prepend gnu uitilities to replace
 export PATH="/usr/local/opt/binutils/bin:$PATH"
+if [ -e /Users/felix/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/felix/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

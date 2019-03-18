@@ -21,6 +21,9 @@ alias gdb='gdb -q'
 ## Create alias gitlog, giving much more detailed output for git
 alias gitlog='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
 
+# Useful alias for inspecting commands:
+alias ca='command --all'
+
 
 # Mac or Linux specific
 switch (uname)
@@ -28,7 +31,8 @@ switch (uname)
         echo "Hi Felix"
 
     case Darwin
-        source $HOME/.profile
+        # Use bass plugin so treated like a bash script.
+        bass source $HOME/.profile
 
         # Iterm integration
         source ~/.iterm2_shell_integration.(basename $SHELL)
@@ -75,4 +79,20 @@ function linux -d "Start and login to Ubuntu server"
         echo "Logging in..."
         ssh -p 2222 felix@localhost
     end
+end
+
+
+
+# Nix stuff
+
+function nix-up -d "Update nix from ~/.dotfiles/default.nix"
+    nix-env -f ~/.dotfiles/default.nix -i --remove-all
+end
+
+function ghc-shell -d "Nix shell with haskell and packages."
+    set PCKS ""
+    for s in $argv
+        set PCKS "''$s'' $PCKS"
+    end
+    nix-shell -p "haskellPackages.ghcWithPackages (ps: with ps; [ $PCKS ])"
 end

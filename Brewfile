@@ -1,4 +1,4 @@
-# specify a directory to install
+#specify a directory to install
 cask_args appdir: '/Applications'
 # install cask for bigger apps
 tap 'caskroom/homebrew-cask' || true
@@ -52,17 +52,7 @@ brew 'stow'  # making links for dotfiles
 brew 'pandoc' # amazingly easy pdfs
 
 brew 'wifi-password'
-brew 'speedtest-cli' # simple speed test
 
-brew 'ctags'
-
-brew 'leger'
-
-
-
-### FONTS
-tap 'caskroom/fonts'
-cask 'font-source-code-pro'
 
 
 
@@ -76,7 +66,7 @@ cask 'dropbox'
 cask 'firefox'
 cask 'spotify'
 cask 'iterm2'
-cask 'transmission'
+# cask 'transmission'
 tap 'railwaycat/emacsmacport'
 cask 'emacs-mac'
 cask 'miniconda'
