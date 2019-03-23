@@ -14,7 +14,7 @@ Run these commands:
 
 `sudo softwareupdate --install --all`
 
-`GITHUB_DOTFILES="https://github.com/felixbig/dotfiles"`
+`GITHUB_DOTFILES="https://github.com/biggs/dotfiles"`
 
 `git clone $Q "$DOTFILES_URL" ~/.dotfiles`
 
@@ -33,8 +33,4 @@ and start spacemacs
 After this script runs `script/setup` you should open emacs to download the packages and run
 `:BundleInstall` in nvim.
 
-
-
-TODO:
-- migrate oh-my-zsh to something lighter
-- add a global .gitignore
+TODO: Update - use nix for install...
