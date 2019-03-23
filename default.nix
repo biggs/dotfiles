@@ -22,10 +22,14 @@ let
     ripgrep
     calc
     cloc
+
   ];
+
+  python = (pkgs.python3.withPackages (ps: [ps.numpy]));
 
   # Packages with special customisations.
   custompacks = [
+    python
   ];
 
   mypacks = nixpacks ++ custompacks;
