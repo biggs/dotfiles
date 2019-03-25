@@ -14,15 +14,30 @@ let
     gawk
     gnumake
     less
+    watch
+    git
 
-    # Useful terminal utils.
+    # Extra terminal utils.
     wget
     curlFull
     imgcat
     ripgrep
     calc
     cloc
+    exa
+    htop
+    tldr
+    fasd
 
+    # Terminal programs
+    fish
+    neovim
+    ncdu
+    ranger
+
+    # OTHER
+    aspell   # For emacs
+    pandoc  # NOTE: this takes a long time to install because Haskell.
   ];
 
   python = (pkgs.python3.withPackages (ps: [ps.numpy]));
