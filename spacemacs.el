@@ -49,7 +49,7 @@ This function should only modify configuration layer settings."
      (shell :variables
             shell-default-height 30
             shell-default-shell 'eshell
-            shell-default-term-shell "/usr/local/bin/zsh"
+            shell-default-term-shell "/bin/bash"
             shell-default-position 'bottom)
 
      ;; Languages
@@ -59,15 +59,16 @@ This function should only modify configuration layer settings."
      julia
      emacs-lisp
      (python :variables python-backend 'lsp)
+     lua
 
      ;; Formatting stuff
      pandoc
      latex
      bibtex
 
-     ;; shell-scripts
-     ;; haskell
-     ;; fasd
+     shell-scripts
+     haskell
+     fasd
      )
 
    ;; List of additional packages that will be installed without being
