@@ -43,11 +43,14 @@ let
     pandoc  # NOTE: this takes a long time to install because Haskell.
   ];
 
-  python = (pkgs.python3.withPackages (ps: [ps.numpy]));
 
   # Packages with special customisations.
+  python = (pkgs.python3.withPackages (ps: [ps.numpy]));
+  aspell = (pkgs.aspellWithDicts (ps: [ps.en]));  # for emacs, with English.
+
   custompacks = [
     python
+    aspell
   ];
 
   mypacks = nixpacks ++ custompacks;
