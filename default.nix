@@ -35,6 +35,9 @@ let
     ncdu
     ranger
 
+    # Terminal fun
+    powerline-go
+
     # OTHER
     aspell   # For emacs
     pandoc  # NOTE: this takes a long time to install because Haskell.

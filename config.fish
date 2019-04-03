@@ -5,6 +5,10 @@ if not functions -q fisher
     fish -c fisher
 end
 
+function fish_prompt
+    powerline-go -error $status -shell bare -numeric-exit-codes -modules "venv,ssh,cwd,git,jobs,exit" -cwd-mode plain
+end
+
 
 set -U EDITOR 'nvim'
 

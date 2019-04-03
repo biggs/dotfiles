@@ -22,3 +22,9 @@ cask 'iterm2'
 cask 'transmission'
 cask 'miniconda'
 cask 'karabiner-elements'
+
+
+# Fonts
+# Note: may need to change font preferences in iterm2.
+tap 'homebrew/cask-fonts'
+cask 'font-menlo-for-powerline'
