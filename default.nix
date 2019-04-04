@@ -2,10 +2,10 @@ let
   # Non-pinned nix packages.
   pkgs = import <nixpkgs> {};
 
-  # My packages.
+  # My packages from nixpkgs.
   nixpacks = with pkgs; [
-    nix   # make sure nix is in my path!
-    cacert   # certificates for ssh downloads, needed for nix.
+    nix        # make sure nix is in my path!
+    cacert     # certificates for ssh downloads, needed for nix.
 
     # Basic GNU utils.
     coreutils
@@ -39,8 +39,7 @@ let
     powerline-go
 
     # OTHER
-    aspell   # For emacs
-    pandoc  # NOTE: this takes a long time to install because Haskell.
+    pandoc  # NOTE: this takes a long time to install, because Haskell.
   ];
 
 

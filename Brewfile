@@ -11,6 +11,8 @@ brew 'wifi-password'  # useful utility
 
 
 ### FULL APPS
+
+# Emacs
 tap 'railwaycat/emacsmacport'
 cask 'emacs-mac'
 
