@@ -2,35 +2,46 @@
 
 
 ## Setup
-This is a more manual version of the script at (https://macos-strap.herokuapp.com/).
-Run these commands:
-`xcode-select --install`
 
-`sudo xcodebuild -license`
+This is a reasonably manual version.
 
-`ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
+### Basic
 
-`brew update`
+``` bash
+xcode-select --install
+sudo xcodebuild -license
+git clone github.com/biggs/dotfiles ~/.dotfiles
+```
 
-`sudo softwareupdate --install --all`
-
-`GITHUB_DOTFILES="https://github.com/biggs/dotfiles"`
-
-`git clone $Q "$DOTFILES_URL" ~/.dotfiles`
-
-`bash ~/.dotfiles/script/setup`
-
-`cd && brew bundle --global`
-
-
-
-Then start iterm with the newly installed zsh and run:
-`nvim` and `:BundleInstall`
-and start spacemacs
+Link files into place. (TODO: write a setup script for this, possibly with nix.)
+- ~/.spacemacs -> spacemacs.el
+- ~/.profile -> profile-mac
+- ~/.Brewfile -> Brewfile
+- ~/.aspell.en.pws -> aspell_personal.txt
+- ~/.config/fish/config.fish -> config.fish
+- ~/.config/karabiner/karabiner.json -> karabiner.json
+- ~/.config/nvim/init.vim -> init.vim
 
 
 
-After this script runs `script/setup` you should open emacs to download the packages and run
-`:BundleInstall` in nvim.
+### Nix
 
-TODO: Update - use nix for install...
+``` bash
+sh <(curl https://nixos.org/nix/install)   # restart after to get into path.
+nix-env --file ~/.dotfiles/default.nix --install --remove-all
+```
+NOTE: check that sourcing nix hasn't been added twice to `.profile`.
+
+
+### Homebrew
+
+``` bash
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+brew update
+sudo softwareupdate --install --all
+cd && brew bundle --global
+```
+
+Run some of commands from script to install vim plugins and spacemacs. (TODO: start doing this in nix?)
+- `:BundleInstall` and start spacemacs
+
