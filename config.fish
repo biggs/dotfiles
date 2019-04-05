@@ -1,12 +1,19 @@
-# Install fisher if not installed
+# Install fisher if not installed, and create fishfile.
 if not functions -q fisher
     set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
-    curl https://git.io/fisher --create-dirs -sLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
+    curl https://git.io/fisher --create-dirs \
+    -sLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
     fish -c fisher
 end
+if not test -e ~/.config/fish/fishfile
+    echo "fishgretel/fasd edc/bass" | tr ' ' \n > ~/.config/fish/fishfile
+end
+
 
 function fish_prompt
-    powerline-go -error $status -shell bare -numeric-exit-codes -modules "venv,ssh,cwd,git,jobs,exit" -cwd-mode plain
+    powerline-go \
+    -error $status -shell bare -cwd-mode plain -numeric-exit-codes \
+    -modules "venv,ssh,cwd,git,jobs,exit"
 end
 
 
@@ -37,9 +44,6 @@ switch (uname)
     case Darwin
         # Use bass plugin so treated like a bash script.
         bass source $HOME/.profile
-
-        # Iterm integration
-        source ~/.iterm2_shell_integration.(basename $SHELL)
 
         # ls with exa
         alias ls='exa';
