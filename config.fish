@@ -28,6 +28,7 @@ alias view='nvim -R'
 
 # Don't show copyright
 alias gdb='gdb -q'
+alias julia='julia --banner=no'
 
 ## Create alias gitlog, giving much more detailed output for git
 alias gitlog='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
