@@ -5,10 +5,6 @@ cask_args appdir: '/Applications'
 tap 'caskroom/homebrew-cask' || true
 
 
-## Terminal Utils
-brew 'wifi-password'  # useful utility
-
-
 
 ### FULL APPS
 

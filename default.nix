@@ -6,6 +6,7 @@ let
   nixpacks = with pkgs; [
     nix        # make sure nix is in my path!
     cacert     # certificates for ssh downloads, needed for nix.
+    # nox      # search nix packages.
 
     # Basic GNU utils.
     coreutils
@@ -46,10 +47,12 @@ let
   # Packages with special customisations.
   python = (pkgs.python3.withPackages (ps: [ps.numpy]));
   aspell = (pkgs.aspellWithDicts (ps: [ps.en]));  # for emacs, with English.
+  wifi-password = (pkgs.callPackage /Users/felix/.dotfiles/nix/wifi-password.nix {});
 
   custompacks = [
     python
     aspell
+    wifi-password
   ];
 
   mypacks = nixpacks ++ custompacks;
