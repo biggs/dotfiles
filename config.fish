@@ -98,10 +98,11 @@ function nix-up -d "Update nix from ~/.dotfiles/default.nix"
     nix-env -f ~/.dotfiles/default.nix -i --remove-all
 end
 
-function ghc-shell -d "Nix shell with haskell and packages."
+function ghci-nix -d "Nix shell with haskell and packages."
     set PCKS ""
     for s in $argv
-        set PCKS "''$s'' $PCKS"
+        set PCKS "$s $PCKS"
     end
-    nix-shell -p "haskellPackages.ghcWithPackages (ps: with ps; [ $PCKS ])"
+    nix-shell -p "haskellPackages.ghcWithPackages (ps: with ps; [ $PCKS ])" \
+    --command ghci
 end
