@@ -52,11 +52,16 @@
     ranger-ignored-extensions '("mkv" "iso" "mp4" "DS_Store" "pdf")
     ranger-max-preview-size 1
     ranger-dont-show-binary t
+
+    org-pandoc-options-for-latex-pdf '((pdf-engine . "xelatex"))
+
+    default-input-method 'TeX
   )
 
   ;; Disable evil in info windows
   (evil-set-initial-state 'info-mode 'emacs)
 )
+
 
 
 (defun personal/disable-smartparens ()
@@ -120,7 +125,6 @@
 
     ;; Org mode allow Pandeoec PDF export with <f5>. Also use xelatex by default.
     (evil-local-set-key 'normal (kbd "<f5>") 'org-pandoc-export-to-latex-pdf)
-    (setq org-pandoc-options-for-latex-pdf '((pdf-engine . "xelatex")))
 
     ;; t for selecting todo state
     (evil-local-set-key 'normal (kbd "t") 'org-todo)
