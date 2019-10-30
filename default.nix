@@ -3,7 +3,7 @@ let
   pkgs = import <nixpkgs> {};
 
   # My packages from nixpkgs.
-  nixpacks = with pkgs; [
+  standardpacks = with pkgs; [
     nix        # make sure nix is in my path!
     cacert     # certificates for ssh downloads, needed for nix.
     # nox      # search nix packages.
@@ -29,6 +29,7 @@ let
     htop
     tldr
     fasd
+    powerline-go
 
     # Terminal programs
     fish
@@ -36,25 +37,33 @@ let
     ncdu
     ranger
 
-    # Terminal fun
-    powerline-go
+    # Pandoc
+    pandoc
+    (haskellPackages.callPackage ./nix/pandoc-unicode-math.nix {})
 
     # OTHER
-    pandoc  # NOTE: this takes a long time to install, because Haskell.
+    cabal2nix    # Incredibly useful utility.
   ];
 
 
-  # Packages with special customisations.
   python = (pkgs.python3.withPackages (ps: [ps.numpy]));
-  aspell = (pkgs.aspellWithDicts (ps: [ps.en]));  # for emacs, with English.
+
+  aspell = (pkgs.aspellWithDicts (ps: [ps.en]));  # English spelling for Emacs.
+
   wifi-password = (pkgs.callPackage /Users/felix/.dotfiles/nix/wifi-password.nix {});
 
-  custompacks = [
+  tex-live = (pkgs.texlive.combine  {
+    inherit (pkgs.texlive) scheme-medium collection-fontsrecommended unicode-math;
+    });
+
+
+
+  my-packs = [
+    standardpacks
     python
     aspell
     wifi-password
+    tex-live
   ];
 
-  mypacks = nixpacks ++ custompacks;
-
-in mypacks
+in my-packs
