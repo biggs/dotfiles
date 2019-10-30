@@ -33,6 +33,7 @@ let
 
     # Terminal programs
     fish
+    fish-foreign-env
     neovim
     ncdu
     ranger

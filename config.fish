@@ -1,3 +1,8 @@
+# Import fish-foreign-env to allow import of standard ~/.profile with PATh etc.
+set fish_function_path $fish_function_path ~/.nix-profile/share/fish-foreign-env/functions
+fenv source ~/.profile
+
+
 # Install fisher if not installed, and create fishfile.
 if not functions -q fisher
     set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
@@ -6,7 +11,7 @@ if not functions -q fisher
     fish -c fisher
 end
 if not test -e ~/.config/fish/fishfile
-    echo "fishgretel/fasd edc/bass" | tr ' ' \n > ~/.config/fish/fishfile
+    echo "fishgretel/fasd" | tr ' ' \n > ~/.config/fish/fishfile
 end
 
 
@@ -43,9 +48,6 @@ switch (uname)
         echo "Hi Felix"
 
     case Darwin
-        # Use bass plugin so treated like a bash script.
-        bass source $HOME/.profile
-
         # ls with exa
         alias ls='exa';
         alias l='exa -l --git';

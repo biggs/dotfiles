@@ -1,5 +1,3 @@
 ## Set the path to the mac default, then add /bin as personal choice
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-export PATH="/usr/local/miniconda3/bin:$PATH"
-export PATH="/Library/TeX/texbin:$PATH"
 if [ -e /Users/felix/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/felix/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
