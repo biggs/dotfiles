@@ -50,7 +50,7 @@ This function should only modify configuration layer settings."
             shell-default-height 30
             shell-default-shell 'eshell
             shell-default-term-shell "/bin/bash"
-            shell-default-position 'bottom)
+            shell-default-position 'right)
 
      ;; Languages
      lsp
@@ -81,7 +81,10 @@ This function should only modify configuration layer settings."
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(github-modern-theme
                                       monokai-theme
-                                      dash)
+                                      dash
+                                      anki-editor
+                                      math-symbol-lists
+                                      )
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()

@@ -1,4 +1,4 @@
-personal_ws-1.1 en 68 
+personal_ws-1.1 en 70 
 latents
 dimensionality
 activations
@@ -10,6 +10,7 @@ normaliser
 differentiable
 linearities
 contrastive
+integrable
 modularly
 CAPTCHA
 optimisers
@@ -32,6 +33,7 @@ PyTorch
 misclassification
 Katsu
 stochasticity
+minimiser
 independencies
 Lect
 Pandoc

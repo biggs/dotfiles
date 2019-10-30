@@ -7,6 +7,7 @@
   (personal/org-ref-bib-setup)
   (personal/org-gtd-setup)
   (personal/org-custom-keybinds)
+  (personal/math-input)
 )
 
 
@@ -130,6 +131,8 @@
     (evil-local-set-key 'normal (kbd "t") 'org-todo)
   )
   (add-hook 'org-mode-hook 'org-add-keybinds)
+
+  (add-hook 'anki-editor-mode-hook (evil-local-set-key 'normal (kbd "C-S-c") 'anki-editor-cloze-region))
 )
 
 
@@ -153,7 +156,7 @@
 
     ;; Custom created note format
     org-ref-note-title-format
-    "* TODO %y %t
+    "* TODO %2a. %t (%y).
         :PROPERTIES:
         :Custom_ID: %k
         :AUTHOR: %9a
@@ -207,4 +210,22 @@
              "* TODO %?\n%U\n%a\n")))
 
   )
+)
+
+(defun personal/math-input ()
+
+  (package-initialize)
+  (require 'math-symbol-lists)
+  (quail-define-package "math" "UTF-8" "Ω" t)
+  (quail-define-rules ; whatever extra rules you want to define...
+   ("\\from"    #X2190)
+   ("\\to"      #X2192)
+   ("\\lhd"     #X22B2)
+   ("\\rhd"     #X22B3)
+   ("\\unlhd"   #X22B4)
+   ("\\unrhd"   #X22B5))
+  (mapc (lambda (x)
+          (if (cddr x)
+              (quail-defrule (cadr x) (car (cddr x)))))
+        (append math-symbol-list-basic math-symbol-list-extended))
 )
