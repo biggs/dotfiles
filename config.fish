@@ -1,18 +1,24 @@
+# Felix' Fish Configuration.
+
+
 # Import fish-foreign-env to allow PATH from of ~/.profile.
 set fish_function_path $fish_function_path \
   ~/.nix-profile/share/fish-foreign-env/functions
 fenv source ~/.profile
 
-# Better Greetings.
+
+# Better Greeting.
 function fish_greeting
     begin
-        fortune -a
         echo (date) " @ " (hostname)
+        echo
+        fortune -a
+        echo
     end | lolcat
 end
 
 
-# Install fisher if not installed, and create fishfile.
+# Install fisher if not installed, and create fishfile to install FASD.
 if not functions -q fisher
     set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
     curl https://git.io/fisher --create-dirs \
@@ -23,7 +29,8 @@ if not test -e ~/.config/fish/fishfile
     echo "fishgretel/fasd" | tr ' ' \n > ~/.config/fish/fishfile
 end
 
-# Use powerline as prompt (requires patched fonts).
+
+# Use Powerline as prompt (requires patched fonts).
 function fish_prompt
     powerline-go \
     -error $status -shell bare -cwd-mode plain -numeric-exit-codes \
@@ -31,87 +38,49 @@ function fish_prompt
 end
 
 
+
+# Nvim.
 set -U EDITOR 'nvim'
-
-
-# ALIASES
-
-# Vi
 alias vi='nvim'
 alias view='nvim -R'
 
-# Don't show copyright
+# Emacs.
+alias ec='/usr/local/Cellar/emacs-mac/emacs-26.1-z-mac-7.4/bin/emacsclient'
+alias e='ec --no-wait --quiet --alternate-editor="nvim"'
+
+# Exa.
+alias ls='exa';
+alias l='exa -l --git';
+alias la='exa -l -a --git';
+alias l2='exa -l --git -T --level 2';
+
+# Hide copyright.
 alias gdb='gdb -q'
 alias julia='julia --banner=no'
 
-## Create alias gitlog, giving much more detailed output for git
-alias gitlog='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
-
-# Useful alias for inspecting commands:
+# Misc.
+alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
+alias mylint='pylint --rcfile=~/.dotfiles/pylint.rc'
 alias ca='command --all'
 
 
-# Mac or Linux specific
-switch (uname)
-    case Linux
-        echo "Hi Felix"
 
-    case Darwin
-        # ls with exa
-        alias ls='exa';
-        alias l='exa -l --git';
-        alias la='exa -l -a --git';
-        alias l2='exa -l --git -T --level 2';
-
-        ## Allow using vlc
-        alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
-
-        alias led='ledger -f ~/Documents/ORG/Finances/money.ledger'
-
-        function awaketime
-            echo "Awake Since " \
-            (pmset -g log | awk -e '/ Wake  /{print $2}' | tail -n 1)
-        end
-
-        # Alias for scholar dl for google scholar articles
-        alias schdl="python3 /Users/felix/Projects/scholar_dl/scholar_dl.py"
-
-        # Virtualbox aliases
-        alias linux-start='vboxmanage startvm UbuntuServer --type headless'
-        alias linux-ssh='ssh -p 2222 felix@localhost'
-        alias linux-shutdown='vboxmanage controlvm UbuntuServer acpipowerbutton'
-        alias linux-list='vboxmanage list'
-
-        # Python linting
-        alias mylint='pylint --rcfile=~/.dotfiles/pylint.rc'
-
-        # Emacs client. If not started, use nvim.
-        alias emacsclient='/usr/local/Cellar/emacs-mac/emacs-26.1-z-mac-7.4/bin/emacsclient'
-        alias e='emacsclient --no-wait --quiet --alternate-editor="nvim"'
-end
-
-# Run Linux server virtual machine.
-function linux -d "Start and login to Ubuntu server"
-    if linux-list runningvms | grep "UbuntuServer" >> /dev/null
-        echo "Server Running"
-        echo "Logging in..."
-        ssh -p 2222 felix@localhost
-    else
-        echo "Starting Server..."
-        vboxmanage startvm UbuntuServer --type headless
-        sleep 10
-        echo "Logging in..."
-        ssh -p 2222 felix@localhost
-    end
+function awaketime -d "Display time since last waking."
+    echo "Awake Since " \
+    (pmset -g log | awk -e '/ Wake  /{print $2}' | tail -n 1)
 end
 
 
+function gitlog -d "More detailed, prettified output for git."
+    git log --graph --abbrev-commit \
+    --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset"
+end
 
-# Nix stuff
 
 function nix-up -d "Update nix from ~/.dotfiles/default.nix"
     nix-env -f ~/.dotfiles/default.nix -i --remove-all
 end
+
 
 function ghci-nix -d "Nix shell with haskell and packages."
     set PCKS ""
