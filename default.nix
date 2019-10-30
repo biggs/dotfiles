@@ -46,6 +46,10 @@ let
     cabal2nix    # Incredibly useful utility.
     youtube-dl
 
+    # Fun starting goodies
+    fortune
+    lolcat
+
     # MacOS only.
     darwin.trash
     wifi-password

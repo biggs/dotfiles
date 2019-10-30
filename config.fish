@@ -1,6 +1,15 @@
-# Import fish-foreign-env to allow import of standard ~/.profile with PATh etc.
-set fish_function_path $fish_function_path ~/.nix-profile/share/fish-foreign-env/functions
+# Import fish-foreign-env to allow PATH from of ~/.profile.
+set fish_function_path $fish_function_path \
+  ~/.nix-profile/share/fish-foreign-env/functions
 fenv source ~/.profile
+
+# Better Greetings.
+function fish_greeting
+    begin
+        fortune -a
+        echo (date) " @ " (hostname)
+    end | lolcat
+end
 
 
 # Install fisher if not installed, and create fishfile.
@@ -14,7 +23,7 @@ if not test -e ~/.config/fish/fishfile
     echo "fishgretel/fasd" | tr ' ' \n > ~/.config/fish/fishfile
 end
 
-
+# Use powerline as prompt (requires patched fonts).
 function fish_prompt
     powerline-go \
     -error $status -shell bare -cwd-mode plain -numeric-exit-codes \
@@ -58,7 +67,11 @@ switch (uname)
         alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
 
         alias led='ledger -f ~/Documents/ORG/Finances/money.ledger'
-        alias awaketime='pmset -g log | grep -e " Sleep  " -e " Wake  " | tail -n 20'
+
+        function awaketime
+            echo "Awake Since " \
+            (pmset -g log | awk -e '/ Wake  /{print $2}' | tail -n 1)
+        end
 
         # Alias for scholar dl for google scholar articles
         alias schdl="python3 /Users/felix/Projects/scholar_dl/scholar_dl.py"
