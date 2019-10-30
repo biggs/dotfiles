@@ -43,14 +43,17 @@ let
 
     # OTHER
     cabal2nix    # Incredibly useful utility.
+    youtube-dl
+
+    # MacOS only.
+    darwin.trash
+    wifi-password
   ];
 
 
   python = (pkgs.python3.withPackages (ps: [ps.numpy]));
 
   aspell = (pkgs.aspellWithDicts (ps: [ps.en]));  # English spelling for Emacs.
-
-  wifi-password = (pkgs.callPackage /Users/felix/.dotfiles/nix/wifi-password.nix {});
 
   tex-live = (pkgs.texlive.combine  {
     inherit (pkgs.texlive) scheme-medium collection-fontsrecommended unicode-math;
@@ -62,7 +65,6 @@ let
     standardpacks
     python
     aspell
-    wifi-password
     tex-live
   ];
 
