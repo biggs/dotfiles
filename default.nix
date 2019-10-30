@@ -2,8 +2,7 @@ let
   # Non-pinned nix packages.
   pkgs = import <nixpkgs> {};
 
-  # My packages from nixpkgs.
-  standardpacks = with pkgs; [
+  my-pkgs = with pkgs; [
     nix        # make sure nix is in my path!
     cacert     # certificates for ssh downloads, needed for nix.
     # nox      # search nix packages.
@@ -53,24 +52,18 @@ let
     # MacOS only.
     darwin.trash
     wifi-password
+
+    # English spelling for Emacs.
+    (pkgs.aspellWithDicts (ps: [ps.en]))
+
+    # Python.
+    (python3.withPackages (ps: [ps.numpy]))
+
+    # Tex.
+    (texlive.combine {
+        inherit (texlive) scheme-medium collection-fontsrecommended unicode-math;
+    })
   ];
 
 
-  python = (pkgs.python3.withPackages (ps: [ps.numpy]));
-
-  aspell = (pkgs.aspellWithDicts (ps: [ps.en]));  # English spelling for Emacs.
-
-  tex-live = (pkgs.texlive.combine  {
-    inherit (pkgs.texlive) scheme-medium collection-fontsrecommended unicode-math;
-    });
-
-
-
-  my-packs = [
-    standardpacks
-    python
-    aspell
-    tex-live
-  ];
-
-in my-packs
+in my-pkgs
