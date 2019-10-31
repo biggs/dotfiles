@@ -212,19 +212,19 @@
 )
 
 (defun personal/math-input ()
+  ;; Fancy input rules - add all non-conflicting characters from unicode-math-symbols list:
+  ;; https://github.com/vspinu/math-symbol-lists/blob/master/math-symbol-lists.el
+  ;; Everything is prefixed with ";" rather than "\", including sub and super-scripts.
+  ;; If extra rules wanted, use form: (quail-define-rules ("\\unrhd" #X22B5) ("\\unrhd" #X22B5))
   (package-initialize)
-  (require 'math-symbol-lists)  ; https://github.com/vspinu/math-symbol-lists/blob/master/math-symbol-lists.el
+  (require 'math-symbol-lists)
   (quail-define-package "math" "UTF-8" "Ω" t)
-  ;; Extra Rules Using: (quail-define-rules ("\\unrhd"   #X22B5))
   (mapc (lambda (x)
           (if (cddr x)
               (quail-defrule
-               (concat ";" (string-remove-prefix "\\" (cadr x)))  ; Use ";" as prefix rather than "\"
+               ;; Remove "\" prefix if exists (not for sub/super scripts) and add ";" to all.
+               (concat ";" (string-remove-prefix "\\" (cadr x)))
                (car (cddr x)))))
-        (append math-symbol-list-basic
-                math-symbol-list-extended
-                ;; math-symbol-list-subscripts     ; uncomment to use sub- and super-scripts.
-                ;; math-symbol-list-superscripts
-                )
-        )
+        (append math-symbol-list-basic math-symbol-list-extended
+                math-symbol-list-subscripts math-symbol-list-superscripts))
 )
