@@ -1,0 +1,62 @@
+#+TITLE: My Dot-Files
+#+AUTHOR: Felix Biggs
+
+* Setup
+
+** XCode
+#+BEGIN_SRC sh
+xcode-select --install
+sudo xcodebuild -license
+#+END_SRC
+
+** Download and Link Dotfiles
+(would be better if this was stateless.)
+#+BEGIN_SRC sh
+git clone github.com/biggs/dotfiles ~/.dotfiles
+mkdir -p ~/.config/ ~/.config/fish ~/.config/nvim
+ln -s /Users/felix/.dotfiles/emacs/ ~/.config/doom
+ln -s /Users/felix/.dotfiles/fish/config.fish ~/.config/fish/config.fish
+ln -s /Users/felix/.dotfiles/git/gitconfig ~/.gitconfig
+# ln -s /Users/felix/.dotfiles/mac/karabiner.json ~/.config/karabiner/karabiner.json
+ln -s /Users/felix/.dotfiles/mac/Brewfile ~/.Brewfile
+ln -s /Users/felix/.dotfiles/mac/profile-mac ~/.profile
+ln -s /Users/felix/.dotfiles/vim ~/.config/nvim/init.vim
+#+END_SRC
+
+
+** Nix Download and Install Things
+#+BEGIN_SRC sh
+sh <(curl https://nixos.org/nix/install)   # restart after to get into path.
+nix-env --file ~/.dotfiles/default.nix --install --remove-all
+nix-env -f ~/.dotfiles/nix/default.nix -i --remove-all  # install my things
+#+END_SRC
+NOTE: check that sourcing nix hasn't been added twice to `.profile`.
+
+
+** Homebrew
+This should also install the fonts and apps I want (Emacs!)
+#+BEGIN_SRC sh
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+brew update
+sudo softwareupdate --install --all
+cd && brew bundle --global
+#+END_SRC
+
+** TODO Emacs and Doom
+?
+
+** Vim Setup?
+- `:BundleInstall`?
+#+BEGIN_SRC sh
+# Link Nvim into place
+NVIM_CONFIG_DIR="$HOME/.config/nvim"
+mkdir -p "$NVIM_CONFIG_DIR" && cd "${BASEDIR}" && ln -s -f "$BASEDIR/init.vim" "$NVIM_CONFIG_DIR/init.vim"
+
+# Download Vundle and use to install plugins (in the background!)
+# Tries to change to vundle dir, if doesn't exist makes and clones, otherwise updates
+VUNDLE_DIR=$HOME/.vim/bundle/Vundle.vim
+if ! cd $VUNDLE_DIR;
+    then mkdir -p $VUNDLE_DIR; git clone https://github.com/VundleVim/Vundle.vim.git $VUNDLE_DIR;
+    else git pull;
+fi
+#+END_SRC
