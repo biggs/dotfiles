@@ -56,7 +56,7 @@
 
     org-pandoc-options-for-latex-pdf '((pdf-engine . "xelatex"))
 
-    default-input-method 'TeX
+    default-input-method 'math
   )
 
   ;; Disable evil in info windows
@@ -208,24 +208,23 @@
     org-capture-templates
     (quote (("t" "todo" entry (file "~/Dropbox/ORG/todo/refile.org")
              "* TODO %?\n%U\n%a\n")))
-
   )
 )
 
 (defun personal/math-input ()
-
   (package-initialize)
-  (require 'math-symbol-lists)
+  (require 'math-symbol-lists)  ; https://github.com/vspinu/math-symbol-lists/blob/master/math-symbol-lists.el
   (quail-define-package "math" "UTF-8" "Ω" t)
-  (quail-define-rules ; whatever extra rules you want to define...
-   ("\\from"    #X2190)
-   ("\\to"      #X2192)
-   ("\\lhd"     #X22B2)
-   ("\\rhd"     #X22B3)
-   ("\\unlhd"   #X22B4)
-   ("\\unrhd"   #X22B5))
+  ;; Extra Rules Using: (quail-define-rules ("\\unrhd"   #X22B5))
   (mapc (lambda (x)
           (if (cddr x)
-              (quail-defrule (cadr x) (car (cddr x)))))
-        (append math-symbol-list-basic math-symbol-list-extended))
+              (quail-defrule
+               (concat ";" (string-remove-prefix "\\" (cadr x)))  ; Use ";" as prefix rather than "\"
+               (car (cddr x)))))
+        (append math-symbol-list-basic
+                math-symbol-list-extended
+                ;; math-symbol-list-subscripts     ; uncomment to use sub- and super-scripts.
+                ;; math-symbol-list-superscripts
+                )
+        )
 )
