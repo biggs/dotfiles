@@ -18,8 +18,8 @@ cask 'firefox'
 cask 'spotify'
 cask 'iterm2'
 cask 'transmission'
-cask 'miniconda'
 cask 'karabiner-elements'
+cask 'docker'
 
 
 # Fonts

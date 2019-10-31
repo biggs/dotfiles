@@ -61,8 +61,10 @@ let
 
     # Tex.
     (texlive.combine {
-        inherit (texlive) scheme-medium collection-fontsrecommended unicode-math;
+        inherit (texlive) scheme-medium collection-fontsrecommended unicode-math dvipng;
     })
+
+    docker
   ];
 
 
