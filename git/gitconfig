@@ -1,0 +1,11 @@
+[user]
+	name = Felix
+	email = felixbig@gmail.com
+[github]
+	user = biggs
+[push]
+	default = simple
+[credential]
+	helper = osxkeychain
+[core]
+	excludesfile = /Users/felix/.dotfiles/git/gitignore_global

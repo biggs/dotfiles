@@ -3,30 +3,28 @@
 
 ## Setup
 
-This is a reasonably manual version.
-
-### Basic
-
-``` bash
+```sh
 xcode-select --install
 sudo xcodebuild -license
 git clone github.com/biggs/dotfiles ~/.dotfiles
 ```
 
-Link files into place. (TODO: write a setup script for this, possibly with nix.)
-- ~/.spacemacs -> spacemacs.el
-- ~/.profile -> profile-mac
-- ~/.Brewfile -> Brewfile
-- ~/.aspell.en.pws -> aspell_personal.txt
-- ~/.config/fish/config.fish -> config.fish
-- ~/.config/karabiner/karabiner.json -> karabiner.json
-- ~/.config/nvim/init.vim -> init.vim
+Link files into place (would be better if this was stateless.)
+```sh
+mkdir -p ~/.config/ ~/.config/fish ~/.config/nvim
+ln -s /Users/felix/.dotfiles/emacs/ ~/.config/doom
+ln -s /Users/felix/.dotfiles/fish/config.fish ~/.config/fish/config.fish
+ln -s /Users/felix/.dotfiles/git/gitconfig ~/.gitconfig
+# ln -s /Users/felix/.dotfiles/mac/karabiner.json ~/.config/karabiner/karabiner.json
+ln -s /Users/felix/.dotfiles/mac/Brewfile ~/.Brewfile
+ln -s /Users/felix/.dotfiles/mac/profile-mac ~/.profile
+ln -s /Users/felix/.dotfiles/vim ~/.config/nvim/init.vim
+```
 
 
+## Nix
 
-### Nix
-
-``` bash
+```sh
 sh <(curl https://nixos.org/nix/install)   # restart after to get into path.
 nix-env --file ~/.dotfiles/default.nix --install --remove-all
 ```
@@ -42,6 +40,6 @@ sudo softwareupdate --install --all
 cd && brew bundle --global
 ```
 
-Run some of commands from script to install vim plugins and spacemacs. (TODO: start doing this in nix?)
+Run more commands from script to install vim plugins and doom.
 - `:BundleInstall` and start spacemacs
 

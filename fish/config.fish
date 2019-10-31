@@ -60,7 +60,7 @@ alias julia='julia --banner=no'
 
 # Misc.
 alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
-alias mylint='pylint --rcfile=~/.dotfiles/pylint.rc'
+alias mylint='pylint --rcfile=~/.dotfiles/python/pylint.rc'
 alias ca='command --all'
 
 
@@ -77,8 +77,8 @@ function gitlog -d "More detailed, prettified output for git."
 end
 
 
-function nix-up -d "Update nix from ~/.dotfiles/default.nix"
-    nix-env -f ~/.dotfiles/default.nix -i --remove-all
+function nix-up -d "Update nix from ~/.dotfiles/nix/default.nix"
+    nix-env -f ~/.dotfiles/nix/default.nix -i --remove-all
 end
 
 

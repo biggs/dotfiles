@@ -52,6 +52,7 @@ let
     # MacOS only.
     darwin.trash
     wifi-password
+    fd
 
     # English spelling for Emacs.
     (pkgs.aspellWithDicts (ps: [ps.en]))
@@ -63,8 +64,6 @@ let
     (texlive.combine {
         inherit (texlive) scheme-medium collection-fontsrecommended unicode-math dvipng;
     })
-
-    docker
   ];
 
 
