@@ -1,15 +1,21 @@
+#+TITLE: Literate Emacs Config
+#+STARTUP: noindent content
+
+* Basics
+#+BEGIN_SRC emacs-lisp
 ;;; .config/doom/config.el -*- lexical-binding: t; -*-
+#+END_SRC
 
-;; Place your private configuration here
-
-;; Misc Settings
+Cosmetic things.
+#+BEGIN_SRC emacs-lisp
 (setq
     doom-font (font-spec :family "Source Code Pro" :size 15 :weight 'normal)
     doom-theme 'monokai
+    monokai-highlight-line "#3A3A3A")
+#+END_SRC
 
-    ;; Theme
-    monokai-highlight-line "#3A3A3A"
-
+#+BEGIN_SRC emacs-lisp
+(setq
     ;; Fix matlab commenting
     octave-comment-char 37
 
@@ -229,3 +235,5 @@
               (car (cddr x)))))
       (append math-symbol-list-basic math-symbol-list-extended
               math-symbol-list-subscripts math-symbol-list-superscripts))
+
+#+END_SRC
