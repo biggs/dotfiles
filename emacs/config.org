@@ -21,26 +21,21 @@ Maximise on startup.
 
 
 ** Global Keybindings
- Extra Global keybindings.
+Extra Global keybindings.
 
- Helm
+Helm. (removed helm-swoop - use swiper.)
  #+BEGIN_SRC emacs-lisp
-(map!
-  :n  "C-s" 'helm-swoop
-  :n  "C-S-s" 'helm-multi-swoop-all
-  :n  "C-]" 'helm-projectile-rg)
+(map! :n  "C-]" 'helm-projectile-rg)
  #+END_SRC
 
- Misc.
+Misc.
  #+BEGIN_SRC emacs-lisp
 (map!
-  :n "C-e" 'end-of-line
-  :n "C-a" 'beginning-of-line-text
   :n "<C-tab>" 'evil-window-next
   :n "K" 'evil-lookup)
  #+END_SRC
 
- Function keys.
+Function keys.
  #+BEGIN_SRC emacs-lisp
 (map!
   :n "<f5>" 'compile
@@ -78,15 +73,15 @@ Keybindings for Pandoc export and "t" for selecting todo state.
 
 Disable org-indent-mode.
 #+BEGIN_SRC emacs-lisp
-(remove-hook 'org-mode-hook #'org-indent-mode)
+(after! org (setq org-startup-indented nil))
 #+END_SRC
 
 Prettify
 #+BEGIN_SRC emacs-lisp
 (setq
- org-pretty-entities-include-sub-superscripts t
- prettify-symbols-unprettify-at-point 'right
- )
+  org-pretty-entities-include-sub-superscripts t
+  prettify-symbols-unprettify-at-point 'right
+  org-ellipsis " ▼ ")
 #+END_SRC
 
 ** Anki Editor Mode
