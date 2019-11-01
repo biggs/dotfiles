@@ -23,44 +23,43 @@ Maximise on startup.
 ** Global Keybindings
  Extra Global keybindings.
 
- Avy
- #+BEGIN_SRC emacs-lisp
-(define-key evil-normal-state-map (kbd "s") 'evil-avy-goto-word-or-subword-1)
-(define-key evil-normal-state-map (kbd "S") 'evil-avy-goto-char)
- #+END_SRC
-
  Helm
  #+BEGIN_SRC emacs-lisp
-(define-key evil-normal-state-map (kbd "C-s") 'helm-swoop)
-(define-key evil-normal-state-map (kbd "C-S-s") 'helm-multi-swoop-all)
-(define-key evil-normal-state-map (kbd "C-]") 'helm-projectile-rg)
+(map!
+  :n  "C-s" 'helm-swoop
+  :n  "C-S-s" 'helm-multi-swoop-all
+  :n  "C-]" 'helm-projectile-rg)
  #+END_SRC
 
  Misc.
  #+BEGIN_SRC emacs-lisp
-(define-key evil-normal-state-map (kbd "C-e") 'end-of-line)
-(define-key evil-normal-state-map (kbd "C-a") 'beginning-of-line-text)
-(define-key evil-normal-state-map (kbd "<C-tab>") 'evil-window-next)
-(define-key evil-normal-state-map (kbd "K") 'evil-lookup)
+(map!
+  :n "C-e" 'end-of-line
+  :n "C-a" 'beginning-of-line-text
+  :n "<C-tab>" 'evil-window-next
+  :n "K" 'evil-lookup)
  #+END_SRC
 
  Function keys.
  #+BEGIN_SRC emacs-lisp
-(define-key evil-normal-state-map (kbd "<f5>") 'compile)
-(define-key evil-normal-state-map (kbd "<f8>") 'org-capture)
-(define-key evil-normal-state-map (kbd "<f9>") 'org-agenda)
+(map!
+  :n "<f5>" 'compile
+  :n "<f8>" 'org-capture
+  :n "<f9>" 'org-agenda)
  #+END_SRC
 
 
 * ORG Specific
-Lookup in MacOS dictionary function:
+"K" to lookup in MacOS dictionary:
 #+BEGIN_SRC emacs-lisp
-
 (defun lookup-osx-dict-app () "Search for word at point in Mac dictionary"
   (interactive)
   (call-process      ; call and disown "open" with formatted arg
   "open" nil 0 nil
   (format "dict:://%s" (thing-at-point 'word))))
+
+(add-hook 'org-mode-hook
+          '(lambda () (setq-local evil-lookup-func #'lookup-osx-dict-app)))
 #+END_SRC
 
 Use XeLaTeX for export and highlight LaTeX and entities.
@@ -70,24 +69,16 @@ Use XeLaTeX for export and highlight LaTeX and entities.
   org-highlight-latex-and-related '(latex script entities))
 #+END_SRC
 
-Some Custom Keybindings
+Keybindings for Pandoc export and "t" for selecting todo state.
 #+BEGIN_SRC emacs-lisp
-(defun org-add-keybinds ()
-  ;; Use K to lookup in OSX in org mode
-  (setq-local evil-lookup-func #'lookup-osx-dict-app)
-
-  ;; Org mode allow Pandeoec PDF export with <f5>. Also use xelatex by default.
-  (evil-local-set-key 'normal (kbd "<f5>") 'org-pandoc-export-to-latex-pdf)
-
-  ;; t for selecting todo state
-  (evil-local-set-key 'normal (kbd "t") 'org-todo)
-)
-(add-hook 'org-mode-hook 'org-add-keybinds)
+(map! :mode 'org-mode
+      :n "<f5>" 'org-pandoc-export-to-latex-pdf
+      :n "t" 'org-todo)
 #+END_SRC
 
-Anki Editor
+Disable org-indent-mode.
 #+BEGIN_SRC emacs-lisp
-(add-hook 'anki-editor-mode-hook (evil-local-set-key 'normal (kbd "C-S-c") 'anki-editor-cloze-region))
+(remove-hook 'org-mode-hook #'org-indent-mode)
 #+END_SRC
 
 Prettify
@@ -98,6 +89,12 @@ Prettify
  )
 #+END_SRC
 
+** Anki Editor Mode
+Cloze with meta-C.
+#+BEGIN_SRC emacs-lisp
+(map! :mode 'anki-editor-mode
+      :n "M-c" 'anki-editor-cloze-region)
+#+END_SRC
 
 ** Bibliographies and Referencing
 Org-ref and bibtex setup.
