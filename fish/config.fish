@@ -6,6 +6,8 @@ set fish_function_path $fish_function_path \
   ~/.nix-profile/share/fish-foreign-env/functions
 fenv source ~/.profile
 
+# Add Emacs Directly to Path.
+export PATH="/usr/local/Cellar/emacs-mac/emacs-26.1-z-mac-7.4/bin/:$PATH"
 
 # Better Greeting.
 function fish_greeting
@@ -45,8 +47,7 @@ alias vi='nvim'
 alias view='nvim -R'
 
 # Emacs.
-alias ec='/usr/local/Cellar/emacs-mac/emacs-26.1-z-mac-7.4/bin/emacsclient'
-alias e='ec --no-wait --quiet --alternate-editor="nvim"'
+alias e='emacsclient --no-wait --quiet --alternate-editor="nvim"'
 
 # Exa.
 alias ls='exa';
