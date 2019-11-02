@@ -88,7 +88,20 @@ Prettify
 Cloze with meta-C.
 #+BEGIN_SRC emacs-lisp
 (map! :mode 'anki-editor-mode
-      :n "M-c" 'anki-editor-cloze-region)
+      :v "M-c" 'anki-editor-cloze-region)
+#+END_SRC
+
+Create a technical note.
+#+BEGIN_SRC emacs-lisp
+(defun anki-editor-create-technical-note ()
+  "Create a Scratch Buffer with Technical Note"
+  (interactive)
+  (doom/open-scratch-buffer)
+  (erase-buffer)
+  (org-mode)
+  (anki-editor-mode)
+  (insert "* Item\n:PROPERTIES:\n:ANKI_DECK: Technical\n:ANKI_NOTE_TYPE:"
+          " Technical\n:END:\n** Text\n** Source\n** Extra"))
 #+END_SRC
 
 ** Bibliographies and Referencing
