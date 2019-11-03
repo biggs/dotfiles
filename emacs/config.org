@@ -84,6 +84,15 @@ Prettify
   org-ellipsis " ▼ ")
 #+END_SRC
 
+Smartparens disable "_" matching and add "\left( \right)"
+#+begin_src emacs-lisp
+(sp-local-pair 'org-mode "_" nil :actions :rem)
+(sp-local-pair 'org-mode "\\left(" "\\right)" :trigger "\\l(")
+(sp-local-pair 'org-mode "\\left[" "\\right]" :trigger "\\l[")
+(sp-local-pair 'org-mode "\\left\\{" "\\right\\}" :trigger "\\l{")
+(sp-local-pair 'org-mode "\\left\\|" "\\right\\|" :trigger "\\l|")
+#+end_src
+
 ** Anki Editor Mode
 Cloze with meta-C.
 #+BEGIN_SRC emacs-lisp
