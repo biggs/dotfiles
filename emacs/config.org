@@ -96,10 +96,9 @@ Smartparens disable "_" matching and add "\left( \right)"
 #+end_src
 
 ** Anki Editor Mode
-Cloze with meta-C.
+Cloze with meta-C (can't seem to do this in only Anki mode).
 #+BEGIN_SRC emacs-lisp
-(map! :mode 'anki-editor-mode
-      :v "M-c" 'anki-editor-cloze-region)
+(map! :mode 'org-mode :v "M-c" 'anki-editor-cloze-region)
 #+END_SRC
 
 Create a technical note.
