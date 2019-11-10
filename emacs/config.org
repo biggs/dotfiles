@@ -27,7 +27,7 @@ Extra Global keybindings.
 
 Helm. (removed helm-swoop - use swiper.)
  #+BEGIN_SRC emacs-lisp
-(map! :n  "C-]" 'helm-projectile-rg)
+(map! :n  "C-]" '+ivy/project-search)
  #+END_SRC
 
 Misc.
