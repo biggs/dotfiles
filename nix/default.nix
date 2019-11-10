@@ -39,7 +39,7 @@ let
 
     # Pandoc
     pandoc
-    (haskellPackages.callPackage ./nix/pandoc-unicode-math.nix {})
+    (haskellPackages.callPackage ./pandoc-unicode-math.nix {})
 
     # OTHER
     cabal2nix    # Incredibly useful utility.
@@ -62,7 +62,7 @@ let
 
     # Tex.
     (texlive.combine {
-        inherit (texlive) scheme-medium collection-fontsrecommended unicode-math dvipng;
+        inherit (texlive) scheme-medium collection-fontsrecommended unicode-math dvipng subfigure forloop;
     })
   ];
 
