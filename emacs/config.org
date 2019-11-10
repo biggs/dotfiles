@@ -73,9 +73,10 @@ Keybindings for Pandoc export and "t" for selecting todo state.
       :n "t" 'org-todo)
 #+END_SRC
 
-Disable org-indent-mode.
+Disable org-indent-mode and auto-fill-mode (automatic line wrapping).
 #+BEGIN_SRC emacs-lisp
 (after! org (setq org-startup-indented nil))
+(remove-hook 'text-mode-hook #'auto-fill-mode)
 #+END_SRC
 
 Prettify
