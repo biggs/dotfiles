@@ -58,7 +58,7 @@ let
     (pkgs.aspellWithDicts (ps: [ps.en]))
 
     # Python.
-    (python3.withPackages (ps: [ps.numpy]))
+    (python3.withPackages (ps: [ps.numpy ps.python-language-server]))
 
     # Tex.
     (texlive.combine {
