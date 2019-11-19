@@ -23,7 +23,6 @@ ln -s $HOMEDIR/.dotfiles/vim/init.vim ~/.config/nvim/init.vim
 # MacOS Only
 ln -s $HOMEDIR/.dotfiles/mac/profile-mac ~/.profile
 ln -s $HOMEDIR/.dotfiles/mac/Brewfile ~/.Brewfile
-# ln -s $HOMEDIR/.dotfiles/mac/karabiner.json ~/.config/karabiner/karabiner.json
 #+END_SRC
 
 
@@ -74,3 +73,16 @@ if ! cd $VUNDLE_DIR;
 fi
 #+END_SRC
 - `:BundleInstall`?
+
+
+** Keyboard Setup
+Make two main modifications: CAPS = CTRL + ESC and TAB = ALT + ESC
+
+Mac:
+#+BEGIN_SRC sh
+ln -s $HOMEDIR/.dotfiles/mac/karabiner.json ~/.config/karabiner/karabiner.json
+#+END_SRC
+
+Ubuntu:
+Install gnome-tweak-tools and set CAPS to CTRL
+Install xcape and run `xcape -e 'Control_L=Escape'`
