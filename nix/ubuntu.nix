@@ -5,22 +5,11 @@ let
   my-pkgs = with pkgs; [
     nix        # make sure nix is in my path!
     cacert     # certificates for ssh downloads, needed for nix.
-    # nox      # search nix packages.
 
-    # Basic GNU utils.
-    coreutils
-    findutils
-    diffutils
-    gawk
-    gnumake
-    less
-    watch
-    git
-    wget
-    curlFull
+    # Emacs (ubuntu goodies)
+    emacs
 
     # Extra terminal utils.
-    imgcat
     ripgrep
     calc
     cloc
@@ -41,18 +30,9 @@ let
     pandoc
     (haskellPackages.callPackage ./pandoc-unicode-math.nix {})
 
-    # OTHER
-    cabal2nix    # Incredibly useful utility.
-    youtube-dl
-
     # Fun starting goodies
     fortune
     lolcat
-
-    # MacOS only.
-    darwin.trash
-    wifi-password
-    fd
 
     # English spelling for Emacs.
     (pkgs.aspellWithDicts (ps: [ps.en]))
