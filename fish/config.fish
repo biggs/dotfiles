@@ -6,8 +6,11 @@ set fish_function_path $fish_function_path \
   ~/.nix-profile/share/fish-foreign-env/functions
 fenv source ~/.profile
 
-# Add Emacs Directly to Path.
-export PATH="/usr/local/Cellar/emacs-mac/emacs-26.1-z-mac-7.4/bin/:$PATH"
+# Add Emacs Directly to Path in MacOS
+switch (uname)
+    case Darwin
+        export PATH="/usr/local/Cellar/emacs-mac/emacs-26.1-z-mac-7.4/bin/:$PATH"
+end
 
 # Better Greeting.
 function fish_greeting
