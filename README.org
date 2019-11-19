@@ -13,14 +13,16 @@ sudo xcodebuild -license
 (would be better if this was stateless.)
 #+BEGIN_SRC sh
 git clone https://github.com/biggs/dotfiles ~/.dotfiles
-mkdir -p ~/.config/ ~/.config/fish ~/.config/nvim
+mkdir -p ~/.config/ ~/.config/fish ~/.config/nvim ~/.config/git
 HOMEDIR=/Users/felix
 ln -s $HOMEDIR/.dotfiles/emacs/ ~/.config/doom
 ln -s $HOMEDIR/.dotfiles/fish/config.fish ~/.config/fish/config.fish
 ln -s $HOMEDIR/.dotfiles/git/gitconfig ~/.gitconfig
+ln -s $HOMEDIR/.dotfiles/vim/init.vim ~/.config/nvim/init.vim
+
+# MacOS Only
 ln -s $HOMEDIR/.dotfiles/mac/profile-mac ~/.profile
-ln -s $HOMEDIR/.dotfiles/vim ~/.config/nvim/init.vim
-ln -s $HOMEDIR/.dotfiles/mac/Brewfile ~/.Brewfile  # MacOS Only
+ln -s $HOMEDIR/.dotfiles/mac/Brewfile ~/.Brewfile
 # ln -s $HOMEDIR/.dotfiles/mac/karabiner.json ~/.config/karabiner/karabiner.json
 #+END_SRC
 
@@ -55,7 +57,7 @@ Install Vundle for plugins:
 #+BEGIN_SRC sh
 # Download Vundle and use to install plugins (in the background!)
 # Tries to change to vundle dir, if doesn't exist makes and clones, otherwise updates
-VUNDLE_DIR=$HOME/.vim/bundle/Vundle.vim
+VUNDLE_DIR=$HOME/.config/nvim/bundle/Vundle.vim
 if ! cd $VUNDLE_DIR;
     then mkdir -p $VUNDLE_DIR; git clone https://github.com/VundleVim/Vundle.vim.git $VUNDLE_DIR;
     else git pull;

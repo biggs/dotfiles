@@ -7,9 +7,9 @@ set nocompatible        " Must be first line
 
 " BUNDLES {
     " Setup Bundle Support
-    " The next three lines ensure that the ~/.vim/bundle/ system works
+    " The next three lines ensure that the ~/.config/nvim/bundle/ system works
     filetype off
-    set rtp+=~/.vim/bundle/Vundle.vim
+    set rtp+=~/.config/nvim/bundle/Vundle.vim
     call vundle#rc()
 
         Plugin 'VundleVim/Vundle.vim'
