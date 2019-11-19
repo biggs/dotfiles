@@ -21,6 +21,10 @@ persistent=yes
 # usually to register additional checkers.
 load-plugins=
 
+# 1 or 2 line functions don't need docstrings.
+docstring-min-length: 3
+
+
 
 [MESSAGES CONTROL]
 
@@ -114,7 +118,7 @@ variable-rgx=[a-z_][a-z0-9_]{2,30}$
 inlinevar-rgx=[A-Za-z_][A-Za-z0-9_]*$
 
 # Good variable names which should always be accepted, separated by a comma
-good-names=i,j,k,ex,Run,_
+good-names=i,j,k,ex,Run,_,x,xs,y,ys,w
 
 # Bad variable names which should always be refused, separated by a comma
 bad-names=foo,bar,baz,toto,tutu,tata
@@ -224,6 +228,9 @@ ext-import-graph=
 # Create a graph of internal dependencies in the given file (report RP0402 must
 # not be disabled)
 int-import-graph=
+
+# Modules not to warn about (because they aren't installed on base system).
+ignored-modules=tensorflow,tensorflow_datasets
 
 
 [CLASSES]
