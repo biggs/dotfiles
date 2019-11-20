@@ -7,30 +7,26 @@ set nocompatible        " Must be first line
 " BUNDLES {
     " Setup Bundle Support
     " The next three lines ensure that the ~/.config/nvim/bundle/ system works
-    filetype off
-    set rtp+=~/.config/nvim/bundle/Vundle.vim
-    call vundle#begin('~/.config/nvim/bundle')
+    call plug#begin('~/.config/nvim/plugged')
 
-        Plugin 'VundleVim/Vundle.vim'
-        Plugin 'mileszs/ack.vim'  " ag integration
-        Plugin 'tpope/vim-surround'  " interact cleverly with surrounding brackets etc
-        Plugin 'tpope/vim-repeat'  " allow plugins to repeat with .
-        Plugin 'tpope/vim-unimpaired' " extra bindings, really useful
-        Plugin 'tpope/vim-commentary'  " lightweight comment toggle with gc+motion
-        Plugin 'rhysd/conflict-marker.vim'  " mark git conflicts
-        " Plugin 'jiangmiao/auto-pairs'  " auto brackets
-        Plugin 'bling/vim-bufferline'  " show buffers in statusbar
-        Plugin 'mbbill/undotree'  " navigable undo
-        Plugin 'osyo-manga/vim-over'  " highlighting during :s/blah
-        Plugin 'luochen1990/rainbow'  " rainbow parentheses
-        Plugin 'myusuf3/numbers.vim'  " relative/non line number mode toggle
-        Plugin 'tomasr/molokai'  " Colorscheme
-        Plugin 'vim-airline/vim-airline'  " Cool status bar
-        Plugin 'vim-airline/vim-airline-themes'
-        " Plugin 'airblade/vim-gitgutter'  " Git change line marks
+        Plug 'mileszs/ack.vim'  " ag integration
+        Plug 'tpope/vim-surround'  " interact cleverly with surrounding brackets etc
+        Plug 'tpope/vim-repeat'  " allow plugins to repeat with .
+        Plug 'tpope/vim-unimpaired' " extra bindings, really useful
+        Plug 'tpope/vim-commentary'  " lightweight comment toggle with gc+motion
+        Plug 'rhysd/conflict-marker.vim'  " mark git conflicts
+        " Plug 'jiangmiao/auto-pairs'  " auto brackets
+        Plug 'bling/vim-bufferline'  " show buffers in statusbar
+        Plug 'mbbill/undotree'  " navigable undo
+        Plug 'osyo-manga/vim-over'  " highlighting during :s/blah
+        Plug 'luochen1990/rainbow'  " rainbow parentheses
+        Plug 'myusuf3/numbers.vim'  " relative/non line number mode toggle
+        Plug 'tomasr/molokai'  " Colorscheme
+        Plug 'vim-airline/vim-airline'  " Cool status bar
+        Plug 'vim-airline/vim-airline-themes'
+        " Plug 'airblade/vim-gitgutter'  " Git change line marks
 
-    call vundle#end()            " required
-    filetype plugin indent on    " required
+    call plug#end()            " required
 " }
 
 " BASIC UI AND FORMATTING {
