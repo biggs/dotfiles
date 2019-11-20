@@ -67,7 +67,7 @@ Install vim-plug for plugins:
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 #+END_SRC
-Then run `:PlugInstall`.
+Then run :PlugInstall.
 
 
 ** Keyboard Setup
@@ -78,6 +78,17 @@ Mac:
 ln -s $HOMEDIR/.dotfiles/mac/karabiner.json ~/.config/karabiner/karabiner.json
 #+END_SRC
 
-Ubuntu:
-Install gnome-tweak-tools and set CAPS to CTRL
-Install xcape and run `xcape -e 'Control_L=Escape'`
+Ubuntu: Add to .profile (loaded at login):
+#+BEGIN_SRC cron
+setxkbmap -option ctrl:nocaps
+xcape -e 'Control_L=Escape'
+#+END_SRC
+
+
+** Docker
+MacOS: must be installed by brew at system level.
+
+Ubuntu: install with nix, but need to add self to 'docker' group for security reasons:
+#+BEGIN_SRC sh
+sudo usermod -a -G docker $USER
+#+END_SRC

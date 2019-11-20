@@ -9,6 +9,10 @@ let
     # Emacs (ubuntu goodies)
     emacs
 
+    # More ubuntu specific
+    xcape
+    docker
+
     # Extra terminal utils.
     ripgrep
     calc
