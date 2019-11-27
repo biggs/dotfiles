@@ -5,7 +5,7 @@ let
   my-pkgs = with pkgs; [
     # nix        # make sure nix is in my path!
     cacert     # certificates for ssh downloads, needed for nix.
-    # nox      # search nix packages.
+    nox      # search nix packages.
 
     # Basic GNU utils.
     coreutils
@@ -29,6 +29,11 @@ let
     tldr
     fasd
     powerline-go
+
+    # Security
+    pass
+    gnupg
+    lesspass-cli
 
     # Terminal programs
     fish
