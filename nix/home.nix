@@ -7,5 +7,13 @@ with import <nixpkgs> {};
   programs.home-manager.enable = true;
 
   # List of packages to install.
-  home.packages = import ./default.nix;
+  home.packages = (import ./core.nix) ++
+    [
+      # MacOS only.
+      pkgs.darwin.trash
+      pkgs.wifi-password
+      pkgs.fd
+    ];
+
+
 }
