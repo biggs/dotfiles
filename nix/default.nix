@@ -3,7 +3,7 @@ let
   pkgs = import <nixpkgs> {};
 
   my-pkgs = with pkgs; [
-    nix        # make sure nix is in my path!
+    # nix        # make sure nix is in my path!
     cacert     # certificates for ssh downloads, needed for nix.
     # nox      # search nix packages.
 

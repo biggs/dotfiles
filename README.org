@@ -13,7 +13,7 @@ sudo xcodebuild -license
 (would be better if this was stateless.)
 #+BEGIN_SRC sh
 git clone https://github.com/biggs/dotfiles ~/.dotfiles
-mkdir -p ~/.config/ ~/.config/fish ~/.config/nvim ~/.config/git
+mkdir -p ~/.config/{fish, nvim, git, nixpkgs}
 HOMEDIR=/Users/felix
 ln -s $HOMEDIR/.dotfiles/emacs/ ~/.config/doom
 ln -s $HOMEDIR/.dotfiles/fish/config.fish ~/.config/fish/config.fish
@@ -23,6 +23,7 @@ ln -s $HOMEDIR/.dotfiles/vim/init.vim ~/.config/nvim/init.vim
 # MacOS Only
 ln -s $HOMEDIR/.dotfiles/mac/profile-mac ~/.profile
 ln -s $HOMEDIR/.dotfiles/mac/Brewfile ~/.Brewfile
+ln -s $HOMEDIR/.dotfiles/nix/home.nix ~/.config/nixpkgs/home.nix
 #+END_SRC
 
 
@@ -91,4 +92,19 @@ MacOS: must be installed by brew at system level.
 Ubuntu: install with nix, but need to add self to 'docker' group for security reasons:
 #+BEGIN_SRC sh
 sudo usermod -a -G docker $USER
+#+END_SRC
+
+** Reset Nix to use home-manager
+Installation (resetting to original nix-env with only nix installed before
+building and switching):
+#+BEGIN_SRC sh
+nix-channel --add https://github.com/rycee/home-manager/archive/master.tar.gz home-manager
+nix-channel --update
+nix-env --switch-generation 1
+nix-shell '<home-manager>' -A install
+#+END_SRC
+
+Install/reinstall packages by:
+#+BEGIN_SRC sh
+home-manager switch
 #+END_SRC
