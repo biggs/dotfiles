@@ -12,8 +12,23 @@ with import <nixpkgs> {};
       # MacOS only.
       pkgs.darwin.trash
       pkgs.wifi-password
-      pkgs.fd
     ];
 
+  # Link dotfiles into place.
+  home.file = {
+    # Re-tangle doom config on rebuild (breaks goto doom-private-dir).
+    ".config/doom" = {
+      source = ../emacs;
+      recursive = true;
+      onChange = ''~/.emacs.d/bin/doom refresh'';
+    };
 
+    ".config/fish/config.fish".source = ../fish/config.fish;
+    ".gitconfig".source = ../git/gitconfig;
+    ".config/nvim/init.vim".source = ../vim/init.vim;
+
+    # MacOS Only
+    ".profile".source = ../mac/profile-mac;
+    ".Brewfile".source = ../mac/Brewfile;
+  };
 }
