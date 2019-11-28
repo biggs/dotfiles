@@ -25,6 +25,7 @@ ln -s $HOMEDIR/.dotfiles/mac/profile-mac ~/.profile
 ln -s $HOMEDIR/.dotfiles/mac/Brewfile ~/.Brewfile
 ln -s $HOMEDIR/.dotfiles/nix/home.nix ~/.config/nixpkgs/home.nix
 #+END_SRC
+Replaced with home-manager!
 
 
 ** Nix Download and Install Things

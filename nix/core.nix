@@ -19,6 +19,7 @@ let
     git
     wget
     curlFull
+    fd
 
     # Extra terminal utils.
     imgcat
