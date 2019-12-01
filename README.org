@@ -10,30 +10,33 @@ sudo xcodebuild -license
 #+END_SRC
 
 ** Download and Link Dotfiles
-(would be better if this was stateless.)
+Replaced with home-manager! (but still need to link that!)
 #+BEGIN_SRC sh
 git clone https://github.com/biggs/dotfiles ~/.dotfiles
-mkdir -p ~/.config/{fish, nvim, git, nixpkgs}
-HOMEDIR=/Users/felix
-ln -s $HOMEDIR/.dotfiles/emacs/ ~/.config/doom
-ln -s $HOMEDIR/.dotfiles/fish/config.fish ~/.config/fish/config.fish
-ln -s $HOMEDIR/.dotfiles/git/gitconfig ~/.gitconfig
-ln -s $HOMEDIR/.dotfiles/vim/init.vim ~/.config/nvim/init.vim
-
-# MacOS Only
-ln -s $HOMEDIR/.dotfiles/mac/profile-mac ~/.profile
-ln -s $HOMEDIR/.dotfiles/mac/Brewfile ~/.Brewfile
-ln -s $HOMEDIR/.dotfiles/nix/home.nix ~/.config/nixpkgs/home.nix
+ln -s $HOME/.dotfiles/nix/home.nix $HOME/config/nixpkgs/home.nix
 #+END_SRC
-Replaced with home-manager!
 
 
-** Nix Download and Install Things
+** Nix and Home-Manager Download and Install Things
+Install Nix:
 #+BEGIN_SRC sh
 sh <(curl https://nixos.org/nix/install)   # restart after to get into path.
-nix-env --file ~/.dotfiles/nix/default.nix --install --remove-all
 #+END_SRC
 NOTE: check that sourcing nix hasn't been added twice to `.profile`.
+
+Install Home-manager:
+#+BEGIN_SRC sh
+nix-channel --add https://github.com/rycee/home-manager/archive/master.tar.gz home-manager
+nix-channel --update
+nix-env --switch-generation 1
+nix-shell '<home-manager>' -A install
+#+END_SRC
+NOTE: If used nix before home-manager installed, switch to first generation before installing home-manager.
+
+Install/reinstall packages by:
+#+BEGIN_SRC sh
+home-manager switch
+#+END_SRC
 
 
 ** Homebrew (MacOS Only)
@@ -43,6 +46,11 @@ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/
 brew update
 sudo softwareupdate --install --all
 cd && brew bundle --global
+#+END_SRC
+
+Ubuntu: add the below to profile to ensure nix-installed applications are visible.
+#+BEGIN_SRC sh
+export XDG_DATA_DIRS=$HOME/.nix-profile/share:$HOME/.share:"${XDG_DATA_DIRS:-/usr/local/share/:/usr/share/}"
 #+END_SRC
 
 
@@ -59,8 +67,6 @@ font=$(nix-build --no-out-link '<nixpkgs>' -A source-code-pro)/share/fonts/opent
 cp $font ~/.local/share/fonts
 fc-cache
 #+END_SRC
-
-Ubuntu: also create an Emacs.desktop file and copy to ~/.local/share/applications/
 
 
 ** Vim Setup
@@ -95,17 +101,3 @@ Ubuntu: install with nix, but need to add self to 'docker' group for security re
 sudo usermod -a -G docker $USER
 #+END_SRC
 
-** Reset Nix to use home-manager
-Installation (resetting to original nix-env with only nix installed before
-building and switching):
-#+BEGIN_SRC sh
-nix-channel --add https://github.com/rycee/home-manager/archive/master.tar.gz home-manager
-nix-channel --update
-nix-env --switch-generation 1
-nix-shell '<home-manager>' -A install
-#+END_SRC
-
-Install/reinstall packages by:
-#+BEGIN_SRC sh
-home-manager switch
-#+END_SRC
