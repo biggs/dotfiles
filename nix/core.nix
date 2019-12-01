@@ -1,8 +1,7 @@
-let
-  # Non-pinned nix packages.
-  pkgs = import <nixpkgs> {};
+{ pkgs, ... }:
 
-  my-pkgs = with pkgs; [
+let
+  core-pkgs = with pkgs; [
 
     # nix        # make sure nix is in my path!
     cacert     # certificates for ssh downloads, needed for nix.
@@ -67,4 +66,4 @@ let
   ];
 
 
-in my-pkgs
+in core-pkgs

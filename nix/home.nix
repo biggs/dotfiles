@@ -7,12 +7,12 @@ with import <nixpkgs> {};
   programs.home-manager.enable = true;
 
   # List of packages to install.
-  home.packages = (import ./core.nix) ++
-    [
-      # MacOS only.
-      pkgs.darwin.trash
-      pkgs.wifi-password
-    ];
+  home.packages = (import ./core.nix pkgs) ++
+                  ([
+                    # MacOS only.
+                    pkgs.darwin.trash
+                    pkgs.wifi-password
+                  ]);
 
   # Link dotfiles into place.
   home.file = {

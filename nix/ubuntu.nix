@@ -11,16 +11,23 @@ in
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  # List of packages to install.
-  home.packages = (import ./core.nix) ++
-    [
-      # Emacs (ubuntu goodies)
-      pkgs.emacs
+  # Set nixpkgs options (for home-manager installed packages only).
+  nixpkgs.config = { allowUnfree = true; };
 
-      # More ubuntu specific
-      pkgs.xcape
-      watchexec
-    ];
+  # List of packages to install.
+  home.packages = (import ./core.nix pkgs) ++
+                  (with pkgs; [
+                    # Emacs (ubuntu goodies)
+                    emacs
+
+                    # More ubuntu specific
+                    xcape
+                    watchexec
+                    anki
+                    qtpass
+                    spotify
+                  ]);
+
   # Link dotfiles into place.
   home.file = {
     # Re-tangle doom config on rebuild (breaks goto doom-private-dir).
