@@ -1,7 +1,11 @@
 { config, pkgs, ... }:
 
-with import <nixpkgs> {};
-
+let
+  # Personal Info
+  name = "Felix Biggs";
+  email = "felixbig@gmail.com";
+  github = "biggs";
+in
 {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -24,11 +28,25 @@ with import <nixpkgs> {};
     };
 
     ".config/fish/config.fish".source = ../fish/config.fish;
-    ".gitconfig".source = ../git/gitconfig;
+    ".gitignore".source = ../git/gitignore_global;
     ".config/nvim/init.vim".source = ../vim/init.vim;
 
     # MacOS Only
     ".profile".source = ../mac/profile-mac;
     ".Brewfile".source = ../mac/Brewfile;
   };
+
+  # Generate directory for Info pages.
+  programs.info.enable = true;
+
+
+  programs.git = {
+    enable = true;
+    userName = "${name}";
+    userEmail = "${email}";
+    extraConfig.github.user = "${github}";
+    extraConfig.core.excludesfile = "~/.gitignore";
+    # Note: nix git on mac helpfully adds: credential.helper=osxkeychain
+  };
+
 }
