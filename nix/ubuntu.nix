@@ -8,6 +8,9 @@ let
   email = "felixbig@gmail.com";
 in
 {
+  # Import everything from sub-files.
+  imports = [ ./core.nix ];
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
@@ -15,8 +18,7 @@ in
   nixpkgs.config = { allowUnfree = true; };
 
   # List of packages to install.
-  home.packages = (import ./core.nix pkgs) ++
-                  (with pkgs; [
+  home.packages = with pkgs; [
                     # Emacs (ubuntu goodies)
                     emacs
 
@@ -26,7 +28,7 @@ in
                     anki
                     qtpass
                     spotify
-                  ]);
+                  ];
 
   # Link dotfiles into place.
   home.file = {

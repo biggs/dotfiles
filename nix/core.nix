@@ -65,5 +65,4 @@ let
     })
   ];
 
-
-in core-pkgs
+in { home.packages = core-pkgs; }

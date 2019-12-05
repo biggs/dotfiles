@@ -7,16 +7,17 @@ let
   github = "biggs";
 in
 {
+  # Import everything from sub-files.
+  imports = [ ./core.nix ];
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
   # List of packages to install.
-  home.packages = (import ./core.nix pkgs) ++
-                  ([
-                    # MacOS only.
+  home.packages = [ # MacOS only.
                     pkgs.darwin.trash
                     pkgs.wifi-password
-                  ]);
+                  ];
 
   # Link dotfiles into place.
   home.file = {
@@ -48,5 +49,7 @@ in
     extraConfig.core.excludesfile = "~/.gitignore";
     # Note: nix git on mac helpfully adds: credential.helper=osxkeychain
   };
+
+  # programs.fish.enable = true;
 
 }
