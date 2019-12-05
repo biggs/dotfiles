@@ -1,11 +1,47 @@
 { pkgs, ... }:
 
 let
-  core-pkgs = with pkgs; [
+  # Personal Info
+  name = "Felix Biggs";
+  email = "felixbig@gmail.com";
+  github = "biggs";
+in
+{
+  # Let Home Manager install and manage itself.
+  programs.home-manager.enable = true;
 
-    # nix        # make sure nix is in my path!
+  # Set nixpkgs options (for home-manager installed packages only).
+  nixpkgs.config = { allowUnfree = true; };
+
+  # Link dotfiles into place.
+  home.file = {
+    # Re-tangle doom config on rebuild (breaks goto doom-private-dir).
+    ".config/doom" = {
+      source = ../emacs;
+      recursive = true;
+      onChange = ''~/.emacs.d/bin/doom refresh'';
+    };
+
+    ".config/fish/config.fish".source = ../fish/config.fish;
+    ".gitignore".source = ../git/gitignore_global;
+    ".config/nvim/init.vim".source = ../vim/init.vim;
+  };
+
+  # Generate directory for Info pages.
+  programs.info.enable = true;
+
+  programs.git = {
+    enable = true;
+    userName = "${name}";
+    userEmail = "${email}";
+    extraConfig.github.user = "${github}";
+    extraConfig.core.excludesfile = "~/.gitignore";
+    # Note: nix git on mac helpfully adds: credential.helper=osxkeychain
+  };
+
+  home.packages = with pkgs; [
     cacert     # certificates for ssh downloads, needed for nix.
-    nox      # search nix packages.
+    nox        # search nix packages.
 
     # Basic GNU utils.
     coreutils
@@ -30,7 +66,7 @@ let
     tldr
     fasd
     powerline-go
-    cabal2nix    # Incredibly useful utility.
+    cabal2nix
     youtube-dl
 
     # Security
@@ -61,8 +97,13 @@ let
 
     # Tex.
     (texlive.combine {
-        inherit (texlive) scheme-medium collection-fontsrecommended unicode-math dvipng subfigure forloop;
+        inherit (texlive)
+            scheme-medium
+            collection-fontsrecommended
+            unicode-math
+            dvipng
+            subfigure
+            forloop;
     })
   ];
-
-in { home.packages = core-pkgs; }
+}
