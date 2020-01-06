@@ -21,12 +21,18 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
-if [ -e /home/felbiggs/.nix-profile/etc/profile.d/nix.sh ]; then . /home/felbiggs/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
-setxkbmap -option ctrl:swapcaps
-xcape -e 'Control_L=Escape'
+# Nix setup
+if [ -e /home/felbiggs/.nix-profile/etc/profile.d/nix.sh ]; then . /home/felbiggs/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
 export XDG_DATA_DIRS=$HOME/.nix-profile/share:$HOME/.share:"${XDG_DATA_DIRS:-/usr/local/share/:/usr/share/}"
 
 # Fix locales: see https://github.com/NixOS/nix/issues/599#issuecomment-153885553
 export LOCALE_ARCHIVE=$HOME/.nix-profile/lib/locale/locale-archive
+
+
+# Keyboard options
+setxkbmap -option ctrl:swapcaps    # swap control and caps
+xmodmap -e "keycode  23 = Alt_L Meta_L Alt_L Meta_L"    # tab is alt.
+xmodmap -e "keycode  any = Tab"    # keep tab around
+xcape -e 'Control_L=Escape;Alt_L=Tab'    # tapping ctrl or alt gives ESC or TAB
