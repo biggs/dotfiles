@@ -34,5 +34,8 @@ export LOCALE_ARCHIVE=$HOME/.nix-profile/lib/locale/locale-archive
 # Keyboard options
 setxkbmap -option ctrl:swapcaps    # swap control and caps
 xmodmap -e "keycode  23 = Alt_L Meta_L Alt_L Meta_L"    # tab is alt.
-xmodmap -e "keycode  any = Tab"    # keep tab around
+xmodmap -e "keycode  64 = Tab ISO_Left_Tab Tab ISO_Left_Tab"  # Alt is now tab.
 xcape -e 'Control_L=Escape;Alt_L=Tab'    # tapping ctrl or alt gives ESC or TAB
+
+
+
