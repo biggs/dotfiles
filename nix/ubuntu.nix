@@ -19,6 +19,8 @@
     watchexec
     xcape
     zathura
+    zeal
+    zotero
     zulip
   ];
 
