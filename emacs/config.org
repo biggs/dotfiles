@@ -96,6 +96,11 @@ Smartparens disable "_" matching and add "\left( \right)"
 (sp-local-pair 'org-mode "\\left\\|" "\\right\\|" :trigger "\\l|")
 #+end_src
 
+Stop annoying indentation.
+#+begin_src emacs-lisp
+(setq org-adapt-indentation 'nil)
+#+end_src
+
 ** Anki Editor Mode
 Cloze with meta-C (can't seem to do this in only Anki mode).
 #+BEGIN_SRC emacs-lisp
