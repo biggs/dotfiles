@@ -95,11 +95,6 @@ function gitlog -d "More detailed, prettified output for git."
 end
 
 
-function nix-up -d "Update nix from ~/.dotfiles/nix/default.nix"
-    nix-env -f ~/.dotfiles/nix/default.nix -i --remove-all
-end
-
-
 function ghci-nix -d "Nix shell with haskell and packages."
     set PCKS ""
     for s in $argv
