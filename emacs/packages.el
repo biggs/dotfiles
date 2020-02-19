@@ -9,3 +9,4 @@
 (package! anki-editor)
 (package! dash-at-point)
 (package! monokai-theme)
+(package! org-ref)

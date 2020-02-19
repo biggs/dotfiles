@@ -67,9 +67,10 @@ alias l='exa -l --git';
 alias la='exa -l -a --git';
 alias l2='exa -l --git -T --level 2';
 
-# Hide copyright.
+# Hide copyright/intro
 alias gdb='gdb -q'
 alias julia='julia --banner=no'
+alias calc='calc -d'
 
 # Misc.
 alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
@@ -103,3 +104,24 @@ function ghci-nix -d "Nix shell with haskell and packages."
     nix-shell -p "haskellPackages.ghcWithPackages (ps: with ps; [ $PCKS ])" \
     --command ghci
 end
+
+
+function ranger-cd                                                               
+  set tempfile '/tmp/chosendir'                                                  
+  ranger --choosedir=$tempfile (pwd)                                    
+
+  if test -f $tempfile                                                           
+      if [ (cat $tempfile) != (pwd) ]                                            
+        cd (cat $tempfile)                                                       
+      end                                                                        
+  end                                                                            
+
+  rm -f $tempfile                                                                
+
+end                                                                              
+
+function fish_user_key_bindings                                                  
+    bind \co 'ranger-cd ; fish_prompt'                                           
+end
+
+alias r='ranger-cd'
