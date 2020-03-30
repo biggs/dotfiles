@@ -125,6 +125,19 @@ Create a technical note.
           " Technical\n:END:\n** Text\n** Source\n** Extra"))
 #+END_SRC
 
+Get rid of annoying HTML <p> and </p> tags on export.
+#+BEGIN_SRC emacs-lisp
+(defun filter-out-p (str _ _)
+  (replace-regexp-in-string "\n<p>\\|</p>\n\\|<p>\\|</p>" "" str))
+
+(after! anki-editor
+  (setq anki-editor--ox-anki-html-backend
+    (org-export-create-backend
+      :parent 'html
+      :filters
+        '((:filter-paragraph . filter-out-p)))))
+#+END_SRC
+
 ** Bibliographies and Referencing
 Org-ref and bibtex setup.
 #+BEGIN_SRC emacs-lisp
