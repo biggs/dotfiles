@@ -101,6 +101,11 @@ Stop annoying indentation.
 (setq org-adapt-indentation 'nil)
 #+end_src
 
+Set overall ORG directory.
+#+begin_src emacs-lisp
+(setq org-directory "~/Dropbox/ORG")
+#+end_src
+
 ** Anki Editor Mode
 Cloze with meta-C (can't seem to do this in only Anki mode).
 #+BEGIN_SRC emacs-lisp
@@ -163,7 +168,7 @@ Org-ref and bibtex setup.
   '(("w" todo "WAITING" nil)
     ("n" todo "NEXT" nil)
     ;; options: org-agenda.el:org-agenda-custom-commands-local-options
-    (" " "Main Agenda View"
+    ("" "Main Agenda View"
       ((todo "NEXT"
             ((org-agenda-overriding-header "NEXT Actions")))
       (tags "REFILE"
@@ -176,23 +181,27 @@ Org-ref and bibtex setup.
       (todo "HOLD"
             ((org-agenda-overriding-header "On Hold Actions"))))))
 
-  org-todo-keywords
-  (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-          (sequence "HOLD(h)" "WAITING(w@/!)" "MAYBE(m)" "|" "CANCELLED(c)")))
-
-  org-todo-keyword-faces
-  (quote (("TODO" :foreground "red" :weight bold)
-          ("NEXT" :foreground "orange" :weight bold)
-          ("DONE" :foreground "green" :weight bold)
-          ("MAYBE" :foreground "blue" :weight bold)
-          ("HOLD" :foreground "gold" :weight bold)
-          ("CANCELLED" :foreground "purple" :weight bold)
-          ("WAITING" :foreground "magenta" :weight bold)))
-
   org-capture-templates
   (quote (("t" "todo" entry (file "~/Dropbox/ORG/todo/refile.org")
-            "* TODO %?\n%U\n%a\n")))
-)
+            "* TODO %?\n%U\n%a\n"))))
+#+END_SRC
+
+Set TODO keywords when ORG already loaded:
+#+BEGIN_SRC emacs-lisp
+(after! org
+  (setq
+    org-todo-keywords
+    (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+            (sequence "HOLD(h)" "WAITING(w@/!)" "MAYBE(m)" "|" "CANCELLED(c)")))
+
+    org-todo-keyword-faces
+    (quote (("TODO" :foreground "red" :weight bold)
+            ("NEXT" :foreground "orange" :weight bold)
+            ("DONE" :foreground "green" :weight bold)
+            ("MAYBE" :foreground "blue" :weight bold)
+            ("HOLD" :foreground "gold" :weight bold)
+            ("CANCELLED" :foreground "purple" :weight bold)
+            ("WAITING" :foreground "magenta" :weight bold)))))
 #+END_SRC
 
 
