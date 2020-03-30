@@ -68,6 +68,7 @@ in
     powerline-go
     cabal2nix
     youtube-dl
+    nmap
 
     # Security
     pass

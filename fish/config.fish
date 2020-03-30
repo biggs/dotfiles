@@ -125,3 +125,4 @@ function fish_user_key_bindings
 end
 
 alias r='ranger-cd'
+alias cimmaronip="nmap -sL 192.168.1.0/24 | grep cimarron | sed -E 's/.*\((.+)\)/\1/'"
