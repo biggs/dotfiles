@@ -2,14 +2,22 @@
 
 
 # Import fish-foreign-env to allow PATH from of ~/.profile.
-set fish_function_path $fish_function_path \
-  ~/.nix-profile/share/fish-foreign-env/functions
-fenv source ~/.profile
+function import-dot-profile
+  set fish_function_path $fish_function_path \
+    ~/.nix-profile/share/fish-foreign-env/functions
+  fenv source ~/.profile
+end
 
 # Add Emacs Directly to Path in MacOS
 switch (uname)
-    case Darwin
-        export PATH="/usr/local/Cellar/emacs-mac/emacs-26.1-z-mac-7.4/bin/:$PATH"
+  case Darwin
+    import-dot-profile
+    export PATH="/usr/local/Cellar/emacs-mac/emacs-26.1-z-mac-7.4/bin/:$PATH"
+  case Linux
+    # Import only in Ubuntu
+    if string length -q -- (grep Ubuntu /etc/os-release)
+      import-dot-profile
+    end
 end
 
 # Better Greeting.
