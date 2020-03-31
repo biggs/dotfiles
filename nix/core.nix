@@ -69,6 +69,7 @@ in
     cabal2nix
     youtube-dl
     bat
+    nmap
 
     # Security
     pass

@@ -104,11 +104,6 @@ function gitlog -d "More detailed, prettified output for git."
 end
 
 
-function nix-up -d "Update nix from ~/.dotfiles/nix/default.nix"
-    nix-env -f ~/.dotfiles/nix/default.nix -i --remove-all
-end
-
-
 function ghci-nix -d "Nix shell with haskell and packages."
     set PCKS ""
     for s in $argv
@@ -138,3 +133,4 @@ function fish_user_key_bindings
 end
 
 alias r='ranger-cd'
+alias cimmaronip="nmap -sL 192.168.1.0/24 | grep cimarron | sed -E 's/.*\((.+)\)/\1/'"

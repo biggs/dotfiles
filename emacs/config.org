@@ -101,6 +101,11 @@ Stop annoying indentation.
 (setq org-adapt-indentation 'nil)
 #+end_src
 
+Set overall ORG directory.
+#+begin_src emacs-lisp
+(setq org-directory "~/Dropbox/ORG")
+#+end_src
+
 ** Anki Editor Mode
 Cloze with meta-C (can't seem to do this in only Anki mode).
 #+BEGIN_SRC emacs-lisp
@@ -118,6 +123,19 @@ Create a technical note.
   (anki-editor-mode)
   (insert "* Item\n:PROPERTIES:\n:ANKI_DECK: Technical\n:ANKI_NOTE_TYPE:"
           " Technical\n:END:\n** Text\n** Source\n** Extra"))
+#+END_SRC
+
+Get rid of annoying HTML <p> and </p> tags on export.
+#+BEGIN_SRC emacs-lisp
+(defun filter-out-p (str _ _)
+  (replace-regexp-in-string "\n<p>\\|</p>\n\\|<p>\\|</p>" "" str))
+
+(after! anki-editor
+  (setq anki-editor--ox-anki-html-backend
+    (org-export-create-backend
+      :parent 'html
+      :filters
+        '((:filter-paragraph . filter-out-p)))))
 #+END_SRC
 
 ** Bibliographies and Referencing
@@ -163,7 +181,7 @@ Org-ref and bibtex setup.
   '(("w" todo "WAITING" nil)
     ("n" todo "NEXT" nil)
     ;; options: org-agenda.el:org-agenda-custom-commands-local-options
-    (" " "Main Agenda View"
+    ("" "Main Agenda View"
       ((todo "NEXT"
             ((org-agenda-overriding-header "NEXT Actions")))
       (tags "REFILE"
@@ -176,23 +194,27 @@ Org-ref and bibtex setup.
       (todo "HOLD"
             ((org-agenda-overriding-header "On Hold Actions"))))))
 
-  org-todo-keywords
-  (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-          (sequence "HOLD(h)" "WAITING(w@/!)" "MAYBE(m)" "|" "CANCELLED(c)")))
-
-  org-todo-keyword-faces
-  (quote (("TODO" :foreground "red" :weight bold)
-          ("NEXT" :foreground "orange" :weight bold)
-          ("DONE" :foreground "green" :weight bold)
-          ("MAYBE" :foreground "blue" :weight bold)
-          ("HOLD" :foreground "gold" :weight bold)
-          ("CANCELLED" :foreground "purple" :weight bold)
-          ("WAITING" :foreground "magenta" :weight bold)))
-
   org-capture-templates
   (quote (("t" "todo" entry (file "~/Dropbox/ORG/todo/refile.org")
-            "* TODO %?\n%U\n%a\n")))
-)
+            "* TODO %?\n%U\n%a\n"))))
+#+END_SRC
+
+Set TODO keywords when ORG already loaded:
+#+BEGIN_SRC emacs-lisp
+(after! org
+  (setq
+    org-todo-keywords
+    (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+            (sequence "HOLD(h)" "WAITING(w@/!)" "MAYBE(m)" "|" "CANCELLED(c)")))
+
+    org-todo-keyword-faces
+    (quote (("TODO" :foreground "red" :weight bold)
+            ("NEXT" :foreground "orange" :weight bold)
+            ("DONE" :foreground "green" :weight bold)
+            ("MAYBE" :foreground "blue" :weight bold)
+            ("HOLD" :foreground "gold" :weight bold)
+            ("CANCELLED" :foreground "purple" :weight bold)
+            ("WAITING" :foreground "magenta" :weight bold)))))
 #+END_SRC
 
 
