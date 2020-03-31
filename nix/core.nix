@@ -1,10 +1,11 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
   # Personal Info
   name = "Felix Biggs";
   email = "felixbig@gmail.com";
   github = "biggs";
+  dotdir = ~/.dotfiles;
 in
 {
   # Let Home Manager install and manage itself.
@@ -17,14 +18,14 @@ in
   home.file = {
     # Re-tangle doom config on rebuild (breaks goto doom-private-dir).
     ".config/doom" = {
-      source = ../emacs;
+      source = dotdir + "/emacs";
       recursive = true;
       onChange = ''~/.emacs.d/bin/doom refresh'';
     };
 
-    ".config/fish/config.fish".source = ../fish/config.fish;
-    ".gitignore".source = ../git/gitignore_global;
-    ".config/nvim/init.vim".source = ../vim/init.vim;
+    # ".config/fish/config.fish".source = dotdir + "/fish/config.fish";
+    ".gitignore".source = dotdir + "/git/gitignore_global";
+    ".config/nvim/init.vim".source = dotdir + "/vim/init.vim";
   };
 
   # Generate directory for Info pages.
@@ -41,7 +42,6 @@ in
 
   home.packages = with pkgs; [
     cacert     # certificates for ssh downloads, needed for nix.
-    nox        # search nix packages.
 
     # Basic GNU utils.
     coreutils
@@ -68,6 +68,7 @@ in
     powerline-go
     cabal2nix
     youtube-dl
+    bat
 
     # Security
     pass
