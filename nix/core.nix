@@ -23,7 +23,6 @@ in
       onChange = ''~/.emacs.d/bin/doom refresh'';
     };
 
-    # ".config/fish/config.fish".source = dotdir + "/fish/config.fish";
     ".gitignore".source = dotdir + "/git/gitignore_global";
     ".config/nvim/init.vim".source = dotdir + "/vim/init.vim";
   };

@@ -14,5 +14,6 @@
   home.file = {
     ".profile".source = ../mac/profile-mac;
     ".Brewfile".source = ../mac/Brewfile;
+    ".config/fish/config.fish".source = ../fish/config.fish;
   };
 }
