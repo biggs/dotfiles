@@ -94,7 +94,10 @@ in
     (pkgs.aspellWithDicts (ps: [ps.en]))
 
     # Python.
-    (python3.withPackages (ps: [ps.numpy ps.python-language-server]))
+    (python3.withPackages (ps: with ps; [
+      numpy python-language-server
+      tensorflow tensorflow-tensorboard tensorflow-probability
+    ]))
 
     # Tex.
     (texlive.combine {
