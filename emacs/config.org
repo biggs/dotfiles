@@ -45,6 +45,10 @@ Function keys.
   :n "<f9>" 'org-agenda)
  #+END_SRC
 
+Completion. (C-n will open the list of competions, C-p will be the usual quickcomplete)
+ #+BEGIN_SRC emacs-lisp
+(map! :i "C-n" 'company-complete)
+ #+END_SRC
 
 * ORG Specific
 "K" to lookup in MacOS dictionary:
@@ -305,6 +309,18 @@ super-scripts. If extra rules wanted, use form: (quail-define-rules ("\\unrhd"
 #+BEGIN_SRC emacs-lisp
 (setq default-input-method 'math)
 #+END_SRC
+
+
+Or, alternatively, use company completion: turn it on by running this function (doom seems pretty weird about doing it otherwise).
+#+BEGIN_SRC emacs-lisp
+(defun activate-latex-unicode-competion ()
+  (interactive)
+  (add-to-list 'company-backends 'company-math-symbols-unicode))
+
+(set-company-backend! 'org-mode 'company-math-symbols-unicode)
+#+END_SRC
+
+
 ** Ranger
 #+BEGIN_SRC emacs-lisp
 (setq
