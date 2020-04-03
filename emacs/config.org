@@ -50,6 +50,14 @@ Completion. (C-n will open the list of competions, C-p will be the usual quickco
 (map! :i "C-n" 'company-complete)
  #+END_SRC
 
+** Testing New Configuration Options
+The cycle of restarting emacs and recompiling my literate config is too slow
+when trying new features. Solution: [[~/emacsextraconfig.el]] file, loaded if it exists.
+ #+BEGIN_SRC emacs-lisp
+(if (file-exists-p "~/emacsextraconfig.el") (load "~/emacsextraconfig.el"))
+ #+END_SRC
+
+
 * ORG Specific
 "K" to lookup in MacOS dictionary:
 #+BEGIN_SRC emacs-lisp
@@ -311,7 +319,7 @@ super-scripts. If extra rules wanted, use form: (quail-define-rules ("\\unrhd"
 #+END_SRC
 
 
-Or, alternatively, use company completion: turn it on by running this function (doom seems pretty weird about doing it otherwise).
+Or, alternatively, use company completion: turn it on by running this function, and add to automatically load on org.
 #+BEGIN_SRC emacs-lisp
 (defun activate-latex-unicode-competion ()
   (interactive)
