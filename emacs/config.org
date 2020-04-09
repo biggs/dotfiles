@@ -181,6 +181,13 @@ Org-ref and bibtex setup.
 )
 #+END_SRC
 
+
+** Roam
+Set ORG-Roam directory:
+#+BEGIN_SRC emacs-lisp
+(setq org-roam-directory "~/Dropbox/ORG/roam")
+#+END_SRC
+
 ** Agenda and GTD
 #+BEGIN_SRC emacs-lisp
 (setq
