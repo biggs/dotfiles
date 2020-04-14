@@ -22,8 +22,6 @@ in
       recursive = true;
       onChange = ''~/.emacs.d/bin/doom refresh'';
     };
-
-    ".gitignore".source = dotdir + "/git/gitignore_global";
   };
 
   # Generate directory for Info pages.
@@ -34,7 +32,7 @@ in
     userName = "${name}";
     userEmail = "${email}";
     extraConfig.github.user = "${github}";
-    extraConfig.core.excludesfile = "~/.gitignore";
+    extraConfig.core.excludesfile = builtins.toString ../git/gitignore_global;
     # Note: nix git on mac helpfully adds: credential.helper=osxkeychain
   };
 
