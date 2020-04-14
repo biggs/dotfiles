@@ -93,9 +93,6 @@ set nocompatible        " Must be first line
     " vim has markdown syntax, but detects wrong filetype, fix here
     autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
-    " Strip whitespace on save
-    autocmd FileType c,cpp,java,php,javascript,lisp,python,xml,perl,sql autocmd BufWritePre <buffer> :call StripTrailingWhitespace()
-
 " }
 
 "  MAPPINGS {
@@ -179,28 +176,11 @@ set nocompatible        " Must be first line
     " Set rainbow brackets on to start
     let g:rainbow_active = 1  " toggle with :RainbowToggle
 
-    "Plugin 'tmhedberg/SimpylFold'
-    let g:SimpylFold_fold_docstring = 0
-    let g:SimpylFold_fold_import = 0
-
     " NEOTERM
     nnoremap <leader>r :TREPLSendLine<cr>
 " }
 
-" FUNCTIONS {
-
-    function! StripTrailingWhitespace()
-        " save last search, and cursor position.
-        let _s=@/
-        let l = line(".")
-        let c = col(".")
-        " do the business:
-        %s/\s\+$//e
-        " clean up: restore previous search history, and cursor position
-        let @/=_s
-        call cursor(l, c)
-    endfunction
-
+" Initialise Directories Function {
 
     function! InitializeDirectories()
         let dir_list = {
