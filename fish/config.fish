@@ -38,27 +38,6 @@ end
 
 
 
-# Fasd (no plugin version, since I only use 'z').
-function fasd_cd -d "fasd builtin cd"
-  if test (count $argv) -le 1
-    command fasd "$argv"
-  else
-    set -l ret (command fasd -e 'printf %s' $argv)
-    test -z "$ret"; and return
-    test -d "$ret"; and cd "$ret"; or printf "%s\n" $ret
-  end
-end
-
-function __fasd_print_completion
-  set cmd (commandline -po)
-  test (count $cmd) -ge 2; and fasd $argv $cmd[2..-1] -l
-end
-
-alias z='fasd_cd -d'
-complete -c z -a "(__fasd_print_completion -d)" -f -A
-
-
-
 # Nvim.
 set -U EDITOR 'nvim'
 alias vi='nvim'

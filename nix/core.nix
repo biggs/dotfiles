@@ -64,11 +64,24 @@ in
   programs.fish = {
     enable = true;
     shellInit = builtins.readFile ../fish/config.fish;
+    plugins = [
+      {
+        name = "z";
+        src = pkgs.fetchFromGitHub {
+          owner = "jethrokuan";
+          repo = "z";
+          rev = "ddeb28a7b6a1f0ec6dae40c636e5ca4908ad160a";
+          sha256 = "0c5i7sdrsp0q3vbziqzdyqn4fmp235ax4mn4zslrswvn8g3fvdyh";
+        };
+      }
+    ];
   };
 
 
   home.packages = with pkgs; [
+    # Nix
     cacert     # certificates for ssh downloads, needed for nix.
+    nix-prefetch-git     # get git revision hash.
 
     # Basic GNU utils.
     coreutils
@@ -109,7 +122,7 @@ in
 
     # Pandoc
     pandoc
-    (haskellPackages.callPackage ./pandoc-unicode-math.nix {})
+    # (haskellPackages.callPackage ./pandoc-unicode-math.nix {})  #TODO: Broken.
 
     # Fun starting goodies
     fortune
