@@ -75,6 +75,33 @@ in
         };
       }
     ];
+    shellAliases = {
+      view = "nvim -R";
+      e = "emacsclient --no-wait --quiet --alternate-editor='nvim'";
+      vlc = "/Applications/VLC.app/Contents/MacOS/VLC";
+      mylint = "pylint --rcfile=~/.dotfiles/python/pylint.rc";
+      ca = "command --all";
+      cimmaronip = "nmap -sL 192.168.1.0/24 | grep cimarron | sed -E 's/.*\((.+)\)/\1/'";
+
+      # Exa.
+      ls = "exa";
+      l = "exa -l --git";
+      la = "exa -l -a --git";
+      l2 = "exa -l --git -T --level 2";
+
+      # Hide copyright/intro
+      gdb = "gdb -q";
+      julia = "julia --banner=no";
+      calc = "calc -d";
+    };
+    promptInit =
+      ''
+        function fish_prompt
+          powerline-go \
+          -error $status -shell bare -cwd-mode plain -numeric-exit-codes \
+          -modules "venv,ssh,cwd,git,jobs,exit"
+        end
+      '';
   };
 
 

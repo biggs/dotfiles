@@ -1,5 +1,4 @@
-# Felix' Fish Configuration.
-
+# Felix' Fish Configuration Init File.
 
 # Import a .profile file if it exists.
 # This requires fish-foreign-env (a nix package) to interpret
@@ -26,46 +25,6 @@ function fish_greeting
         fortune -a
         echo
     end | lolcat
-end
-
-
-# Use Powerline as prompt (requires patched fonts).
-function fish_prompt
-    powerline-go \
-    -error $status -shell bare -cwd-mode plain -numeric-exit-codes \
-    -modules "venv,ssh,cwd,git,jobs,exit"
-end
-
-
-
-# Nvim.
-set -U EDITOR 'nvim'
-alias vi='nvim'
-alias view='nvim -R'
-
-# Emacs.
-alias e='emacsclient --no-wait --quiet --alternate-editor="nvim"'
-
-# Exa.
-alias ls='exa';
-alias l='exa -l --git';
-alias la='exa -l -a --git';
-alias l2='exa -l --git -T --level 2';
-
-# Hide copyright/intro
-alias gdb='gdb -q'
-alias julia='julia --banner=no'
-alias calc='calc -d'
-
-# Misc.
-alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
-alias mylint='pylint --rcfile=~/.dotfiles/python/pylint.rc'
-alias ca='command --all'
-
-
-
-function zshsearch -d "Search through zsh history"
-    command awk --field-separator=';' '/'$argv'/{$1=""; print}' ~/.zsh_history
 end
 
 
@@ -102,12 +61,8 @@ function ranger-cd
   end                                                                            
 
   rm -f $tempfile                                                                
-
-end                                                                              
+end
 
 function fish_user_key_bindings                                                  
     bind \co 'ranger-cd ; fish_prompt'                                           
 end
-
-alias r='ranger-cd'
-alias cimmaronip="nmap -sL 192.168.1.0/24 | grep cimarron | sed -E 's/.*\((.+)\)/\1/'"
