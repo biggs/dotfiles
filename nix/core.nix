@@ -5,7 +5,6 @@ let
   name = "Felix Biggs";
   email = "felixbig@gmail.com";
   github = "biggs";
-  dotdir = ~/.dotfiles;
 in
 {
   # Let Home Manager install and manage itself.
@@ -14,11 +13,10 @@ in
   # Set nixpkgs options (for home-manager installed packages only).
   nixpkgs.config = { allowUnfree = true; };
 
-  # Link dotfiles into place.
+  # Emacs setup. Re-tangle doom config on rebuild (breaks goto doom-private-dir).
   home.file = {
-    # Re-tangle doom config on rebuild (breaks goto doom-private-dir).
     ".config/doom" = {
-      source = dotdir + "/emacs";
+      source = ../emacs;
       recursive = true;
       onChange = ''~/.emacs.d/bin/doom refresh'';
     };
