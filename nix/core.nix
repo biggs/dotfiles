@@ -62,6 +62,13 @@ in
     viAlias = true;
   };
 
+
+  programs.fish = {
+    enable = true;
+    shellInit = builtins.readFile ../fish/config.fish;
+  };
+
+
   home.packages = with pkgs; [
     cacert     # certificates for ssh downloads, needed for nix.
 
@@ -99,8 +106,6 @@ in
     lesspass-cli
 
     # Terminal programs
-    fish
-    fish-foreign-env
     ncdu
     ranger
 

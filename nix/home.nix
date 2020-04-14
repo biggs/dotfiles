@@ -9,11 +9,20 @@
     darwin.trash
     wifi-password
     qtpass
+
+    fish-foreign-env   # Needed for import of .profile
   ];
 
   home.file = {
-    ".profile".source = ../mac/profile-mac;
     ".Brewfile".source = ../mac/Brewfile;
-    ".config/fish/config.fish".source = ../fish/config.fish;
+
+    # Get correct PATH and nix setup for macos. (note escaping '' in front of $)
+    ".profile".text = ''
+      # First line is Mac default PATH, nix additions in other lines.
+      export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+      if [ -e /Users/felix/.nix-profile/etc/profile.d/nix.sh ]; \
+      then . /Users/felix/.nix-profile/etc/profile.d/nix.sh; fi
+      export NIX_PATH=$HOME/.nix-defexpr/channels''${NIX_PATH:+:}$NIX_PATH
+    '';
   };
 }

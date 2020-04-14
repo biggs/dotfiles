@@ -1,24 +1,22 @@
 # Felix' Fish Configuration.
 
 
-# Import fish-foreign-env to allow PATH from of ~/.profile.
+# Import a .profile file if it exists.
+# This requires fish-foreign-env (a nix package) to interpret
+# bash commands, and can be used to get nix into the PATH.
 function import-dot-profile
-  set fish_function_path $fish_function_path \
-    ~/.nix-profile/share/fish-foreign-env/functions
-  fenv source ~/.profile
+  set fenv_path /Users/felix/.nix-profile/share/fish-foreign-env/functions
+  set fish_function_path $fenv_path $fish_function_path
+  fenv source $HOME/.profile > /dev/null
 end
+if test -e ~/.profile; import-dot-profile; end
+
 
 # Add Emacs Directly to Path in MacOS
-switch (uname)
-  case Darwin
-    import-dot-profile
-    export PATH="/usr/local/Cellar/emacs-mac/emacs-26.1-z-mac-7.4/bin/:$PATH"
-  case Linux
-    # Import only in Ubuntu
-    if string length -q -- (grep Ubuntu /etc/os-release)
-      import-dot-profile
-    end
+if test (uname) = "Darwin"
+  export PATH="/usr/local/Cellar/emacs-mac/emacs-26.1-z-mac-7.4/bin/:$PATH"
 end
+
 
 # Better Greeting.
 function fish_greeting
