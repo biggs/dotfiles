@@ -1,4 +1,0 @@
-## Set the path to the mac default, then add /bin as personal choice
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-if [ -e /Users/felix/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/felix/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-export NIX_PATH=$HOME/.nix-defexpr/channels${NIX_PATH:+:}$NIX_PATH
