@@ -17,6 +17,7 @@
   home.packages = with pkgs; [
 
     anki
+    gcc
     glibcLocales   # FIX LOCALES
     qtpass
     spotify
