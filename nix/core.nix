@@ -61,6 +61,7 @@ in
         vim-gitgutter  # Git change line marks
       ]);
     extraConfig = builtins.readFile ../vim/init.vim;
+    viAlias = true;
   };
 
   home.packages = with pkgs; [
