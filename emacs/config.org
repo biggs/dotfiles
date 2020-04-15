@@ -304,6 +304,9 @@ Everything is prefixed with ";" rather than "\", including sub and
 super-scripts. If extra rules wanted, use form: (quail-define-rules ("\\unrhd"
 #X22B5) ("\\unrhd" #X22B5))
 
+Note math-symbol-list-extended sets the default Greek characters to code points
+that are unsupported on the phone so is disabled.
+
 #+BEGIN_SRC emacs-lisp
 (package-initialize)
 (require 'math-symbol-lists)
@@ -314,7 +317,7 @@ super-scripts. If extra rules wanted, use form: (quail-define-rules ("\\unrhd"
               ;; Remove "\" prefix if exists (not for sub/super scripts) and add ";" to all.
               (concat ";" (string-remove-prefix "\\" (cadr x)))
               (car (cddr x)))))
-      (append math-symbol-list-basic math-symbol-list-extended
+      (append math-symbol-list-basic ; math-symbol-list-extended
               math-symbol-list-subscripts math-symbol-list-superscripts))
 
 #+END_SRC

@@ -159,6 +159,9 @@ in
     # English spelling for Emacs.
     (pkgs.aspellWithDicts (ps: [ps.en]))
 
+    # Emacs graph viewing
+    graphviz
+
     # Python.
     (python3.withPackages (ps: with ps; [
       numpy python-language-server
