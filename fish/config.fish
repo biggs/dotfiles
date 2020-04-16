@@ -27,6 +27,12 @@ function fish_greeting
     end | lolcat
 end
 
+# Fix a problem with paging on nixos, will be resolved once fish version is
+# updated. https://github.com/NixOS/nixpkgs/issues/85158
+
+set PAGER less
+set LESS "-R"
+
 
 function awaketime -d "Display time since last waking."
     echo "Awake Since " \
