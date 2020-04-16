@@ -162,7 +162,6 @@ in
     # Python.
     (python3.withPackages (ps: with ps; [
       numpy python-language-server
-      tensorflow tensorflow-tensorboard tensorflow-probability
     ]))
 
     # Tex.

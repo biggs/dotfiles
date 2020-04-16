@@ -28,6 +28,12 @@
 
     pciutils
 
+
+    (python3.withPackages (ps: with ps; [
+      numpy python-language-server
+      # tensorflow_2 tensorflow-tensorboard_2 tensorflow-probability
+    ]))
+
   ];
 
 }
