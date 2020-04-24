@@ -81,7 +81,7 @@ in
       vlc = "/Applications/VLC.app/Contents/MacOS/VLC";
       mylint = "pylint --rcfile=~/.dotfiles/python/pylint.rc";
       ca = "command --all";
-      cimmaronip = "nmap -sL 192.168.1.0/24 | grep cimarron | sed -E 's/.*\((.+)\)/\1/'";
+      cimarronip = "nmap -sL 192.168.1.0/24 | grep cimarron | cut -d' ' -f6 | tr -d '()'";
       brightness = "xrandr --output DP2 --brightness";
 
       # Exa.
