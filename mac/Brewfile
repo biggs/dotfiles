@@ -8,10 +8,6 @@ tap 'caskroom/homebrew-cask' || true
 
 ### FULL APPS
 
-# Emacs
-tap 'railwaycat/emacsmacport'
-cask 'emacs-mac'
-
 cask 'vlc'
 cask 'dropbox'
 cask 'firefox'

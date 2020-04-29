@@ -11,12 +11,6 @@ end
 if test -e ~/.profile; import-dot-profile; end
 
 
-# Add Emacs Directly to Path in MacOS
-if test (uname) = "Darwin"
-  export PATH="/usr/local/Cellar/emacs-mac/emacs-26.1-z-mac-7.4/bin/:$PATH"
-end
-
-
 # Better Greeting.
 function fish_greeting
     begin

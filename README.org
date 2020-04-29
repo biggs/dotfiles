@@ -1,5 +1,6 @@
 #+TITLE: My Dot-Files
 #+AUTHOR: Felix Biggs
+#+STARTUP: content
 
 * Setup
 
@@ -40,7 +41,7 @@ home-manager switch
 
 
 ** Homebrew (MacOS Only)
-This should also install the fonts and apps I want (Emacs!)
+This should also install the fonts and apps I want (not Emacs any more though!)
 #+BEGIN_SRC sh
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew update
@@ -66,6 +67,11 @@ Imperatively install Source Code Pro font (better, nix-management at https://nix
 font=$(nix-build --no-out-link '<nixpkgs>' -A source-code-pro)/share/fonts/opentype/SourceCodePro-Regular.otf
 cp $font ~/.local/share/fonts
 fc-cache
+#+END_SRC
+
+Link emacs app into place on Mac.
+#+BEGIN_SRC sh
+ln -s $HOME/.nix-profile/Applications/Emacs.app /Applications/Emacs.app
 #+END_SRC
 
 

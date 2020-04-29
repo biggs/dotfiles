@@ -6,6 +6,7 @@
 
   ####  MacOS Specific Extras.
   home.packages = with pkgs; [
+    emacsMacport
     darwin.trash
     wifi-password
     qtpass
