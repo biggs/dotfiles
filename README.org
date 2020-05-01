@@ -41,6 +41,14 @@ ln -s $HOME/.dotfiles/hosts/mac/home.nix $HOME/.config/nixpkgs/home.nix
 (or replace as appropriate)
 
 
+** Nixos
+Link configuration.nix
+#+BEGIN_SRC sh
+sudo ln -s /home/felix/.dotfiles/nixos/configuration.nix /etc/nixos/configuration.nix
+#+END_SRC
+
+
+
 ** Homebrew (MacOS Only)
 This should also install the fonts and apps I want (not Emacs any more though!)
 #+BEGIN_SRC sh
