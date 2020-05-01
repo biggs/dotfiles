@@ -84,15 +84,6 @@ ln -s $HOME/.nix-profile/Applications/Emacs.app /Applications/Emacs.app
 #+END_SRC
 
 
-** Vim Setup
-Install vim-plug for plugins:
-#+BEGIN_SRC sh
-curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-#+END_SRC
-Then run :PlugInstall.
-
-
 ** Keyboard Setup
 Make two main modifications: CAPS = CTRL + ESC and TAB = ALT + ESC
 

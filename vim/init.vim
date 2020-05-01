@@ -192,7 +192,13 @@ set nocompatible        " Must be first line
             let dir_list['undo'] = 'undodir'
         endif
 
-        let common_dir = $HOME . '/.vim/' . 'vim'
+        " Use standard XDG settings
+        let common_dir = $HOME . '/.local/share/vim/'
+        if exists("*mkdir")
+            if !isdirectory(common_dir)
+                call mkdir(common_dir)
+            endif
+        endif
 
         for [dirname, settingname] in items(dir_list)
             let directory = common_dir . dirname . '/'
