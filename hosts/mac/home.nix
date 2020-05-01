@@ -1,10 +1,8 @@
 { config, pkgs, ... }:
 
 {
-  # Import everything from sub-files.
-  imports = [ ./core.nix ];
+  imports = [ ../../home.nix ];
 
-  ####  MacOS Specific Extras.
   home.packages = with pkgs; [
     emacsMacport
     darwin.trash
@@ -15,7 +13,7 @@
   ];
 
   home.file = {
-    ".Brewfile".source = ../mac/Brewfile;
+    ".Brewfile".source = ./Brewfile;
 
     # Get correct PATH and nix setup for macos. (note escaping '' in front of $)
     ".profile".text = ''

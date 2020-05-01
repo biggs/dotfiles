@@ -1,8 +1,8 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   # Import everything from sub-files.
-  imports = [ ./core.nix ];
+  imports = [ ../../home.nix ];
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
@@ -28,13 +28,7 @@
 
     pciutils
     glxinfo
-
-
-    (python3.withPackages (ps: with ps; [
-      numpy python-language-server
-      # tensorflow_2 tensorflow-tensorboard_2 tensorflow-probability
-    ]))
-
   ];
+
 
 }

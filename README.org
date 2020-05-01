@@ -10,14 +10,6 @@ xcode-select --install
 sudo xcodebuild -license
 #+END_SRC
 
-** Download and Link Dotfiles
-Replaced with home-manager! (but still need to link that!)
-#+BEGIN_SRC sh
-git clone https://github.com/biggs/dotfiles ~/.dotfiles
-ln -s $HOME/.dotfiles/nix/home.nix $HOME/config/nixpkgs/home.nix
-#+END_SRC
-
-
 ** Nix and Home-Manager Download and Install Things
 Install Nix:
 #+BEGIN_SRC sh
@@ -38,6 +30,15 @@ Install/reinstall packages by:
 #+BEGIN_SRC sh
 home-manager switch
 #+END_SRC
+
+
+** Download and Link Dotfiles
+Replaced with home-manager! (but still need to link that!)
+#+BEGIN_SRC sh
+git clone https://github.com/biggs/dotfiles ~/.dotfiles
+ln -s $HOME/.dotfiles/hosts/mac/home.nix $HOME/.config/nixpkgs/home.nix
+#+END_SRC
+(or replace as appropriate)
 
 
 ** Homebrew (MacOS Only)
@@ -89,7 +90,7 @@ Make two main modifications: CAPS = CTRL + ESC and TAB = ALT + ESC
 
 Mac:
 #+BEGIN_SRC sh
-ln -s $HOMEDIR/.dotfiles/mac/karabiner.json ~/.config/karabiner/karabiner.json
+ln -s $HOMEDIR/.dotfiles/hosts/mac/karabiner.json ~/.config/karabiner/karabiner.json
 #+END_SRC
 
 Ubuntu: Add to .profile (loaded at login):

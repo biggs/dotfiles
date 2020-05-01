@@ -28,6 +28,7 @@ if [ -e /home/felbiggs/.nix-profile/etc/profile.d/nix.sh ]; then . /home/felbigg
 export XDG_DATA_DIRS=$HOME/.nix-profile/share:$HOME/.share:"${XDG_DATA_DIRS:-/usr/local/share/:/usr/share/}"
 
 # Fix locales: see https://github.com/NixOS/nix/issues/599#issuecomment-153885553
+# Also need glibcLocales installed in home.packages
 export LOCALE_ARCHIVE=$HOME/.nix-profile/lib/locale/locale-archive
 
 

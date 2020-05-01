@@ -2,10 +2,10 @@
 
 {
   imports = [
-    ../git/git.nix
-    ../fish/fish.nix
-    ../vim/vim.nix
-    ../emacs/emacs.nix
+    ./git/git.nix
+    ./fish/fish.nix
+    ./vim/vim.nix
+    ./emacs/emacs.nix
   ];
 
   # Let Home Manager install and manage itself.

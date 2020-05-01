@@ -1,8 +1,8 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   # Import everything from sub-files.
-  imports = [ ./core.nix ];
+  imports = [ ../../home.nix ];
 
   ####   Ubuntu Specific Extras.
   home.packages = with pkgs; [
@@ -11,7 +11,7 @@
 
     # More ubuntu specific
     feh
-    glibcLocales   # Fix locales (along with setting in .profile: https://github.com/NixOS/nix/issues/599#issuecomment-131576553)
+    glibcLocales
     qtpass
     rclone
     rclone-browser
