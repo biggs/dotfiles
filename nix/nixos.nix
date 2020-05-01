@@ -27,6 +27,7 @@
     zotero
 
     pciutils
+    glxinfo
 
 
     (python3.withPackages (ps: with ps; [

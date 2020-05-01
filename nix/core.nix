@@ -123,6 +123,7 @@ in
     wget
     curlFull
     fd
+    file
 
     # Extra terminal utils.
     imgcat
@@ -175,7 +176,10 @@ in
             unicode-math
             dvipng
             subfigure
+            environ
+            trimspaces
             forloop;
     })
+    rubber
   ];
 }
