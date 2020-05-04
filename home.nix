@@ -14,7 +14,8 @@
   # Set nixpkgs options (for home-manager installed packages only).
   nixpkgs.config = { allowUnfree = true; };
 
-  # Generate directory for Info pages.
+  # Documentation!
+  programs.man.enable = true;
   programs.info.enable = true;
 
   # Packages.
