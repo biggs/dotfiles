@@ -37,7 +37,7 @@
   # };
 
   environment.systemPackages = with pkgs; [
-    wget vim git curl firefox emacs dropbox-cli termite steam xcape
+    wget vim git curl firefox emacs dropbox-cli termite steam steam-run xcape
   ];
 
   fonts.fonts = with pkgs; [
@@ -67,9 +67,8 @@
     package = pkgs.i3-gaps;
   };
 
-  # Swap between the below lines for nvidia or opengl support
-  services.xserver.videoDrivers = [ "intel" "nvidia" ];  # enable if want nvidia to work
-  # services.xserver.videoDrivers = [ "intel" ];  # enable if want opengl to work
+  boot.kernelModules = [ "kvm-intel" "nvidia" ];
+  services.xserver.videoDrivers = [ "intel" "nvidia" ];
 
   # NVIDIA + docker Add nvidia driver to currently selected (config) kernel package.
   # https://github.com/NixOS/nixpkgs/pull/51733#issuecomment-464160791
@@ -83,6 +82,11 @@
   hardware.opengl.extraPackages = [
       pkgs.libGL_driver
       pkgs.linuxPackages.nvidia_x11.out
+      pkgs.libglvnd
+  ];
+  # Below lines required to make OpenGL work with steam (which is 32 bit).
+  hardware.opengl.extraPackages32 = [
+      pkgs.libGL_driver
       pkgs.libglvnd
   ];
 
