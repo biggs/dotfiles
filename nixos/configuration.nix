@@ -40,6 +40,9 @@
     wget vim git curl firefox emacs dropbox-cli termite steam steam-run xcape
   ];
 
+  services.emacs.defaultEditor = true;
+  programs.plotinus.enable = true;
+
   fonts.fonts = with pkgs; [
     source-code-pro
     powerline-fonts
@@ -51,11 +54,15 @@
   hardware.pulseaudio.enable = true;
   hardware.pulseaudio.support32Bit = true;
 
+  # enable locate database updates
+  services.locate.enable = true;
+  services.locate.interval = "2hours";
+
  
   # Enable the X11 windowing system.
   services.xserver.enable = true;
   services.xserver.layout = "gb";
-  services.xserver.xkbOptions = "ctrl:swapcaps";
+  services.xserver.xkbOptions = "ctrl:swapcaps";   # rules in X11/xkb/rules/base
   services.xserver.displayManager.sessionCommands = "xcape &";   # tap caps for esc.
   console.useXkbConfig = true;   # Console gets same config.
 
@@ -98,11 +105,10 @@
   };
 
   # Allow sudo shutdown/reboot etc. without password.
+  # systemctl poweroff/hibernate etc. are enabled for local users already.
   security.sudo.extraConfig = ''
     %wheel      ALL=(ALL:ALL) NOPASSWD: ${pkgs.systemd}/bin/poweroff
     %wheel      ALL=(ALL:ALL) NOPASSWD: ${pkgs.systemd}/bin/reboot
-    %wheel      ALL=(ALL:ALL) NOPASSWD: ${pkgs.systemd}/bin/systemctl suspend
-    %wheel      ALL=(ALL:ALL) NOPASSWD: ${pkgs.systemd}/bin/systemctl hibernate
   '';
 
   # Enable full blown magic sysrq.
