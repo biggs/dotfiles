@@ -15,7 +15,9 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  # Time zone and location.
   time.timeZone = "Europe/London";
+  location.provider = "geoclue2";
 
   # Booting Config.
   boot.loader.systemd-boot.enable = true;
@@ -30,11 +32,11 @@
   services.openssh.enable = true;
 
   # Select internationalisation properties.
-  # i18n = {
+  i18n = {
   #   consoleFont = "Lat2-Terminus16";
   #   consoleKeyMap = "us";
-  #   defaultLocale = "en_US.UTF-8";
-  # };
+    defaultLocale = "en_GB.UTF-8";
+  };
 
   environment.systemPackages = with pkgs; [
     wget vim git curl firefox emacs dropbox-cli termite steam steam-run xcape
@@ -54,6 +56,13 @@
   hardware.pulseaudio.enable = true;
   hardware.pulseaudio.support32Bit = true;
 
+  # Bluetooth
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
+
+  # Nighttime dimming
+  services.redshift.enable = true;
+
   # enable locate database updates
   services.locate.enable = true;
   services.locate.interval = "2hours";
@@ -62,9 +71,11 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
   services.xserver.layout = "gb";
+  services.xserver.xkbVariant = "mac";   # Make mac keyboard work.
   services.xserver.xkbOptions = "ctrl:swapcaps";   # rules in X11/xkb/rules/base
-  services.xserver.displayManager.sessionCommands = "xcape &";   # tap caps for esc.
+  services.xserver.displayManager.sessionCommands = "xcape &";   # tap caps for esc
   console.useXkbConfig = true;   # Console gets same config.
+
 
   # i3
   services.xserver.displayManager.lightdm.enable = true;
@@ -119,4 +130,8 @@
   swapDevices = [ { device = "/var/swapfile"; size = 32768; } ];
   boot.kernelParams = [ "resume_offset=6025216" ];
   boot.resumeDevice = "/dev/disk/by-uuid/7d191f35-3fb7-4756-9b7f-d769135fa027";
+
+  # Make magic mouse work.
+  boot.extraModprobeConfig = "options hid_magicmouse scroll_acceleration=1 scroll_speed=55 emulate_3button=0";
+
 }
