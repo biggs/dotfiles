@@ -66,7 +66,7 @@
 
     # Python.
     (python3.withPackages (ps: with ps; [
-      numpy python-language-server
+      numpy python-language-server scipy matplotlib
     ]))
 
     # Tex.
@@ -79,6 +79,9 @@
             subfigure
             environ
             trimspaces
+            multirow
+            cleveref
+            lipsum
             forloop;
     })
     rubber
