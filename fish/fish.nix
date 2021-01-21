@@ -38,9 +38,12 @@
     promptInit =
       ''
         function fish_prompt
+          set duration (math -s6 "$CMD_DURATION / 1000")
+          echo ""
           powerline-go \
           -error $status -shell bare -cwd-mode plain -numeric-exit-codes \
-          -modules "venv,ssh,cwd,git,jobs,exit"
+          -duration $duration -duration-min 5 \
+          -modules "venv,ssh,cwd,git,duration,jobs,exit" -newline
         end
       '';
   };
