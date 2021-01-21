@@ -62,7 +62,7 @@
 
     # Pandoc
     pandoc
-    # (haskellPackages.callPackage ./pandoc-unicode-math.nix {})  #TODO: Broken.
+    # (haskellPackages.callPackage ./extras/pandoc-unicode-math.nix {})  #TODO: Broken.
 
     # Python.
     (python3.withPackages (ps: with ps; [
@@ -81,7 +81,11 @@
             trimspaces
             multirow
             cleveref
-            lipsum
+            newunicodechar
+            xifthen
+            ifmtarg
+            enumitem
+            titlesec
             forloop;
     })
     rubber

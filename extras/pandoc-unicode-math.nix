@@ -3,11 +3,11 @@
 }:
 mkDerivation {
   pname = "pandoc-unicode-math";
-  version = "1.1.0";
+  version = "1.2.0";
   src = fetchgit {
     url = "https://github.com/marhop/pandoc-unicode-math.git";
-    sha256 = "1rsaslq43cv74q1cdkjxg45fdvvkwjmwhd3v7bngszv1js8mkjs0";
-    rev = "e0dfed06b03b03a3f23db9d19fd5547655a38626";
+    sha256 = "1q1affb3y5cdriqa6dby3r5mqpgsj0hhlj46gp8sxhd9nsks814a";
+    rev = "ce737f26de5f5a23164dc7546103d0f59a40d14a";
     fetchSubmodules = true;
   };
   isLibrary = false;

@@ -194,6 +194,18 @@ Org-ref and bibtex setup.
 )
 #+END_SRC
 
+** Prettify-Entities
+Do this automatically, and add a few extras:
+#+BEGIN_SRC emacs-lisp
+(after! org
+    (add-to-list 'org-entities-user
+                '("Pr" "\\Pr" t "&#x2119" "Pr" "Pr" "ℙ"))
+    (add-to-list 'org-entities-user
+                '("Re" "\\Re" t "&#x211d" "Re" "Re" "ℝ"))
+    (add-to-list 'org-entities-user
+                '("sqrt" "\\sqrt" t "&#x221A" "Sqrt" "Sqrt" "√"))
+    (setq org-pretty-entites t))
+#+END_SRC
 
 ** Roam
 Set ORG-Roam directory:
