@@ -25,9 +25,14 @@ Maximise on startup.
 ** Global Keybindings
 Extra Global keybindings.
 
-Helm. (removed helm-swoop - use swiper.)
+Helm. (removed helm-swoop - use swipe.)
  #+BEGIN_SRC emacs-lisp
 (map! :n  "C-]" '+ivy/project-search)
+ #+END_SRC
+
+Shortcut to M-x.
+ #+BEGIN_SRC emacs-lisp
+(map! :leader "<ESC>" 'counsel-M-x)
  #+END_SRC
 
 Misc.
@@ -49,6 +54,14 @@ Completion. (C-n will open the list of competions, C-p will be the usual quickco
  #+BEGIN_SRC emacs-lisp
 (map! :i "C-n" 'company-complete)
  #+END_SRC
+
+** Open PDFs
+
+ #+BEGIN_SRC emacs-lisp
+(after! openwith
+    (setq openwith-associations '(("\\.pdf\\'" "zathura" (file)))))
+ #+END_SRC
+
 
 ** Testing New Configuration Options
 The cycle of restarting emacs and recompiling my literate config is too slow
@@ -334,6 +347,13 @@ Or, alternatively, use company completion: turn it on by running this function, 
   (add-to-list 'company-backends 'company-math-symbols-unicode))
 
 (set-company-backend! 'org-mode 'company-math-symbols-unicode)
+#+END_SRC
+
+
+Use cdlatex mode.
+#+BEGIN_SRC emacs-lisp
+(map! :map cdlatex-mode-map
+    :i "TAB" #'cdlatex-tab)
 #+END_SRC
 
 

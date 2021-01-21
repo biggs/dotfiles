@@ -10,3 +10,4 @@
 (package! dash-at-point)
 (package! monokai-theme)
 (package! org-ref)
+(package! openwith)
