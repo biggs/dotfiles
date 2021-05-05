@@ -11,7 +11,7 @@
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
   # should.
-  system.stateVersion = "19.09"; # Did you read the comment?
+  system.stateVersion = "20.09"; # Did you read the comment?
 
   nixpkgs.config.allowUnfree = true;
 
@@ -29,6 +29,7 @@
   networking.hostName = "cimarron";
   networking.interfaces.eno1.useDHCP = true;
   networking.interfaces.enp8s0.useDHCP = true;
+  networking.networkmanager.enable = true;
   services.openssh.enable = true;
 
   # Select internationalisation properties.
@@ -39,11 +40,10 @@
   };
 
   environment.systemPackages = with pkgs; [
-    wget vim git curl firefox emacs dropbox-cli termite steam steam-run xcape
+    wget vim git curl firefox emacs dropbox-cli termite xcape
   ];
 
   services.emacs.defaultEditor = true;
-  programs.plotinus.enable = true;
 
   fonts.fonts = with pkgs; [
     source-code-pro
@@ -112,7 +112,7 @@
   # Define my user account. Must set password using 'passwd felix'.
   users.users.felix = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" "systemd-journal" "audio" ];
+    extraGroups = [ "wheel" "docker" "systemd-journal" "audio" "networkmanager" ];
   };
 
   # Allow sudo shutdown/reboot etc. without password.

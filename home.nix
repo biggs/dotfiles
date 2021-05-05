@@ -69,6 +69,9 @@
       numpy python-language-server scipy matplotlib
     ]))
 
+    # Make org-roam work
+    sqlite
+
     # Tex.
     (texlive.combine {
         inherit (texlive)
