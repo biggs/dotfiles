@@ -6,7 +6,7 @@
     ".config/doom" = {
       source = ../emacs;
       recursive = true;
-      onChange = ''~/.emacs.d/bin/doom refresh'';
+      onChange = ''~/.emacs.d/bin/doom sync'';
     };
   };
 
