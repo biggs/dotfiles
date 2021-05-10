@@ -134,4 +134,8 @@
   # Make magic mouse work.
   boot.extraModprobeConfig = "options hid_magicmouse scroll_acceleration=1 scroll_speed=55 emulate_3button=0";
 
+
+  # HACK: make nvidia work?
+  systemd.enableUnifiedCgroupHierarchy = false;
+
 }
