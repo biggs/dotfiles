@@ -53,6 +53,7 @@
        word-wrap         ; soft wrapping with language-aware indent
 
        :emacs
+       (undo +tree)              ; undo-fu
        dired             ; making dired pretty [functional]
        electric          ; smarter, keyword-based electric-indent
        ibuffer           ; interactive buffer management

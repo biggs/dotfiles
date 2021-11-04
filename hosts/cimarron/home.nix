@@ -33,6 +33,9 @@
 
     pciutils
     glxinfo
+
+    alacritty
+    pavucontrol   # pulseaudio controller
   ];
 
 

@@ -30,6 +30,11 @@ Helm. (removed helm-swoop - use swipe.)
 (map! :n  "C-]" '+ivy/project-search)
  #+END_SRC
 
+Swiper
+ #+BEGIN_SRC emacs-lisp
+(map! :n  "C-s" 'swiper-isearch)
+ #+END_SRC
+
 Shortcut to M-x.
  #+BEGIN_SRC emacs-lisp
 (map! :leader "<ESC>" 'counsel-M-x)
@@ -204,6 +209,10 @@ Do this automatically, and add a few extras:
                 '("Re" "\\Re" t "&#x211d" "Re" "Re" "ℝ"))
     (add-to-list 'org-entities-user
                 '("sqrt" "\\sqrt" t "&#x221A" "Sqrt" "Sqrt" "√"))
+    (add-to-list 'org-entities-user
+                '("lesssim" "\\lesssim" t "&#8818" "Lesssim" "Lesssim" "≲"))
+    (add-to-list 'org-entities-user
+                '("gtrsim" "\\gtrsim" t "&#2273" "Gtrsim" "Gtrsim" "≳"))
     (setq org-pretty-entites t))
 #+END_SRC
 
