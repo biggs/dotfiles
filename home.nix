@@ -12,7 +12,10 @@
   programs.home-manager.enable = true;
 
   # Set nixpkgs options (for home-manager installed packages only).
-  nixpkgs.config = { allowUnfree = true; };
+  nixpkgs.config = {
+    allowUnfree = true;
+    cudaSupport = true;
+  };
 
   # Documentation!
   programs.man.enable = true;
@@ -34,22 +37,28 @@
     watch
     wget
     curlFull
-    fd
     file
+
+    # Modern rust utils
+    fd
+    ripgrep
+    exa
+    bat
+    gping
+    delta
+    tealdeer
 
     # Extra terminal utils.
     imgcat
-    ripgrep
     calc
     cloc
-    exa
     htop
-    tldr
     fasd
     cabal2nix
     youtube-dl
-    bat
     nmap
+
+    exfat
 
     # Security
     pass
@@ -64,33 +73,52 @@
     pandoc
     # (haskellPackages.callPackage ./extras/pandoc-unicode-math.nix {})  #TODO: Broken.
 
+    jabref
+
     # Python.
+    python-language-server
     (python3.withPackages (ps: with ps; [
-      numpy python-language-server scipy matplotlib
+      numpy scipy matplotlib scikit-learn
+      pyflakes pycodestyle
+      # tensorflow
+      # pytorchWithCuda
+      ipython ipdb seaborn
+      # jax (jaxlib.override { cudaSupport = true; })
     ]))
 
     # Make org-roam work
     sqlite
 
     # Tex.
-    (texlive.combine {
-        inherit (texlive)
-            scheme-medium
-            collection-fontsrecommended
-            unicode-math
-            dvipng
-            subfigure
-            environ
-            trimspaces
-            multirow
-            cleveref
-            newunicodechar
-            xifthen
-            ifmtarg
-            enumitem
-            titlesec
-            forloop;
-    })
+    texlive.combined.scheme-full
+    # (texlive.combine {
+    #     inherit (texlive)
+    #         scheme-medium
+    #         collection-fontsrecommended
+    #         unicode-math
+    #         dvipng
+    #         subfigure
+    #         environ
+    #         trimspaces
+    #         multirow
+    #         cleveref
+    #         newunicodechar
+    #         xifthen
+    #         ifmtarg
+    #         enumitem
+    #         titlesec
+    #         bbm-macros
+    #         lastpage
+    #         # tabto
+    #         totcount
+    #         changepage
+    #         paracol
+    #         # attrib
+    #         # upgreek
+    #         pbox
+    #         tocloft
+    #         forloop;
+    # })
     rubber
   ];
 }

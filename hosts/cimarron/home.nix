@@ -36,7 +36,15 @@
 
     alacritty
     pavucontrol   # pulseaudio controller
+
+    transmission-gtk
+    vlc
   ];
 
 
+  programs.fish = {
+    shellAliases = {
+      battery = "echo 'mouse'; cat /sys/class/power_supply/hid-84:fc:fe:f3:63:db-battery/capacity; echo 'keyboard'; cat /sys/class/power_supply/hid-28:37:37:2e:8f:e4-battery/capacity";
+    };
+  };
 }

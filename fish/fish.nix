@@ -35,7 +35,7 @@
       julia = "julia --banner=no";
       calc = "calc -d";
     };
-    promptInit =
+    interactiveShellInit =
       ''
         function fish_prompt
           set duration (math -s6 "$CMD_DURATION / 1000")

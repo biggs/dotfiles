@@ -16,7 +16,7 @@ function fish_greeting
     begin
         echo (date) " @ " (hostname)
         echo
-        fortune -a
+        fortune art goedel wisdom tao literature songs-poems paradoxum
         echo
     end | lolcat
 end

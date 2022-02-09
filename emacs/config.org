@@ -213,6 +213,8 @@ Do this automatically, and add a few extras:
                 '("lesssim" "\\lesssim" t "&#8818" "Lesssim" "Lesssim" "≲"))
     (add-to-list 'org-entities-user
                 '("gtrsim" "\\gtrsim" t "&#2273" "Gtrsim" "Gtrsim" "≳"))
+    (add-to-list 'org-entities-user
+                '("trianglelefteq" "\\trianglelefteq" t "&#8884;" "Triangelefteq" "Triangelefteq" "⊴"))
     (setq org-pretty-entites t))
 #+END_SRC
 
