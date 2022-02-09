@@ -1,12 +1,12 @@
 # Felix' Fish Configuration Init File.
 
-# Import a .profile file if it exists.
+# Import a .profile file if it exists. HACK for macos!
 # This requires fish-foreign-env (a nix package) to interpret
 # bash commands, and can be used to get nix into the PATH.
 function import-dot-profile
-  set fenv_path /Users/felix/.nix-profile/share/fish-foreign-env/functions
-  set fish_function_path $fenv_path $fish_function_path
+  set --prepend fish_function_path /nix/store/ff595gzg5lpasyq9dbcggan2sz99fc3i-fishplugin-foreign-env-git-20200209/share/fish/vendor_functions.d
   fenv source $HOME/.profile > /dev/null
+  set -e fish_function_path[1]
 end
 if test -e ~/.profile; import-dot-profile; end
 

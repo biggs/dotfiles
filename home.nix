@@ -68,7 +68,6 @@
     lesspass-cli
 
     # Python.
-    python-language-server
     (python3.withPackages (ps: with ps; [
       numpy scipy matplotlib scikit-learn
       pyflakes pycodestyle
@@ -84,7 +83,6 @@
     # Related to writing papers etc.
     pandoc
     # (haskellPackages.callPackage ./extras/pandoc-unicode-math.nix {})  #TODO: Broken.
-    jabref
     rubber
     poppler_utils
   ];

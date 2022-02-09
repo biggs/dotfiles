@@ -1,6 +1,25 @@
 { config, pkgs, ... }:
 
 {
+  # Let Home Manager install and manage itself.
+  programs.home-manager.enable = true;
+
+  # Home Manager needs a bit of information about you and the
+  # paths it should manage.
+  home.username = "felix";
+  home.homeDirectory = "/Users/felix";
+
+  # This value determines the Home Manager release that your
+  # configuration is compatible with. This helps avoid breakage
+  # when a new Home Manager release introduces backwards
+  # incompatible changes.
+  #
+  # You can update Home Manager without changing this value. See
+  # the Home Manager release notes for a list of state version
+  # changes in each release.
+  home.stateVersion = "21.11";
+
+
   imports = [ ../../home.nix ];
 
   home.packages = with pkgs; [
@@ -9,36 +28,30 @@
     wifi-password
     qtpass
 
-    fish-foreign-env   # Needed for import of .profile
+    fishPlugins.foreign-env    # Needed for import of .profile
 
     (texlive.combine {
-        inherit (texlive)
-            scheme-medium
-            collection-fontsrecommended
-            unicode-math
-            dvipng
-            subfigure
-            environ
-            trimspaces
-            multirow
-            cleveref
-            newunicodechar
-            xifthen
-            ifmtarg
-            enumitem
-            titlesec
-            bbm-macros
-            lastpage
-            # tabto
-            totcount
-            changepage
-            paracol
-            # attrib
-            # upgreek
-            pbox
-            tocloft
-            forloop;
-    })
+      inherit (texlive)
+        scheme-medium
+        cleveref
+        hyperref
+        natbib
+        expdlist
+        collection-fontsrecommended;
+        # unicode-math
+        # dvipng
+        # subfigure
+        # environ
+        # trimspaces
+        # multirow
+        # newunicodechar
+        # xifthen
+        # ifmtarg
+        # enumitem
+        # titlesec
+        # forloop;
+      })
+
   ];
 
   home.file = {
@@ -50,8 +63,9 @@
       export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 
       # Nix setup.
-      if [ -e /Users/felix/.nix-profile/etc/profile.d/nix.sh ]; \
-      then . /Users/felix/.nix-profile/etc/profile.d/nix.sh; fi
+	if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+	. '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+	fi
       export NIX_PATH=$HOME/.nix-defexpr/channels''${NIX_PATH:+:}$NIX_PATH
 
       # Seems like these not automagically set by Nix.

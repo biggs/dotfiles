@@ -139,3 +139,20 @@ nix-channel --add https://github.com/rycee/home-manager/archive/master.tar.gz ho
 nix-channel --update
 nix-shell '<home-manager>' -A install
 #+END_SRC
+
+
+** Bluetooth Keyboard
+
+Setup with bluetooth control.
+
+#+BEGIN_SRC sh
+sudo bluethoothctl
+> scan one
+> agent KeyboardOnly
+> trust <keyboardname>
+> pair <keyboardname>
+> connect <keyboardname>
+> connect <mousename>
+> connect <mousename>
+> connect <mousename>
+#+END_SRC

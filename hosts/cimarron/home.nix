@@ -41,6 +41,8 @@
     vlc
 
     texlive.combined.scheme-full
+    python-language-server
+    jabref
   ];
 
 
