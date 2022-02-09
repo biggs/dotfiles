@@ -41,13 +41,6 @@ ln -s $HOME/.dotfiles/hosts/mac/home.nix $HOME/.config/nixpkgs/home.nix
 (or replace as appropriate)
 
 
-** Nixos
-Link configuration.nix
-#+BEGIN_SRC sh
-sudo ln -s /home/felix/.dotfiles/nixos/configuration.nix /etc/nixos/configuration.nix
-#+END_SRC
-
-
 
 ** Homebrew (MacOS Only)
 This should also install the fonts and apps I want (not Emacs any more though!)
@@ -107,3 +100,42 @@ Ubuntu: install with nix, but need to add self to 'docker' group for security re
 sudo usermod -a -G docker $USER
 #+END_SRC
 
+
+
+
+* NixOS Setup
+
+Get my config.
+#+BEGIN_SRC sh
+cd /etc/nixos
+curl -O https://raw.githubusercontent.com/biggs/dotfiles/master/nixos/configuration.nix
+nixos-install
+#+END_SRC
+(comment out dropbox config)
+
+Update to unstable.
+#+BEGIN_SRC sh
+nix-channel --add https://nixos.org/channels/nixos-unstable nixos-unstable
+nix-channel --update
+nixos-rebuild switch
+#+END_SRC
+
+Link configuration.nix
+#+BEGIN_SRC sh
+git clone ....
+sudo ln -s /home/felix/.dotfiles/nixos/configuration.nix /etc/nixos/configuration.nix
+#+END_SRC
+
+#+BEGIN_SRC sh
+git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
+~/.emacs.d/bin/doom install
+# ~/.emacs.d/bin/doom upgrade
+#+END_SRC
+
+
+Install Home-manager: (may have to logout to enable)
+#+BEGIN_SRC sh
+nix-channel --add https://github.com/rycee/home-manager/archive/master.tar.gz home-manager
+nix-channel --update
+nix-shell '<home-manager>' -A install
+#+END_SRC
