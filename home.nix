@@ -57,6 +57,8 @@
     cabal2nix
     youtube-dl
     nmap
+    ncdu
+    ranger
 
     exfat
 
@@ -64,16 +66,6 @@
     pass
     gnupg
     lesspass-cli
-
-    # Terminal programs
-    ncdu
-    ranger
-
-    # Pandoc
-    pandoc
-    # (haskellPackages.callPackage ./extras/pandoc-unicode-math.nix {})  #TODO: Broken.
-
-    jabref
 
     # Python.
     python-language-server
@@ -89,36 +81,11 @@
     # Make org-roam work
     sqlite
 
-    # Tex.
-    texlive.combined.scheme-full
-    # (texlive.combine {
-    #     inherit (texlive)
-    #         scheme-medium
-    #         collection-fontsrecommended
-    #         unicode-math
-    #         dvipng
-    #         subfigure
-    #         environ
-    #         trimspaces
-    #         multirow
-    #         cleveref
-    #         newunicodechar
-    #         xifthen
-    #         ifmtarg
-    #         enumitem
-    #         titlesec
-    #         bbm-macros
-    #         lastpage
-    #         # tabto
-    #         totcount
-    #         changepage
-    #         paracol
-    #         # attrib
-    #         # upgreek
-    #         pbox
-    #         tocloft
-    #         forloop;
-    # })
+    # Related to writing papers etc.
+    pandoc
+    # (haskellPackages.callPackage ./extras/pandoc-unicode-math.nix {})  #TODO: Broken.
+    jabref
     rubber
+    poppler_utils
   ];
 }

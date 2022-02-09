@@ -39,6 +39,8 @@
 
     transmission-gtk
     vlc
+
+    texlive.combined.scheme-full
   ];
 
 

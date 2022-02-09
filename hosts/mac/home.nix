@@ -10,6 +10,35 @@
     qtpass
 
     fish-foreign-env   # Needed for import of .profile
+
+    (texlive.combine {
+        inherit (texlive)
+            scheme-medium
+            collection-fontsrecommended
+            unicode-math
+            dvipng
+            subfigure
+            environ
+            trimspaces
+            multirow
+            cleveref
+            newunicodechar
+            xifthen
+            ifmtarg
+            enumitem
+            titlesec
+            bbm-macros
+            lastpage
+            # tabto
+            totcount
+            changepage
+            paracol
+            # attrib
+            # upgreek
+            pbox
+            tocloft
+            forloop;
+    })
   ];
 
   home.file = {
