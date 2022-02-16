@@ -21,6 +21,14 @@
   programs.man.enable = true;
   programs.info.enable = true;
 
+  programs.mpv.enable = true;
+  programs.mpv.config = {
+    profile = "gpu-hq";
+    vo = "gpu";
+    force-window = true;
+    ytdl-format = "bestvideo+bestaudio";
+  };
+
   # Packages.
   home.packages = with pkgs; [
     # Nix

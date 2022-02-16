@@ -37,8 +37,8 @@
     alacritty
     pavucontrol   # pulseaudio controller
 
+    keepassxc
     transmission-gtk
-    vlc
 
     texlive.combined.scheme-full
     python-language-server
