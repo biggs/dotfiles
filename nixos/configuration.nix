@@ -84,7 +84,7 @@
   services.xserver.layout = "gb";
   services.xserver.xkbVariant = "mac";   # Make mac keyboard work.
   services.xserver.xkbOptions = "ctrl:swapcaps";   # rules in X11/xkb/rules/base
-  services.xserver.displayManager.sessionCommands = "xcape &";   # tap caps for esc
+  # services.xserver.displayManager.sessionCommands = "xcape &";   # tap caps for esc
   console.useXkbConfig = true;   # Console gets same config.
 
 

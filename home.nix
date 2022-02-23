@@ -29,6 +29,8 @@
     ytdl-format = "bestvideo+bestaudio";
   };
 
+  programs.gpg.enable = true;
+
   # Packages.
   home.packages = with pkgs; [
     # Nix
@@ -46,6 +48,7 @@
     wget
     curlFull
     file
+    pinentry
 
     # Modern rust utils
     fd
