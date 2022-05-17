@@ -57,4 +57,6 @@
     powerline-go
   ];
 
+  home.file.".config/fish/conf.d/nix-env.fish".source = ./setup-with-nix.fish;   # Use the file from here: https://github.com/lilyball/nix-env.fish
+
 }
