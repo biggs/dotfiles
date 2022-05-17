@@ -37,6 +37,8 @@
         hyperref
         natbib
         expdlist
+        todonotes
+        environ
         collection-fontsrecommended;
         # unicode-math
         # dvipng
