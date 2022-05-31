@@ -39,10 +39,11 @@
         expdlist
         todonotes
         environ
+        subfigure
+        forloop
         collection-fontsrecommended;
         # unicode-math
         # dvipng
-        # subfigure
         # environ
         # trimspaces
         # multirow
@@ -51,7 +52,6 @@
         # ifmtarg
         # enumitem
         # titlesec
-        # forloop;
       })
 
   ];
