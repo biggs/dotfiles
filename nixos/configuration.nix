@@ -89,6 +89,7 @@
 
 
   # i3
+  services.xserver.desktopManager.xterm.enable = false;
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.exportConfiguration = true;
   services.xserver.windowManager.i3 = {
@@ -102,22 +103,20 @@
   # NVIDIA + docker Add nvidia driver to currently selected (config) kernel package.
   # https://github.com/NixOS/nixpkgs/pull/51733#issuecomment-464160791
   hardware.opengl.enable = true;
-  hardware.opengl.driSupport32Bit = true;
   boot.extraModulePackages = with config.boot.kernelPackages; [ nvidia_x11 ];
   virtualisation.docker.enable = true;
+  hardware.opengl.driSupport32Bit = true;
   virtualisation.docker.enableNvidia = true;
 
   hardware.opengl.driSupport = true;
   hardware.opengl.extraPackages = [
-      pkgs.libGL_driver
+      pkgs.mesa.drivers
       pkgs.linuxPackages.nvidia_x11.out
       pkgs.libglvnd
   ];
-  # Below lines required to make OpenGL work with steam (which is 32 bit).
-  hardware.opengl.extraPackages32 = [
-      pkgs.libGL_driver
-      pkgs.libglvnd
-  ];
+
+  # HACK: make nvidia work?
+  systemd.enableUnifiedCgroupHierarchy = false;
 
 
   # Define my user account. Must set password using 'passwd felix'.
@@ -139,8 +138,5 @@
   # Make magic mouse work.
   boot.extraModprobeConfig = "options hid_magicmouse scroll_acceleration=1 scroll_speed=55 emulate_3button=0";
 
-
-  # HACK: make nvidia work?
-  systemd.enableUnifiedCgroupHierarchy = false;
 
 }
