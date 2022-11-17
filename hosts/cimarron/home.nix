@@ -42,7 +42,17 @@
 
     texlive.combined.scheme-full
     python-language-server
-    jabref
+
+    (python3.withPackages (ps: with ps; [
+      numpy scipy matplotlib scikit-learn
+      pyflakes pycodestyle
+      # tensorflow
+      # pytorchWithCuda
+      ipython ipdb seaborn
+      tqdm
+      jax jaxlibWithCuda
+    ]))
+    # jabref
   ];
 
 

@@ -52,6 +52,13 @@
         # forloop;
       })
 
+
+    (python3.withPackages (ps: with ps; [
+      numpy matplotlib
+      ipython ipdb
+      tqdm
+    ]))
+
   ];
 
   home.file = {
