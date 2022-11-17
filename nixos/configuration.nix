@@ -136,12 +136,6 @@
   # Enable full blown magic sysrq.
   boot.kernel.sysctl = { "kernel.sysrq" = 1; };
 
-  # Swapfile + hibernation
-  # https://discourse.nixos.org/t/is-it-possible-to-hibernate-with-swap-file/2852
-  # swapDevices = [ { device = "/var/swapfile"; size = 32768; } ];
-  # boot.kernelParams = [ "resume_offset=6025216" ];
-  # boot.resumeDevice = "/dev/disk/by-uuid/7d191f35-3fb7-4756-9b7f-d769135fa027";
-
   # Make magic mouse work.
   boot.extraModprobeConfig = "options hid_magicmouse scroll_acceleration=1 scroll_speed=55 emulate_3button=0";
 
