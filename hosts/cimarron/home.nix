@@ -21,7 +21,7 @@
 
   home.packages = with pkgs; [
 
-    anki
+    anki-bin
     gcc
     glibcLocales   # FIX LOCALES
     qtpass
@@ -35,14 +35,24 @@
     glxinfo
 
     alacritty
-    pavucontrol   # pulseaudio controller
+    pavucontrol   # pulseaudio controllr
 
     keepassxc
     transmission-gtk
 
     texlive.combined.scheme-full
     python-language-server
-    jabref
+
+    (python3.withPackages (ps: with ps; [
+      numpy scipy matplotlib scikit-learn
+      pyflakes pycodestyle
+      # tensorflow
+      # pytorchWithCuda
+      ipython ipdb seaborn
+      tqdm
+      jax jaxlibWithCuda
+    ]))
+    # jabref
   ];
 
 
@@ -52,5 +62,21 @@
     };
   };
 
+  programs.gh = {
+    enable = true;
+  };
+
   services.xcape.enable = true;
+
+  # HACK: temporary fix for texlive not compiling.
+  nixpkgs.overlays = [
+    (final: prev: {
+      clisp = prev.clisp.override {
+        # On newer readline8 fails as:
+        #  #<FOREIGN-VARIABLE "rl_readline_state" #x...>
+        #   does not have the required size or alignment
+        readline = pkgs.readline6;
+      };
+    })
+  ];
 }

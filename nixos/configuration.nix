@@ -81,14 +81,15 @@
  
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  services.xserver.layout = "gb";
+  services.xserver.layout = "us";
   services.xserver.xkbVariant = "mac";   # Make mac keyboard work.
-  services.xserver.xkbOptions = "ctrl:swapcaps";   # rules in X11/xkb/rules/base
+  services.xserver.xkbOptions = "ctrl:nocaps";   # rules in X11/xkb/rules/base
   # services.xserver.displayManager.sessionCommands = "xcape &";   # tap caps for esc
   console.useXkbConfig = true;   # Console gets same config.
 
 
   # i3
+  services.xserver.desktopManager.xterm.enable = false;
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.exportConfiguration = true;
   services.xserver.windowManager.i3 = {
@@ -102,22 +103,20 @@
   # NVIDIA + docker Add nvidia driver to currently selected (config) kernel package.
   # https://github.com/NixOS/nixpkgs/pull/51733#issuecomment-464160791
   hardware.opengl.enable = true;
-  hardware.opengl.driSupport32Bit = true;
   boot.extraModulePackages = with config.boot.kernelPackages; [ nvidia_x11 ];
   virtualisation.docker.enable = true;
+  hardware.opengl.driSupport32Bit = true;
   virtualisation.docker.enableNvidia = true;
 
   hardware.opengl.driSupport = true;
   hardware.opengl.extraPackages = [
-      pkgs.libGL_driver
+      pkgs.mesa.drivers
       pkgs.linuxPackages.nvidia_x11.out
       pkgs.libglvnd
   ];
-  # Below lines required to make OpenGL work with steam (which is 32 bit).
-  hardware.opengl.extraPackages32 = [
-      pkgs.libGL_driver
-      pkgs.libglvnd
-  ];
+
+  # HACK: make nvidia work?
+  systemd.enableUnifiedCgroupHierarchy = false;
 
 
   # Define my user account. Must set password using 'passwd felix'.
@@ -136,17 +135,8 @@
   # Enable full blown magic sysrq.
   boot.kernel.sysctl = { "kernel.sysrq" = 1; };
 
-  # Swapfile + hibernation
-  # https://discourse.nixos.org/t/is-it-possible-to-hibernate-with-swap-file/2852
-  # swapDevices = [ { device = "/var/swapfile"; size = 32768; } ];
-  # boot.kernelParams = [ "resume_offset=6025216" ];
-  # boot.resumeDevice = "/dev/disk/by-uuid/7d191f35-3fb7-4756-9b7f-d769135fa027";
-
   # Make magic mouse work.
   boot.extraModprobeConfig = "options hid_magicmouse scroll_acceleration=1 scroll_speed=55 emulate_3button=0";
 
-
-  # HACK: make nvidia work?
-  systemd.enableUnifiedCgroupHierarchy = false;
 
 }
