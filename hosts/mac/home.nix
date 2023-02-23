@@ -41,7 +41,14 @@
         environ
         subfigure
         forloop
-        collection-fontsrecommended;
+        collection-fontsrecommended
+        ebgaramond
+        multirow
+        tcolorbox
+        enumitem
+        titlesec
+        fontaxes
+        a0poster;
         # unicode-math
         # dvipng
         # environ

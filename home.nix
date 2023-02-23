@@ -78,9 +78,11 @@
     pass
     gnupg
     lesspass-cli
+    bbe
 
     # Python.
     (python3.withPackages (ps: with ps; [
+      ipython ipdb tqdm
       # numpy scipy matplotlib scikit-learn
       # pyflakes pycodestyle
       # tensorflow
