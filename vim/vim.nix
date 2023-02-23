@@ -21,8 +21,11 @@
         vim-airline  # Cool status bar
         vim-airline-themes
         vim-gitgutter  # Git change line marks
+        copilot-vim
       ]);
     extraConfig = builtins.readFile ./init.vim;
     viAlias = true;
   };
+
+  home.packages = [ pkgs.nodejs ];   # Used by copilot
 }

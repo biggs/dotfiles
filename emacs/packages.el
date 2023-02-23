@@ -11,3 +11,5 @@
 (package! monokai-theme)
 (package! org-ref)
 (package! openwith)
+(package! copilot
+  :recipe (:host github :repo "zerolfx/copilot.el" :files ("*.el" "dist")))
