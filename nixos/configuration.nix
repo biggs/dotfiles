@@ -81,9 +81,9 @@
  
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  services.xserver.layout = "gb";
+  services.xserver.layout = "us";
   services.xserver.xkbVariant = "mac";   # Make mac keyboard work.
-  services.xserver.xkbOptions = "ctrl:swapcaps";   # rules in X11/xkb/rules/base
+  services.xserver.xkbOptions = "ctrl:nocaps";   # rules in X11/xkb/rules/base
   # services.xserver.displayManager.sessionCommands = "xcape &";   # tap caps for esc
   console.useXkbConfig = true;   # Console gets same config.
 
