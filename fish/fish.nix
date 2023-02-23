@@ -10,7 +10,7 @@
         src = pkgs.fetchFromGitHub {
           owner = "jethrokuan";
           repo = "z";
-          rev = "ddeb28a7b6a1f0ec6dae40c636e5ca4908ad160a";
+          rev = "85f863f20f24faf675827fb00f3a4e15c7838d76";
           sha256 = "0c5i7sdrsp0q3vbziqzdyqn4fmp235ax4mn4zslrswvn8g3fvdyh";
         };
       }
@@ -55,6 +55,11 @@
 
     # Prompt.
     powerline-go
+
+    # Fzf
+    fishPlugins.fzf-fish
+    fzf
   ];
 
+  home.file.".config/fish/conf.d/nix-env.fish".source = ./setup-with-nix.fish;   # Use the file from here: https://github.com/lilyball/nix-env.fish
 }

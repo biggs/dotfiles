@@ -80,6 +80,15 @@
     lesspass-cli
 
     # Python.
+    (python3.withPackages (ps: with ps; [
+      # numpy scipy matplotlib scikit-learn
+      # pyflakes pycodestyle
+      # tensorflow
+      # pytorchWithCuda
+      # ipython ipdb seaborn
+      # jupyter
+      # jax (jaxlib.override { cudaSupport = true; })
+    ]))
 
     # Make org-roam work
     sqlite
