@@ -48,6 +48,7 @@
         enumitem
         titlesec
         fontaxes
+        geometry
         a0poster;
         # unicode-math
         # dvipng
@@ -63,9 +64,12 @@
 
 
     (python3.withPackages (ps: with ps; [
-      numpy matplotlib
+      numpy
+      matplotlib
       ipython ipdb
       tqdm
+      pyflakes
+      pycodestyle
     ]))
 
   ];
