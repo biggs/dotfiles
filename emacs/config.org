@@ -317,6 +317,11 @@ Tex master files are called "main".
 #+END_SRC
 
 
+** Show fill column by default
+#+BEGIN_SRC emacs-lisp
+(display-fill-column-indicator-mode)
+#+END_SRC
+
 ** Hide Compilation Window
 Make the compilation window automatically disappear if no errors - from enberg
 on #emacs.
@@ -405,4 +410,14 @@ ranger-dont-show-binary t)
          :map copilot-completion-map
          ("<tab>" . 'copilot-accept-completion)
          ("TAB" . 'copilot-accept-completion)))
+#+END_SRC
+
+
+* Fix Bug with Undo and very large files
+See https://github.com/doomemacs/doomemacs/issues/1407 - sometimes can't save.
+Fixed by deleting undo-tree history.
+#+BEGIN_SRC emacs-lisp
+(setq undo-limit 40000
+      undo-outer-limit 8000000
+      undo-strong-limit 100000)
 #+END_SRC
