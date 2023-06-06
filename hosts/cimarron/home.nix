@@ -27,15 +27,15 @@
     qtpass
     spotify
     xcape
-    zathura
     zeal
     zotero
 
     pciutils
     glxinfo
 
-    alacritty
-    pavucontrol   # pulseaudio controllr
+    alacritty     # terminal
+    pavucontrol   # pulseaudio controller
+    ddcutil       # monitor brightness control
 
     keepassxc
     transmission-gtk
@@ -46,6 +46,7 @@
     (python3.withPackages (ps: with ps; [
       numpy scipy matplotlib scikit-learn
       pyflakes pycodestyle
+      jupyterlab ipywidgets
       # tensorflow
       # pytorchWithCuda
       ipython ipdb seaborn
@@ -60,6 +61,14 @@
     shellAliases = {
       battery = "echo 'mouse'; cat /sys/class/power_supply/hid-84:fc:fe:f3:63:db-battery/capacity; echo 'keyboard'; cat /sys/class/power_supply/hid-28:37:37:2e:8f:e4-battery/capacity";
     };
+  };
+
+  programs.zathura = {
+    enable = true;
+    extraConfig = ''
+      set synctex true
+      set synctex-editor-command "emacsclient --no-wait +%{line} %{input}"
+    '';
   };
 
   programs.gh = {
