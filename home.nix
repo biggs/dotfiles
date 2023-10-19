@@ -54,7 +54,7 @@
     # Modern rust utils
     fd
     ripgrep
-    exa
+    eza
     bat
     gping
     delta

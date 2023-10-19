@@ -24,11 +24,11 @@
       cimarronip = "nmap -sL 192.168.1.0/24 | grep cimarron | cut -d' ' -f6 | tr -d '()'";
       brightness = "xrandr --output DP2 --brightness";
 
-      # Exa.
-      ls = "exa";
-      l = "exa -l --git";
-      la = "exa -l -a --git";
-      l2 = "exa -l --git -T --level 2";
+      # Eza.
+      ls = "eza";
+      l = "eza -l --git";
+      la = "eza -l -a --git";
+      l2 = "eza -l --git -T --level 2";
 
       # Hide copyright/intro
       gdb = "gdb -q";
