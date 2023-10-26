@@ -61,6 +61,31 @@
     shellAliases = {
       battery = "echo 'mouse'; cat /sys/class/power_supply/hid-84:fc:fe:f3:63:db-battery/capacity; echo 'keyboard'; cat /sys/class/power_supply/hid-28:37:37:2e:8f:e4-battery/capacity";
     };
+    functions = {
+      brightness = ''
+        # Get current brightness
+        set currentBrightness (ddcutil getvcp 10 -t | string split " " | tail -n 2 | head -n 1)
+
+        # Change brightness based on argument
+        if test "$argv[1]" = "up"
+            set newBrightness (math $currentBrightness + 25)
+            if test $newBrightness -gt 100
+                set newBrightness 100
+            end
+        else if test "$argv[1]" = "down"
+            set newBrightness (math $currentBrightness - 25)
+            if test $newBrightness -lt 0
+                set newBrightness 0
+            end
+        else
+            echo "Invalid argument. Please use 'up' or 'down'."
+            exit 1
+        end
+
+        # Set new brightness
+        ddcutil setvcp 10 $newBrightness
+      '';
+    };
   };
 
   programs.zathura = {

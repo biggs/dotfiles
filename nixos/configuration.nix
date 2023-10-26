@@ -118,6 +118,8 @@
   # HACK: make nvidia work?
   systemd.enableUnifiedCgroupHierarchy = false;
 
+  # Brighness controls
+  hardware.i2c.enable = true;
 
   # Define my user account. Must set password using 'passwd felix'.
   users.users.felix = {
