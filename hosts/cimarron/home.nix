@@ -28,7 +28,6 @@
     spotify
     xcape
     zeal
-    zotero
 
     pciutils
     glxinfo
@@ -41,17 +40,17 @@
     transmission-gtk
 
     texlive.combined.scheme-full
-    python-language-server
+    # python-language-server
 
     (python3.withPackages (ps: with ps; [
-      numpy scipy matplotlib scikit-learn
-      pyflakes pycodestyle
-      jupyterlab ipywidgets
+      # numpy scipy matplotlib scikit-learn
+      # pyflakes pycodestyle
+      # jupyterlab ipywidgets
       # tensorflow
       # pytorchWithCuda
-      ipython ipdb seaborn
+      # ipython ipdb seaborn
       tqdm
-      jax jaxlibWithCuda
+      # jax jaxlibWithCuda
     ]))
     # jabref
   ];
@@ -102,15 +101,4 @@
 
   services.xcape.enable = true;
 
-  # HACK: temporary fix for texlive not compiling.
-  nixpkgs.overlays = [
-    (final: prev: {
-      clisp = prev.clisp.override {
-        # On newer readline8 fails as:
-        #  #<FOREIGN-VARIABLE "rl_readline_state" #x...>
-        #   does not have the required size or alignment
-        readline = pkgs.readline6;
-      };
-    })
-  ];
 }
