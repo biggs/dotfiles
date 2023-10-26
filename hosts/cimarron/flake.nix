@@ -19,7 +19,7 @@
       pkgs = nixpkgs.legacyPackages.${system};
       pkgs-stable = nixpkgs-stable.legacyPackages.${system};
     in {
-      homeConfigurations."cimarron" = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations."felix" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
         # Specify your home configuration modules here, for example,
@@ -32,6 +32,11 @@
         extraSpecialArgs = {
           inherit pkgs-stable;
         };
+      };
+
+      nixosConfigurations."cimarron" = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [ ./configuration.nix ];
       };
     };
 }
