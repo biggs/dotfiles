@@ -40,7 +40,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    wget vim git curl firefox emacs dropbox-cli termite xcape
+    alacritty wget vim git curl firefox emacs dropbox-cli xcape
   ];
 
   services.emacs.defaultEditor = true;

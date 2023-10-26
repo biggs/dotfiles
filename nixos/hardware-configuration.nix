@@ -18,13 +18,15 @@
       fsType = "ext4";
     };
 
+  # Note have unused /dev/nvme0n1p6, could use for /home
+
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/8F35-5FBC";
       fsType = "vfat";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/c17f14bb-b3f7-4c8b-856f-c274910015ee"; }
+    [ { device = "/dev/disk/by-uuid/c17f14bb-b3f7-4c8b-856f-c274910015ee"; }   # this is /dev/nvme0n1p5. also for hibernation?
     ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
