@@ -26,6 +26,7 @@
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
+        # use this to pass through pkgs-stable to install stable packages (goes in home.nix inputs)
         extraSpecialArgs = {
           inherit pkgs-stable;
         };

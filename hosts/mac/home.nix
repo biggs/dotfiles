@@ -30,7 +30,7 @@
 
     fishPlugins.foreign-env    # Needed for import of .profile
 
-    # pkgs-stable.texlive.combined.scheme-full
+    pkgs-stable.texlive.combined.scheme-full
     # (texlive.combine {
     #   inherit (texlive)
     #     scheme-medium
