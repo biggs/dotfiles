@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, pkgs-stable, ... }:
 
 {
   # Import everything from sub-files.
@@ -33,6 +33,7 @@
     glxinfo
 
     alacritty     # terminal
+    termite       # Backup - note it's worse than alacritty
     pavucontrol   # pulseaudio controller
     ddcutil       # monitor brightness control
 
@@ -99,6 +100,7 @@
     enable = true;
   };
 
+  # If this stops working, run: systemctl --user start xcape.service
   services.xcape.enable = true;
 
 }

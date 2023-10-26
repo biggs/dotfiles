@@ -5,6 +5,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./dropbox.nix
+      ./nvidia.nix
     ];
 
   # This value determines the NixOS release with which your system is to be
@@ -53,7 +54,7 @@
 
   services.emacs.defaultEditor = true;
 
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     source-code-pro
     powerline-fonts
     emacs-all-the-icons-fonts
@@ -105,26 +106,6 @@
     package = pkgs.i3-gaps;
   };
 
-  boot.kernelModules = [ "kvm-intel" "nvidia" ];
-  services.xserver.videoDrivers = [ "intel" "nvidia" ];
-
-  # NVIDIA + docker Add nvidia driver to currently selected (config) kernel package.
-  # https://github.com/NixOS/nixpkgs/pull/51733#issuecomment-464160791
-  hardware.opengl.enable = true;
-  boot.extraModulePackages = with config.boot.kernelPackages; [ nvidia_x11 ];
-  virtualisation.docker.enable = true;
-  hardware.opengl.driSupport32Bit = true;
-  virtualisation.docker.enableNvidia = true;
-
-  hardware.opengl.driSupport = true;
-  hardware.opengl.extraPackages = [
-      pkgs.mesa.drivers
-      pkgs.linuxPackages.nvidia_x11.out
-      pkgs.libglvnd
-  ];
-
-  # HACK: make nvidia work?
-  systemd.enableUnifiedCgroupHierarchy = false;
 
   # Brighness controls
   hardware.i2c.enable = true;
