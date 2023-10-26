@@ -13,6 +13,14 @@
   # should.
   system.stateVersion = "20.09"; # Did you read the comment?
 
+  # Enable flake support.
+  nix = {
+    package = pkgs.nixVersions.stable;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+  };
+
   nixpkgs.config.allowUnfree = true;
 
   # Time zone and location.
