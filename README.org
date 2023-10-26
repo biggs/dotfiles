@@ -17,28 +17,26 @@ sh <(curl https://nixos.org/nix/install)   # restart after to get into path.
 #+END_SRC
 NOTE: check that sourcing nix hasn't been added twice to `.profile`.
 
+Make sure flakes are enabled: add to nix config (on mac)
+#+BEGIN_SRC
+experimental-features = nix-command flakes
+#+END_SRC
+
 Install Home-manager:
 #+BEGIN_SRC sh
-nix-channel --add https://github.com/rycee/home-manager/archive/master.tar.gz home-manager
-nix-channel --update
-nix-env --switch-generation 1
-nix-shell '<home-manager>' -A install
+nix run home-manager/master -- init ~/.dotfiles
 #+END_SRC
-NOTE: If used nix before home-manager installed, switch to first generation before installing home-manager.
 
 Install/reinstall packages by:
 #+BEGIN_SRC sh
-home-manager switch
+home-manager switch --flake ~/.dotfiles#mac
 #+END_SRC
 
+The flake inputs are not automatically updated by Home Manager. You need to use the standard 'nix flake update' command for that.
 
-** Download and Link Dotfiles
-Replaced with home-manager! (but still need to link that!)
-#+BEGIN_SRC sh
-git clone https://github.com/biggs/dotfiles ~/.dotfiles
-ln -s $HOME/.dotfiles/hosts/mac/home.nix $HOME/.config/nixpkgs/home.nix
-#+END_SRC
-(or replace as appropriate)
+If you only want to update a single flake input, then the command 'nix flake lock --update-input <input>' can be used.
+
+
 
 
 
