@@ -421,3 +421,16 @@ Fixed by deleting undo-tree history.
       undo-outer-limit 8000000
       undo-strong-limit 100000)
 #+END_SRC
+
+
+** Isearch Latex Math
+#+BEGIN_SRC emacs-lisp
+(defun latex-isearch-in-math ()
+  "Call `isearch-forward' with `isearch-filter-predicate' set to filter out matches outside LaTeX math environments."
+  (interactive)
+  (let ((isearch-filter-predicate
+         (lambda (BEG END)
+           (save-excursion (save-match-data (goto-char BEG) (texmathp)))))
+        (case-fold-search nil))
+    (funcall 'isearch-forward)))
+#+END_SRC
