@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, pkgs-stable, ... }:
 
 {
   # Let Home Manager install and manage itself.
@@ -23,33 +23,44 @@
   imports = [ ../../home.nix ];
 
   home.packages = with pkgs; [
-    emacsMacport
+    pkgs-stable.emacs
     darwin.trash
     wifi-password
     qtpass
 
     fishPlugins.foreign-env    # Needed for import of .profile
 
-    (texlive.combine {
-      inherit (texlive)
-        scheme-medium
-        cleveref
-        hyperref
-        natbib
-        expdlist
-        todonotes
-        environ
-        subfigure
-        forloop
-        collection-fontsrecommended
-        ebgaramond
-        multirow
-        tcolorbox
-        enumitem
-        titlesec
-        fontaxes
-        geometry
-        a0poster;
+    # pkgs-stable.texlive.combined.scheme-full
+    # (texlive.combine {
+    #   inherit (texlive)
+    #     scheme-medium
+    #     cleveref
+    #     hyperref
+    #     natbib
+    #     expdlist
+    #     todonotes
+    #     environ
+    #     subfigure
+    #     forloop
+    #     collection-fontsrecommended
+    #     ebgaramond
+    #     multirow
+    #     tcolorbox
+    #     enumitem
+    #     titlesec
+    #     fontaxes
+    #     geometry
+    #     arev
+    #     bera
+    #     nag
+    #     blindtext
+    #     emptypage
+    #     placeins
+    #     xpatch
+    #     bbm bbm-macros
+    #     appendix
+    #     wrapfig
+    #     a0poster;
         # unicode-math
         # dvipng
         # environ
@@ -60,7 +71,7 @@
         # ifmtarg
         # enumitem
         # titlesec
-      })
+      # })
 
 
     (python3.withPackages (ps: with ps; [
