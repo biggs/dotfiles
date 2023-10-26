@@ -1,11 +1,12 @@
 { config, pkgs, ... }:
+# Home-manager stuff for all my systems.
 
 {
   imports = [
-    ./git/git.nix
-    ./fish/fish.nix
-    ./vim/vim.nix
-    ./emacs/emacs.nix
+    ./modules/git/git.nix
+    ./modules/fish/fish.nix
+    ./modules/vim/vim.nix
+    ./modules/emacs/emacs.nix
   ];
 
   # Let Home Manager install and manage itself.
