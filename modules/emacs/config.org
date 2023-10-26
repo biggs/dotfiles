@@ -10,7 +10,7 @@ I'm using MacOS: a library Emacs uses to interface with Apple hardware.
 Cosmetic things.
 #+BEGIN_SRC emacs-lisp
 (setq
-  doom-font (font-spec :family "Source Code Pro" :size 15 :weight 'normal)
+  doom-font (font-spec :family "Source Code Pro" :size 25 :weight 'normal)
   doom-theme 'doom-monokai-classic
   monokai-highlight-line "#3A3A3A"
   display-line-numbers-type nil)
