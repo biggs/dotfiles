@@ -2,155 +2,87 @@
 #+AUTHOR: Felix Biggs
 #+STARTUP: content
 
-* Setup
 
-** XCode (Mac OS Only)
+* Layout and Updating
+
+The different hosts are in different folders, each with their own lockfile (so don't need to update all at once).
+The flake inputs are not automatically updated by Home Manager. You need to use the standard 'nix flake update' command for that.
+
+Note you can use
+#+begin_src
+nix flake lock --update-input nixpkgs
+#+end_src
+to update selectively the UNSTABLE, while leaving the stable the same.
+
+
+To update based on the above and changes to configuration files (which must be at least tracked by git if not up to date):
+#+BEGIN_SRC sh
+# Home-manager environment on mac.
+home-manager switch --flake ~/.dotfiles/hosts/mac#felix
+
+# Home-manager environment on cimarron.
+home-manager switch --flake ~/.dotfiles/hosts/cimarron#felix
+
+# Nixos overall on cimarron.
+sudo nixos-rebuild switch --flake /home/felix/.dotfiles/hosts/cimarron#cimarron
+#+END_SRC
+
+
+
+* Setup
+** Mac
 #+BEGIN_SRC sh
 xcode-select --install
 sudo xcodebuild -license
-#+END_SRC
 
-** Nix and Home-Manager Download and Install Things
-Install Nix:
-#+BEGIN_SRC sh
 sh <(curl https://nixos.org/nix/install)   # restart after to get into path.
-#+END_SRC
-NOTE: check that sourcing nix hasn't been added twice to `.profile`.
 
-Make sure flakes are enabled: add to nix config (on mac)
-#+BEGIN_SRC
-experimental-features = nix-command flakes
-#+END_SRC
+# Make sure flakes are enabled: add to nix config (on mac)
+echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf
 
-Install Home-manager:
-#+BEGIN_SRC sh
-nix run home-manager/master -- init ~/.dotfiles
+# Install Home-Manager
+nix run home-manager/master -- init --switch ~/.dotfiles/hosts/mac#mac
 #+END_SRC
 
-Install/reinstall packages by:
-#+BEGIN_SRC sh
-home-manager switch --flake ~/.dotfiles#mac
-#+END_SRC
 
-The flake inputs are not automatically updated by Home Manager. You need to use the standard 'nix flake update' command for that.
-
-If you only want to update a single flake input, then the command 'nix flake lock --update-input <input>' can be used.
-
-
-
-
-
-** Homebrew (MacOS Only)
 This should also install the fonts and apps I want (not Emacs any more though!)
 #+BEGIN_SRC sh
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew update
 sudo softwareupdate --install --all
 cd && brew bundle --global
-#+END_SRC
 
-Ubuntu: add the below to profile to ensure nix-installed applications are visible.
-#+BEGIN_SRC sh
-export XDG_DATA_DIRS=$HOME/.nix-profile/share:$HOME/.share:"${XDG_DATA_DIRS:-/usr/local/share/:/usr/share/}"
-#+END_SRC
-
-
-** Emacs and Doom
-#+BEGIN_SRC sh
-git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
-~/.emacs.d/bin/doom install
-~/.emacs.d/bin/doom upgrade
-#+END_SRC
-
-Imperatively install Source Code Pro font (better, nix-management at https://nixos.wiki/wiki/fonts)
-#+BEGIN_SRC sh
+# Imperatively install Source Code Pro font (better, nix-management at https://nixos.wiki/wiki/fonts)
 font=$(nix-build --no-out-link '<nixpkgs>' -A source-code-pro)/share/fonts/opentype/SourceCodePro-Regular.otf
 cp $font ~/.local/share/fonts
 fc-cache
 #+END_SRC
 
-Link emacs app into place on Mac.
+
+Doom Emacs
 #+BEGIN_SRC sh
+git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
+~/.emacs.d/bin/doom install
+
 ln -s $HOME/.nix-profile/Applications/Emacs.app /Applications/Emacs.app
 #+END_SRC
 
 
-** Keyboard Setup
-Make two main modifications: CAPS = CTRL + ESC and TAB = ALT + ESC
-
-Mac:
+Keyboard Setup
 #+BEGIN_SRC sh
 ln -s $HOMEDIR/.dotfiles/hosts/mac/karabiner.json ~/.config/karabiner/karabiner.json
 #+END_SRC
-
-Ubuntu: Add to .profile (loaded at login):
-#+BEGIN_SRC cron
-setxkbmap -option ctrl:nocaps
-xcape -e 'Control_L=Escape'
-#+END_SRC
+N.B. Docker must be installed by brew at system level.
 
 
-** Docker
-MacOS: must be installed by brew at system level.
 
-Ubuntu: install with nix, but need to add self to 'docker' group for security reasons:
+** NixOS
 #+BEGIN_SRC sh
-sudo usermod -a -G docker $USER
-#+END_SRC
+git clone https://github.com/biggs/dotfiles /home/felix/.dotfiles
+sudo nixos-rebuild switch --flake /home/felix/.dotfiles/hosts/cimarron#cimarron
 
-
-
-
-* NixOS Setup
-
-Get my config.
-#+BEGIN_SRC sh
-cd /etc/nixos
-curl -O https://raw.githubusercontent.com/biggs/dotfiles/master/nixos/configuration.nix
-nixos-install
-#+END_SRC
-(comment out dropbox config)
-
-Update to unstable.
-#+BEGIN_SRC sh
-nix-channel --add https://nixos.org/channels/nixos-unstable nixos-unstable
-nix-channel --update
-nixos-rebuild switch
-#+END_SRC
-
-Link configuration.nix
-#+BEGIN_SRC sh
-git clone ....
-sudo ln -s /home/felix/.dotfiles/nixos/configuration.nix /etc/nixos/configuration.nix
-#+END_SRC
-
-#+BEGIN_SRC sh
 git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
 ~/.emacs.d/bin/doom install
-# ~/.emacs.d/bin/doom upgrade
-#+END_SRC
 
-
-Install Home-manager: (may have to logout to enable)
-#+BEGIN_SRC sh
-nix-channel --add https://github.com/rycee/home-manager/archive/master.tar.gz home-manager
-nix-channel --update
-nix-shell '<home-manager>' -A install
-#+END_SRC
-
-
-** Bluetooth Keyboard
-
-Setup with bluetooth control.
-
-#+BEGIN_SRC sh
-sudo bluethoothctl
-> scan one
-> agent KeyboardOnly
-> trust <keyboardname>
-> pair <keyboardname>
-> connect <keyboardname>
-> connect <mousename>
-> connect <mousename>
-> connect <mousename>
+nix run home-manager/master -- init --switch ~/.dotfiles/hosts/cimarron#felix
 #+END_SRC
