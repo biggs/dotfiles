@@ -20,7 +20,7 @@
   home.stateVersion = "21.11";
 
 
-  imports = [ ../../home.nix ];
+  imports = [ ../../home-shared.nix ];
 
   home.packages = with pkgs; [
     pkgs-stable.emacs

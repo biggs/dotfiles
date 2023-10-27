@@ -17,12 +17,12 @@
       pkgs = nixpkgs.legacyPackages.${system};
       pkgs-stable = nixpkgs-stable.legacyPackages.${system};
     in {
-      homeConfigurations."mac" = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations."felix" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
         # Specify your home configuration modules here, for example,
         # the path to your home.nix.
-        modules = [ ./hosts/mac/home.nix ];
+        modules = [ ./home.nix ];
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix

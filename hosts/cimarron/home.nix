@@ -2,7 +2,7 @@
 
 {
   # Import everything from sub-files.
-  imports = [ ../../home.nix ];
+  imports = [ ../../home-shared.nix ];
 
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
