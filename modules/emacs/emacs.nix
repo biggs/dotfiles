@@ -16,5 +16,8 @@
 
     # Roam graph viewer.
     graphviz
+
+    # For latex LSP
+    texlab
   ];
 }
