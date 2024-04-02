@@ -23,6 +23,7 @@
 
     anki-bin
     gcc
+    pinentry
     glibcLocales   # FIX LOCALES
     qtpass
     spotify

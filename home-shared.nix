@@ -49,7 +49,6 @@
     wget
     curlFull
     file
-    pinentry
     unzip
 
     # Modern rust utils
