@@ -31,5 +31,8 @@
           inherit pkgs-stable;
         };
       };
+
+      # Also allow this flake to be used in "nix shell <flake path>#package"
+      legacyPackages.${system} = pkgs;
     };
 }
