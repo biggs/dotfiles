@@ -4,6 +4,17 @@
 set nocompatible        " Must be first line
 
 
+if exists('g:vscode')
+  " VSCode-specific configurations (if any)
+
+  " Disable loading of plugins
+  let g:loaded_plugins = 1
+
+  " Finish sourcing the config file
+  finish
+endif
+
+
 " BASIC UI AND FORMATTING {
     set background=dark         " Assume a dark background
     colorscheme molokai

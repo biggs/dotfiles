@@ -5,7 +5,7 @@
     enable = true;
     plugins = (with pkgs.vimPlugins;
       [
-        ack-vim  # ag integration
+        # ack-vim  # ag integration
         vim-surround  # interact cleverly with surrounding brackets etc
         vim-repeat  # allow plugins to repeat with .
         vim-unimpaired # extra bindings, really useful
@@ -15,17 +15,17 @@
         vim-bufferline  # show buffers in statusbar
         undotree  # navigable undo
         # osyo-manga/vim-over  # highlighting during :s/blah
-        rainbow  # rainbow parentheses
+        # rainbow  # rainbow parentheses
         # myusuf3/numbers.vim  # relative/non line number mode toggle
         molokai  # Colorscheme
         vim-airline  # Cool status bar
         vim-airline-themes
         vim-gitgutter  # Git change line marks
-        copilot-vim
+        # copilot-vim
       ]);
     extraConfig = builtins.readFile ./init.vim;
     viAlias = true;
   };
 
-  home.packages = [ pkgs.nodejs ];   # Used by copilot
+#  home.packages = [ pkgs.nodejs ];   # Used by copilot
 }

@@ -22,15 +22,16 @@
   programs.man.enable = true;
   programs.info.enable = true;
 
-  programs.mpv.enable = true;
-  programs.mpv.config = {
-    profile = "gpu-hq";
-    vo = "gpu";
-    force-window = true;
-    ytdl-format = "bestvideo+bestaudio";
-  };
+#  programs.mpv.enable = true;
+#  programs.mpv.config = {
+#    profile = "gpu-hq";
+#    vo = "gpu";
+#    force-window = true;
+#    ytdl-format = "bestvideo+bestaudio";
+#  };
 
   programs.gpg.enable = true;
+  programs.zoxide.enable = true;
 
   # Packages.
   home.packages = with pkgs; [
@@ -65,12 +66,11 @@
     calc
     cloc
     htop
-    fasd
     cabal2nix
-    youtube-dl
     nmap
     ncdu
-    ranger
+    joshuto
+    code2prompt
 
     exfat
 
@@ -81,7 +81,7 @@
     bbe
 
     # Make org-roam work
-    sqlite
+#    sqlite
 
     # Related to writing papers etc.
     pandoc

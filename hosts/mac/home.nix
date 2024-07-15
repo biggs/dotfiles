@@ -27,51 +27,11 @@
     darwin.trash
     wifi-password
     qtpass
+    yt-dlp
 
     fishPlugins.foreign-env    # Needed for import of .profile
 
     pkgs-stable.texlive.combined.scheme-full
-    # (texlive.combine {
-    #   inherit (texlive)
-    #     scheme-medium
-    #     cleveref
-    #     hyperref
-    #     natbib
-    #     expdlist
-    #     todonotes
-    #     environ
-    #     subfigure
-    #     forloop
-    #     collection-fontsrecommended
-    #     ebgaramond
-    #     multirow
-    #     tcolorbox
-    #     enumitem
-    #     titlesec
-    #     fontaxes
-    #     geometry
-    #     arev
-    #     bera
-    #     nag
-    #     blindtext
-    #     emptypage
-    #     placeins
-    #     xpatch
-    #     bbm bbm-macros
-    #     appendix
-    #     wrapfig
-    #     a0poster;
-        # unicode-math
-        # dvipng
-        # environ
-        # trimspaces
-        # multirow
-        # newunicodechar
-        # xifthen
-        # ifmtarg
-        # enumitem
-        # titlesec
-      # })
 
 
     (python3.withPackages (ps: with ps; [
@@ -80,6 +40,8 @@
       ipython ipdb
       tqdm
       pyflakes
+      # torch-bin
+      # torchvision-bin
       pycodestyle
     ]))
 
