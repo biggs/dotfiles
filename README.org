@@ -33,15 +33,23 @@ sudo nixos-rebuild switch --flake /home/felix/.dotfiles/hosts/cimarron#cimarron
 ** Mac
 #+BEGIN_SRC sh
 xcode-select --install
-sudo xcodebuild -license
 
-sh <(curl https://nixos.org/nix/install)   # restart after to get into path.
+sh <(curl -L https://nixos.org/nix/install)   # restart after to get into path.
+
+# clone stuff
+git clone https://github.com/biggs/dotfiles ~/.dotfiles
+git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
 
 # Make sure flakes are enabled: add to nix config (on mac)
+mkdir ~/.config/nix
 echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf
 
-# Install Home-Manager
-nix run home-manager/master -- init --switch ~/.dotfiles/hosts/mac#mac
+# Install Home-Manager and get packages
+nix run home-manager/master -- init --switch ~/.dotfiles/hosts/mac
+
+# Finish doom install
+~/.emacs.d/bin/doom install
+ln -s $HOME/.nix-profile/Applications/Emacs.app /Applications/Emacs.app
 #+END_SRC
 
 
@@ -58,21 +66,6 @@ cp $font ~/.local/share/fonts
 fc-cache
 #+END_SRC
 
-
-Doom Emacs
-#+BEGIN_SRC sh
-git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
-~/.emacs.d/bin/doom install
-
-ln -s $HOME/.nix-profile/Applications/Emacs.app /Applications/Emacs.app
-#+END_SRC
-
-
-Keyboard Setup
-#+BEGIN_SRC sh
-ln -s $HOMEDIR/.dotfiles/hosts/mac/karabiner.json ~/.config/karabiner/karabiner.json
-#+END_SRC
-N.B. Docker must be installed by brew at system level.
 
 
 
