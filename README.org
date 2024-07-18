@@ -53,19 +53,12 @@ ln -s $HOME/.nix-profile/Applications/Emacs.app /Applications/Emacs.app
 #+END_SRC
 
 
-This should also install the fonts and apps I want (not Emacs any more though!)
-#+BEGIN_SRC sh
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-brew update
-sudo softwareupdate --install --all
-cd && brew bundle --global
-
-# Imperatively install Source Code Pro font (better, nix-management at https://nixos.wiki/wiki/fonts)
-font=$(nix-build --no-out-link '<nixpkgs>' -A source-code-pro)/share/fonts/opentype/SourceCodePro-Regular.otf
-cp $font ~/.local/share/fonts
-fc-cache
-#+END_SRC
-
+Install 
+- vscode
+- obsidian; use sync to get settings
+- karabiner-elements; turn on macos permissions, settings should be linked already via home-manager
+- iterm2; switch to fish and turn on powerline-fonts setting
+- spotify
 
 
 
@@ -78,4 +71,9 @@ git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
 ~/.emacs.d/bin/doom install
 
 nix run home-manager/master -- init --switch ~/.dotfiles/hosts/cimarron#felix
+
+# Imperatively install Source Code Pro font (better, nix-management at https://nixos.wiki/wiki/fonts) ?
+font=$(nix-build --no-out-link '<nixpkgs>' -A source-code-pro)/share/fonts/opentype/SourceCodePro-Regular.otf
+cp $font ~/.local/share/fonts
+fc-cache
 #+END_SRC
