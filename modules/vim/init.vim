@@ -17,7 +17,7 @@ endif
 
 " BASIC UI AND FORMATTING {
     set background=dark         " Assume a dark background
-    colorscheme molokai
+    colorscheme vim-monokai-tasty
     set shell=/bin/zsh
 
     " Should be set automatically by neovim??
@@ -103,6 +103,9 @@ endif
 
     " vim has markdown syntax, but detects wrong filetype, fix here
     autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+
+    " fix weird matchparen
+    hi! MatchParen cterm=NONE,bold gui=NONE,bold  guibg=#eee8d5 guifg=NONE
 
 " }
 

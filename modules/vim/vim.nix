@@ -14,10 +14,10 @@
         # jiangmiao/auto-pairs  # auto brackets
         vim-bufferline  # show buffers in statusbar
         undotree  # navigable undo
-        # osyo-manga/vim-over  # highlighting during :s/blah
-        # rainbow  # rainbow parentheses
+        vim-over  # highlighting during :s/blah
+        rainbow  # rainbow parentheses
         # myusuf3/numbers.vim  # relative/non line number mode toggle
-        molokai  # Colorscheme
+        vim-monokai-tasty  # Colorscheme
         vim-airline  # Cool status bar
         vim-airline-themes
         vim-gitgutter  # Git change line marks
