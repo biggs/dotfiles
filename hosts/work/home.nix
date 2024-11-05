@@ -2,6 +2,7 @@
 {
   imports = [
     ../../home-shared.nix
+    ../../modules/sway/sway.nix
   ];
 
   home.stateVersion = "24.05"; # Please read the comment before changing.

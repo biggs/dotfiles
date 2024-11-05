@@ -1,0 +1,69 @@
+{
+    "layer": "top",
+    "position": "bottom",
+    "height": 22,
+    "modules-left": ["sway/workspaces", "sway/mode", "sway/window"],
+    "modules-center": ["clock"],
+    "modules-right": ["idle_inhibitor", "pulseaudio", "network", "cpu", "memory", "battery", "tray"],
+    
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "format": "{name}"
+    },
+    
+    "sway/window": {
+        "max-length": 50
+    },
+    
+    "clock": {
+        "format": "{:%H:%M %Y-%m-%d}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+    
+    "cpu": {
+        "format": "CPU {usage}%",
+        "tooltip": false
+    },
+    
+    "memory": {
+        "format": "MEM {}%"
+    },
+    
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "BAT {capacity}%",
+        "format-charging": "CHR {capacity}%",
+        "format-plugged": "PLG {capacity}%"
+    },
+    
+    "network": {
+        "format-wifi": "WiFi ({signalStrength}%)",
+        "format-ethernet": "ETH",
+        "format-linked": "ETH",
+        "format-disconnected": "Disconnected",
+        "tooltip-format": "{ifname}: {ipaddr}"
+    },
+    
+    "pulseaudio": {
+        "format": "VOL {volume}%",
+        "format-bluetooth": "BT {volume}%",
+        "format-muted": "MUTE",
+        "scroll-step": 1,
+        "on-click": "pavucontrol"
+    },
+    
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "ACTIVE",
+            "deactivated": "IDLE"
+        }
+    },
+    
+    "tray": {
+        "spacing": 10
+    }
+}
