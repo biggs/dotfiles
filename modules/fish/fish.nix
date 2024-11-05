@@ -3,7 +3,12 @@
 {
   programs.fish = {
     enable = true;
-    shellInit = builtins.readFile ./config.fish;
+
+    # Creates file in the nix store symlinking ~/.dotfiles/.../config.fish; and adds a line to nix-store fish config; therefore can edit config.fish directly without refreshing home-manager.
+    shellInit = ''
+      source ${config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/modules/fish/config.fish"}
+    '';
+
     shellAliases = {
       view = "nvim -R";
       e = "emacsclient --no-wait --quiet --alternate-editor='nvim'";
