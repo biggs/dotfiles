@@ -7,10 +7,7 @@ exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DE
 
 exec_always notify-send "Sway" "Config reloaded"
 
-# Set displays, from GUI wdisplays (which can also use)
-# Move all to (0, 0), then move laptop screen down 1080
-output * position 0 0
-output eDP-1 position 0 1080
+exec_always $HOME/.dotfiles/modules/sway/monitor-position.sh
 
 
 font pango:monospace 8
@@ -152,3 +149,17 @@ bindsym XF86MonBrightnessUp exec alacritty -e bash -c "echo 'To adjust brightnes
 for_window [app_id="pavucontrol"] floating enable
 for_window [app_id="blueman-manager"] floating enable
 for_window [app_id="nm-connection-editor"] floating enable
+
+
+
+# styling stuff
+titlebar_padding 8 4
+
+gaps inner 0
+gaps outer 2
+
+#                        border   background  text  indicator  child_border
+client.focused           #90b1b1  #90b1b1   #ffffff  #90b1b1   #90b1b1
+client.focused_inactive  #333333  #404040   #ffffff  #404040   #333333
+client.unfocused         #333333  #333333   #ffffff  #333333   #333333
+client.urgent            #f53c3c  #f53c3c   #ffffff  #f53c3c   #f53c3c
