@@ -18,7 +18,7 @@ endif
 " BASIC UI AND FORMATTING {
     set background=dark         " Assume a dark background
     colorscheme vim-monokai-tasty
-    set shell=/bin/zsh
+    set shell=/usr/bin/env\ bash
 
     " Should be set automatically by neovim??
     syntax on                   " Syntax highlighting
