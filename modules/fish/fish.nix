@@ -12,7 +12,6 @@
     shellAliases = {
       view = "nvim -R";
       e = "emacsclient --no-wait --quiet --alternate-editor='nvim'";
-      vlc = "/Applications/VLC.app/Contents/MacOS/VLC";
       mylint = "pylint --rcfile=~/.dotfiles/python/pylint.rc";
       ca = "command --all";
       cimarronip = "nmap -sL 192.168.1.0/24 | grep cimarron | cut -d' ' -f6 | tr -d '()'";

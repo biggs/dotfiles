@@ -9,9 +9,11 @@ exec_always notify-send "Sway" "Config reloaded"
 
 exec_always $HOME/.dotfiles/modules/sway/monitor-position.sh
 
+exec $HOME/.dotfiles/modules/sway/battery-notify.sh
 
 font pango:monospace 8
 
+set $BROWSER firefox
 
 # Run xremap every time we reload sway config.
 exec_always killall xremap
@@ -30,7 +32,7 @@ set $up k
 set $right l
 
 # Prettify
-gaps inner 1
+gaps inner 2
 gaps outer 0
 
 
@@ -51,15 +53,15 @@ input * {
 set $locker 'swaylock -fec 202020'
 bindsym $mod+Shift+l exec $locker
 exec swayidle -w \
-    timeout 560 $locker \
-    timeout 500 'swaymsg "output * dpms off"' \
+    timeout 1200 $locker \
+    timeout 1000 'swaymsg "output * dpms off"' \
     timeout 15 'if pgrep -x swaylock; then swaymsg "output * dpms off"; fi' \
     resume 'swaymsg "output * dpms on"' \
     before-sleep $locker
 
 
 ### Cycle workspaces shortcut
-bindsym $mod+x exec "swaymsg -t get_outputs |jq '[.[] | select(.active == true)] | .[(map(.focused) | index(true) + 1) % length].name' |xargs swaymsg move workspace to"
+bindsym $mod+x exec "swaymsg -t get_outputs | jq '[.[] | select(.active == true)] | .[(map(.focused) | index(true) + 1) % length].name' | xargs swaymsg move workspace to"
 
 ### Key bindings
 bindsym $mod+Return exec $term
@@ -142,8 +144,12 @@ input "type:touchpad" {
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym XF86MonBrightnessDown exec alacritty -e bash -c "echo 'To adjust brightness down (for now), use:\nsudo brightnessctl set 10%-' && bash"
-bindsym XF86MonBrightnessUp exec alacritty -e bash -c "echo 'To adjust brightness down (for now), use:\nsudo brightnessctl set 10%+' && bash"
+bindsym XF86MonBrightnessDown exec brightnessctl set 10%-
+bindsym XF86MonBrightnessUp exec brightnessctl set 10%+
+
+# Screenshots
+bindsym Print exec grimshot --notify copy area
+bindsym $mod+Print exec grimshot --notify save area
 
 # Window rules
 for_window [app_id="pavucontrol"] floating enable
