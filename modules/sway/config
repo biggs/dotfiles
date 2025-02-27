@@ -161,11 +161,15 @@ for_window [app_id="nm-connection-editor"] floating enable
 # styling stuff
 titlebar_padding 8 4
 
-gaps inner 0
-gaps outer 2
+gaps inner 2
+gaps outer 0
 
 #                        border   background  text  indicator  child_border
-client.focused           #90b1b1  #90b1b1   #ffffff  #90b1b1   #90b1b1
+client.focused           #FD9845  #FD9845   #ffffff  #FD9845   #FD9845
 client.focused_inactive  #333333  #404040   #ffffff  #404040   #333333
-client.unfocused         #333333  #333333   #ffffff  #333333   #333333
 client.urgent            #f53c3c  #f53c3c   #ffffff  #f53c3c   #f53c3c
+client.unfocused         #33333399  #33333399   #ffffff  #33333399   #33333399
+
+
+default_border pixel 2
+default_floating_border normal
