@@ -30,26 +30,22 @@ sudo nixos-rebuild switch --flake /home/felix/.dotfiles/hosts/cimarron#cimarron
 
 
 * Setup
-** Mac
+
+
+
+** Mac / Linux
 #+BEGIN_SRC sh
-xcode-select --install
+xcode-select --install  # mac only
+sh <(curl -L https://nixos.org/nix/install)   --daemon # restart after to get into path.
 
-sh <(curl -L https://nixos.org/nix/install)   # restart after to get into path.
-
-# clone stuff
 git clone https://github.com/biggs/dotfiles ~/.dotfiles
-git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
 
-# Make sure flakes are enabled: add to nix config (on mac)
+# Make sure flakes are enabled: add to nix config
 mkdir ~/.config/nix
 echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf
 
 # Install Home-Manager and get packages
-nix run home-manager/master -- init --switch ~/.dotfiles/hosts/mac
-
-# Finish doom install
-~/.emacs.d/bin/doom install
-ln -s $HOME/.nix-profile/Applications/Emacs.app /Applications/Emacs.app
+nix run home-manager/master -- init --switch ~/.dotfiles/hosts/mac   # or e.g. other host
 #+END_SRC
 
 
@@ -61,14 +57,10 @@ Install
 - spotify
 
 
-
 ** NixOS
 #+BEGIN_SRC sh
-git clone https://github.com/biggs/dotfiles /home/felix/.dotfiles
-sudo nixos-rebuild switch --flake /home/felix/.dotfiles/hosts/cimarron#cimarron
-
-git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
-~/.emacs.d/bin/doom install
+git clone https://github.com/biggs/dotfiles ~/.dotfiles
+sudo nixos-rebuild switch --flake ~/.dotfiles/hosts/cimarron#cimarron
 
 nix run home-manager/master -- init --switch ~/.dotfiles/hosts/cimarron#felix
 
@@ -77,3 +69,11 @@ font=$(nix-build --no-out-link '<nixpkgs>' -A source-code-pro)/share/fonts/opent
 cp $font ~/.local/share/fonts
 fc-cache
 #+END_SRC
+
+** Emacs
+#+BEGIN_SRC sh
+git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
+~/.emacs.d/bin/doom install
+ln -s $HOME/.nix-profile/Applications/Emacs.app /Applications/Emacs.app   # mac only (after install?)
+#+END_SRC
+
