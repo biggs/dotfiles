@@ -54,3 +54,13 @@ end
 function fish_user_key_bindings                                                  
     bind \co 'ranger-cd ; fish_prompt'                                           
 end
+
+
+# Start SSH agent if not already running
+if not set -q SSH_AUTH_SOCK
+    # Start the ssh-agent
+    eval (ssh-agent -c)
+    
+    # Add your default key
+    ssh-add ~/.ssh/id_rsa 2>/dev/null
+end

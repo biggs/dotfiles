@@ -15,15 +15,31 @@ font pango:monospace 8
 
 set $BROWSER firefox
 
+# some default assignments (use class for i3 apps, otherwise app_id)
+assign [app_id="firefox"] workspace 1
+assign [class="Cursor"] workspace 2
+assign [class="Slack"] workspace 10
+assign [class="obsidian"] workspace 9
+for_window [class="Cursor"] fullscreen enable
+
 # Run xremap every time we reload sway config.
+# TODO: need to do some stuff to make sure have permissions
 exec_always killall xremap
-exec_always ~/xremap config.yaml
+exec_always ~/xremap --watch config.yaml
+
+exec mako
+
+
+# Run xremap every time we reload sway config.
+# TODO: need to do some stuff to make sure have permissions
+exec_always killall xremap
+exec_always ~/xremap --watch config.yaml
 
 exec mako
 
 ### Variables
 set $mod Mod4
-set $term alacritty -e fish
+set $term alacritty -e $HOME/.nix-profile/bin/fish || alacritty
 set $menu wofi --show drun
 
 set $left h
@@ -146,6 +162,13 @@ bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86MonBrightnessDown exec brightnessctl set 10%-
 bindsym XF86MonBrightnessUp exec brightnessctl set 10%+
+
+# Alternative mapping if the above doesn't work
+# Map using input events
+bindcode 224 exec brightnessctl set 5%- && notify-send "Sway" "hi"
+bindcode --locked --input-device=0:0:Dell_WMI_hotkeys 225 exec brightnessctl set +5%
+# Brightness controls using bindcode
+
 
 # Screenshots
 bindsym Print exec grimshot --notify copy area

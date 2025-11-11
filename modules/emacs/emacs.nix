@@ -11,6 +11,8 @@
   };
 
   home.packages = with pkgs; [
+    emacs
+
     # English spelling for Emacs.
     (pkgs.aspellWithDicts (ps: [ps.en]))
 
